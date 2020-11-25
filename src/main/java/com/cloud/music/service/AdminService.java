@@ -1,5 +1,7 @@
 package com.cloud.music.service;
 
+import com.cloud.music.entity.Admin;
+
 /**
  * 内容摘要：
  * <p>文件名称: AdminService.java
@@ -14,4 +16,8 @@ package com.cloud.music.service;
  */
 
 public interface AdminService {
+
+
+    boolean getInfoByAccount(Admin admin);
+
 }
