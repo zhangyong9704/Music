@@ -3,6 +3,13 @@
 <mapper namespace="com.cloud.music.dao.AdminDao" >
 
 
-	<select id="queryIsExistsAccount" resultType="com.cloud.music.entity.Admin">
+	<select id="queryIsExistsAccount" resultType="java.lang.Integer">
+		select count(*) from admin where name = #{name}
 	</select>
+
+	<select id="queryAdminInfo" resultType="com.cloud.music.entity.Admin">
+		select id,name,password from admin where name = #{name}
+	</select>
+
+
 </mapper>

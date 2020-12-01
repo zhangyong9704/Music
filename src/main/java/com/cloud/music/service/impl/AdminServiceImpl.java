@@ -25,13 +25,14 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public boolean getInfoByAccount(Admin admin) {
 
-        int isExists = adminDao.queryIsExistsAccount(admin.getName());
-        if (isExists<0){
+        //判断用户账户是否存在
+        Integer isExists = adminDao.queryIsExistsAccount(admin.getName());
+        if (isExists==null || isExists<0){
             return false;
         }
-        if ()
+        //对比账户和密码信息
+        Admin adminInfo = adminDao.queryAdminInfo(admin.getName());
 
-
-        return false;
+        return adminInfo.getPassword().equalsIgnoreCase(admin.getPassword());
     }
 }

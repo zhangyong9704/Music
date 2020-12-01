@@ -18,6 +18,14 @@ import com.cloud.music.entity.Admin;
 public interface AdminService {
 
 
+    /**
+     * 方法说明
+     * @Title: 获取后台用户登录信息
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-01 -- 17:11
+    */
     boolean getInfoByAccount(Admin admin);
 
 }

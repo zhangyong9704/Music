@@ -1,13 +1,12 @@
 package com.cloud.music.controller.login;
 
-import com.alibaba.druid.util.StringUtils;
-import com.alibaba.fastjson.JSONObject;
 import com.cloud.music.entity.Admin;
 import com.cloud.music.service.AdminService;
-import com.cloud.music.utils.ResultUniformDate;
+import com.cloud.music.utils.ReturnUnifiedCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -24,17 +23,17 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping("/login//status")
-    public ResultUniformDate loginStatus(Admin admin, HttpRequest request){
+    @PostMapping("/login/status")
+    public ReturnUnifiedCode loginStatus(Admin admin, HttpRequest request){
 
         if (null == admin){
             System.out.println("用户信息未传入");
-            return null;
+            return ReturnUnifiedCode.errorState().code(2001).message("未接收到用户信息");
         }
 
         boolean isEnableLogin = adminService.getInfoByAccount(admin);
 
-        return isEnableLogin?new ResultUniformDate():null;
+        return isEnableLogin? ReturnUnifiedCode.successState():ReturnUnifiedCode.errorState();
     }
 
 }

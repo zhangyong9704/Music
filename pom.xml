@@ -115,6 +115,28 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+            <!-- 注： 原配置文件默认放在src/main/resources目录下，这样配置了之后，
+            就指定src/main/java它是资源目录，src/main/resources目录就会不起作用了。
+            如果不想这样，需要在配置中再加上一个resource节点，把src/main/resources目录也添加进来，-->
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
     </build>
 
 </project>
