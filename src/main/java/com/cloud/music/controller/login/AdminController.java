@@ -3,10 +3,12 @@ package com.cloud.music.controller.login;
 import com.cloud.music.entity.Admin;
 import com.cloud.music.service.AdminService;
 import com.cloud.music.utils.ReturnUnifiedCode;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -17,15 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
  * @version v1.0
  * @date 2020-11-25  16:26
  */
-@RestController("admin")
+@Api(tags = "后台登录")
+@RestController
+@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
     private AdminService adminService;
 
-    @PostMapping("/login/status")
-    public ReturnUnifiedCode loginStatus(Admin admin, HttpRequest request){
-
+    @ApiOperation("登录状态判断")
+    @GetMapping("/login/status")
+    public ReturnUnifiedCode loginStatus(@ApiParam(name = "Admin",value = "用户对象",required = true) Admin admin){
         if (null == admin){
             System.out.println("用户信息未传入");
             return ReturnUnifiedCode.errorState().code(2001).message("未接收到用户信息");

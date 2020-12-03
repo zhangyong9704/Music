@@ -83,6 +83,23 @@
             <version>1.2.47</version>
         </dependency>
 
+        <!-- swagger 3.0.0-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
         <!-- mp 依赖 -->
 <!--        <dependency>
             <groupId>com.baomidou</groupId>
@@ -104,17 +121,6 @@
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <executable>true</executable>
-                    <!--配置热更新-->
-                    <fork>true</fork>
-                </configuration>
-            </plugin>
-        </plugins>
 
         <resources>
             <resource>
@@ -137,6 +143,21 @@
                 <filtering>false</filtering>
             </resource>
         </resources>
+
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                    <!--配置热更新-->
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+        </plugins>
+
+
     </build>
 
 </project>

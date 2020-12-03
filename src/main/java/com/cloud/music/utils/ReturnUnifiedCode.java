@@ -1,4 +1,5 @@
 package com.cloud.music.utils;
+import io.swagger.annotations.Api;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import java.util.Map;
  */
 
 @Data
+@Api(tags = "返回格式")
 public class ReturnUnifiedCode {
     //私有化构造方法
     private ReturnUnifiedCode(){};
