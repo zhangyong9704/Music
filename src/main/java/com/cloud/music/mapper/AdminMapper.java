@@ -1,7 +1,7 @@
-package com.cloud.music.dao;
+package com.cloud.music.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cloud.music.entity.Admin;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface AdminDao {
+public interface AdminMapper extends BaseMapper<Admin> {
 
     /**
      * 方法说明

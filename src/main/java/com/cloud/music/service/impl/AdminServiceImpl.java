@@ -1,6 +1,6 @@
 package com.cloud.music.service.impl;
 
-import com.cloud.music.dao.AdminDao;
+import com.cloud.music.mapper.AdminMapper;
 import com.cloud.music.entity.Admin;
 import com.cloud.music.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
-    private AdminDao adminDao;
+    private AdminMapper adminDao;
 
     @Override
     public boolean getInfoByAccount(Admin admin) {

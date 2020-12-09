@@ -13,7 +13,7 @@ public interface ReturnStatusCode {
     /**
      * 返回成功状态码
      */
-    Integer SUCCESS_STATUS = 20000 ;
+    Integer SUCCESS_STATUS = 200 ;
 
     /**
      * 返回成功信息
@@ -24,7 +24,7 @@ public interface ReturnStatusCode {
     /**
      * 返回失败状态码
      */
-    Integer ERROR_STATUS = 20001 ;
+    Integer ERROR_STATUS = 201 ;
 
     /**
      * 返回失败信息

@@ -7,7 +7,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,13 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "后台登录")
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin
 public class AdminController {
 
     @Autowired
     private AdminService adminService;
 
     @ApiOperation("登录状态判断")
-    @GetMapping("/login/status")
+    @PostMapping("/login/status")
     public ReturnUnifiedCode loginStatus(@ApiParam(name = "Admin",value = "用户对象",required = true) Admin admin){
         if (null == admin){
             System.out.println("用户信息未传入");
