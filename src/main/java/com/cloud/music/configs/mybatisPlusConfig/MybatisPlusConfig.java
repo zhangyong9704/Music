@@ -1,4 +1,4 @@
-package com.cloud.music.configs.mybatis_plus_config;
+package com.cloud.music.configs.mybatisPlusConfig;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;

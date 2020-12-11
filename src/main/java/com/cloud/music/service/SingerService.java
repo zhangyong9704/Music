@@ -37,4 +37,55 @@ public interface SingerService extends IService<Singer> {
      * @date 2020-12-11 -- 15:45
     */
     List<Singer> getAllSingers();
+
+    /**
+     * 方法说明
+     * @Title: 根据id查询单个歌手信息
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-11 -- 17:27
+    */
+    Singer getSingerOneById(Integer id);
+
+    /**
+     * 方法说明
+     * @Title: 根据id单个删除singer
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-11 -- 16:40
+    */
+    boolean deleteSinger(Integer id);
+
+
+    /**
+     * 方法说明
+     * @Title: 批量删除歌手信息
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-11 -- 17:05
+    */
+    boolean deleteBatchSingerByIds(Integer[] params);
+    /** 
+     * 方法说明
+     * @Title: 更新歌手信息
+     * @Description TODO
+     * @Param 
+     * @return 
+     * @date 2020-12-11 -- 16:58
+    */
+    boolean updateSinger(Singer singer);
+
+
+    /**
+     * 方法说明
+     * @Title: 添加歌手信息
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-11 -- 17:29
+    */
+    boolean insertSingerOne(Singer singer);
 }

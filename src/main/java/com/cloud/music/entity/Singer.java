@@ -28,7 +28,7 @@ public class Singer implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键")
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_UUID)
     private Integer id;
 
     @ApiModelProperty(value = "姓名")

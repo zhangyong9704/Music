@@ -10,6 +10,7 @@ import com.cloud.music.mapper.SingerMapper;
 import com.cloud.music.service.SingerService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +52,40 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     @Override
     public List<Singer> getAllSingers() {
-
         return this.list();
+    }
+
+    @Override
+    public Singer getSingerOneById(Integer id) {
+
+        return this.getById(id);
+    }
+
+    @Override
+    public boolean deleteSinger(Integer id) {
+        return this.removeById(id);
+    }
+
+    @Override
+    public boolean deleteBatchSingerByIds(Integer[] params) {
+        List<Integer> deleteParams = new ArrayList<>();
+        for (int i = params.length - 1; i >= 0; i--) {
+            deleteParams.add(params[i]);
+        }
+        return this.removeByIds(deleteParams);
+    }
+
+    @Override
+    public boolean updateSinger(Singer singer) {
+        return this.updateById(singer);
+    }
+
+    @Override
+    public boolean insertSingerOne(Singer singer) {
+        boolean save =false;
+        if (null != singer){
+            save = this.save(singer);
+        }
+        return save;
     }
 }

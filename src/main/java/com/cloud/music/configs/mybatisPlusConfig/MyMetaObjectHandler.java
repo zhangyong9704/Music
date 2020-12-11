@@ -1,4 +1,4 @@
-package com.cloud.music.configs.mybatis_plus_config;
+package com.cloud.music.configs.mybatisPlusConfig;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
