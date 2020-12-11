@@ -24,7 +24,7 @@ public class CodeGenerator {
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("zy");
         gc.setOpen(false); //生成后是否打开资源管理器
-        gc.setFileOverride(false); //重新生成时文件是否覆盖
+        gc.setFileOverride(true); //重新生成时文件是否覆盖
         gc.setServiceName("%sService"); //去掉Service接口的首字母I
         gc.setSwagger2(true); //实体属性 Swagger2 注解
         // gc.setIdType(IdType.ID_WORKER_STR); //主键策略
@@ -64,12 +64,12 @@ public class CodeGenerator {
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("singer"); //对那一张表生成代码
+        strategy.setInclude("admin"); //对那一张表生成代码
         strategy.setNaming(NamingStrategy.underline_to_camel); //数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_");  ////生成实体时去掉表前缀
 
         strategy.setColumnNaming(NamingStrategy.underline_to_camel); //数据库表字段映射到实体的命名策略
-        strategy.setSuperEntityClass(null); //你自己的父类实体,没有就不用设置
+        //strategy.setSuperEntityClass(null); //你自己的父类实体,没有就不用设置
         strategy.setEntityLombokModel(true); // lombok 模型 @Accessors(chain = true) setter链式操作
 
         strategy.setRestControllerStyle(true); //restful api风格控制器

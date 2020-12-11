@@ -1,20 +1,17 @@
 package com.cloud.music.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cloud.music.entity.Admin;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 
 /**
- * 内容摘要：
- * <p>文件名称: AdminDao.java
- * <p>修改记录: ...</li>
- * <p>其他说明: ...</li>
+ * <p>
+ * 管理员 Mapper 接口
+ * </p>
  *
- * @author ZhangYong
- * @version v1.0
- * @date 2020-11-25  16:58
+ * @author zy
+ * @since 2020-12-11
  */
-
 @Repository
 public interface AdminMapper extends BaseMapper<Admin> {
 
@@ -25,8 +22,8 @@ public interface AdminMapper extends BaseMapper<Admin> {
      * @Param
      * @return
      * @date 2020-12-01 -- 17:13
-    */
-    public Integer queryIsExistsAccount(String name);
+     */
+    public Integer queryIsExistsAccount(String username);
 
     /**
      * 方法说明
@@ -35,6 +32,6 @@ public interface AdminMapper extends BaseMapper<Admin> {
      * @Param
      * @return
      * @date 2020-12-01 -- 17:12
-    */
-    public Admin queryAdminInfo(String name);
+     */
+    public Admin queryAdminInfo(String username);
 }

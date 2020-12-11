@@ -45,7 +45,7 @@ public class Swagger2 {
                 .title("音乐网站后台系统——API文档") // 页面标题
                 .description("本文档描述提供音乐网站后台接口定义")  // 描述
                 .version("1.0")  // 版本号
-                .contact(new Contact("waitforyou", "https://github.com/zhangyong9704/music-manage", "1823222594@qq.com")) // 创建人信息
+                .contact(new Contact("waitforyou2113", "https://github.com/zhangyong9704/music-manage", "waitforyou2113@qq.com")) // 创建人信息
                 .build();
     }
 }

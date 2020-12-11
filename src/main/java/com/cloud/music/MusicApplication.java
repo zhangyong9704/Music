@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2020-10-26  14:27
  */
 @SpringBootApplication
-@MapperScan(basePackages = "com.cloud.music.dao") //需要给出mapper扫描位置，不然会报错无法找到对应配置
+@MapperScan(basePackages = "com.cloud.music.mapper") //需要给出mapper扫描位置，不然会报错无法找到对应配置
 public class MusicApplication {
 
     public static void main(String[] args) {

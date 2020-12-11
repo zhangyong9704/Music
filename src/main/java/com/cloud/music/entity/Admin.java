@@ -1,28 +1,38 @@
 package com.cloud.music.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
 
 /**
- * 内容摘要：
- * <p>文件名称: Admin.java
- * <p>版权所有: 版权所有(C)2015-2020
+ * <p>
+ * 管理员
+ * </p>
  *
- * @author ZhangYong
- * @version v1.0
- * @date 2020-11-25  17:41
+ * @author zy
+ * @since 2020-12-11
  */
 @Data
-@ApiModel(value = "用户登录对象",description = "后台登录接收对象")
-public class Admin {
+@EqualsAndHashCode(callSuper = false)
+@ApiModel(value="Admin对象", description="管理员")
+public class Admin implements Serializable {
 
-    @ApiModelProperty(value = "id")
-    private int id ;
+    private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "用户名")
-    private String name;
+    @ApiModelProperty(value = "主键")
+      @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
+    @ApiModelProperty(value = "账号")
+    private String username;
 
     @ApiModelProperty(value = "密码")
     private String password;
+
+
 }

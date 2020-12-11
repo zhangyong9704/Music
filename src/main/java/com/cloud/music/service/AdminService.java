@@ -1,22 +1,17 @@
 package com.cloud.music.service;
 
 import com.cloud.music.entity.Admin;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * 内容摘要：
- * <p>文件名称: AdminService.java
- * <p>公　　司: 北京赛福阔利特科技有限公司
- * <p>版权所有: 版权所有(C)2015-2020
- * <p>修改记录: ...</li>
- * <p>其他说明: ...</li>
+ * <p>
+ * 管理员 服务类
+ * </p>
  *
- * @author ZhangYong
- * @version v1.0
- * @date 2020-11-25  16:28
+ * @author zy
+ * @since 2020-12-11
  */
-
-public interface AdminService {
-
+public interface AdminService extends IService<Admin> {
 
     /**
      * 方法说明
@@ -25,7 +20,6 @@ public interface AdminService {
      * @Param
      * @return
      * @date 2020-12-01 -- 17:11
-    */
+     */
     boolean getInfoByAccount(Admin admin);
-
 }

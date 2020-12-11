@@ -1,4 +1,5 @@
-package com.cloud.music.controller.login;
+package com.cloud.music.controller;
+
 
 import com.cloud.music.entity.Admin;
 import com.cloud.music.service.AdminService;
@@ -13,14 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 内容摘要：
- * <p>文件名称: AdminController.java
+ * <p>
+ * 管理员 前端控制器
+ * </p>
  *
- * @author ZhangYong
+ * @author zy
  * @version v1.0
- * @date 2020-11-25  16:26
+ * @since 2020-12-11
  */
-@Api(tags = "后台登录")
+@Api(tags = "AdminController")
 @RestController
 @RequestMapping("/admin")
 @CrossOrigin
@@ -42,4 +44,6 @@ public class AdminController {
         return isEnableLogin? ReturnUnifiedCode.successState():ReturnUnifiedCode.errorState();
     }
 
+
 }
+
