@@ -25,6 +25,7 @@ import java.util.Map;
  * @since 2020-12-09
  */
 @Api(tags = "SingerController")
+@CrossOrigin
 @RestController
 @RequestMapping("/singer")
 public class SingerController {

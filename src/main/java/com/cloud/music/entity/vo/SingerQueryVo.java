@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Singer对象", description="歌手")
+@ApiModel(value="SingerQueryVo对象", description="歌手查询对象")
 public class SingerQueryVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
