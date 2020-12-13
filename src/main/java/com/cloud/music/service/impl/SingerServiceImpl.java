@@ -33,7 +33,7 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
         if (!StringUtils.isEmpty(singerQueryVo.getName())){   //根据姓名查询
             wrapper.like("name",singerQueryVo.getName());
         }
-        if (!StringUtils.isEmpty(String.valueOf(singerQueryVo.getSex()))){ //o-女 1-男 根据性别查询
+        if (null!=singerQueryVo.getSex()){ //o-女 1-男 根据性别查询
             wrapper.eq("sex",singerQueryVo.getSex());
         }
         if (!StringUtils.isEmpty(singerQueryVo.getLocation())){  //根据地区查询
