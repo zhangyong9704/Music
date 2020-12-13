@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cloud.music.entity.Singer;
 import com.cloud.music.entity.vo.SingerQueryVo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -88,4 +89,14 @@ public interface SingerService extends IService<Singer> {
      * @date 2020-12-11 -- 17:29
     */
     boolean insertSingerOne(Singer singer);
+
+    /**
+     * 方法说明
+     * @Title: 上传歌手封面
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-11 -- 17:16
+     */
+    String uploadSingerFileOne(MultipartFile file);
 }

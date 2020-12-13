@@ -26,7 +26,7 @@ public class Admin implements Serializable {
 
     @ApiModelProperty(value = "主键")
       @TableId(value = "id", type = IdType.ASSIGN_UUID)
-    private Integer id;
+    private String id;
 
     @ApiModelProperty(value = "账号")
     private String username;

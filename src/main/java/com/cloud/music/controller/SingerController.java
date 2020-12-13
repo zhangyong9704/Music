@@ -9,12 +9,15 @@ import com.cloud.music.service.SingerService;
 import com.cloud.music.utils.ReturnStatusCode;
 import com.cloud.music.utils.ReturnUnifiedCode;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
+
+import static com.cloud.music.utils.ReturnStatusCode.ERROR_STATUS;
 
 /**
  * <p>
@@ -41,7 +44,7 @@ public class SingerController {
      * @return
      * @date 2020-12-11 -- 14:37
     */
-    @ApiModelProperty(name = "条件的的歌手信息分页查询")
+    @ApiOperation("条件的的歌手信息分页查询")
     @PostMapping("/querySingers/{currentPage}/{limitSize}")
     public ReturnUnifiedCode selectSingerPages(@RequestBody(required = false) SingerQueryVo singerQueryVo,
                                                @PathVariable long currentPage,
@@ -63,7 +66,7 @@ public class SingerController {
      * @return
      * @date 2020-12-11 -- 15:21
     */
-    @ApiModelProperty("无条件查询所有歌手信息")
+    @ApiOperation("无条件查询所有歌手信息")
     @GetMapping("/querySingers")
     public ReturnUnifiedCode queryAllSinger(){
 
@@ -81,7 +84,7 @@ public class SingerController {
      * @return
      * @date 2020-12-11 -- 17:22
     */
-    @ApiModelProperty("根据id查询歌手")
+    @ApiOperation("根据id查询歌手")
     @GetMapping("/querySinger/{id}")
     public ReturnUnifiedCode querySingerById(@PathVariable("id") Integer id){
         if (null == id){
@@ -99,7 +102,7 @@ public class SingerController {
      * @return
      * @date 2020-12-11 -- 16:13
     */
-    @ApiModelProperty("根据ID删除歌手")
+    @ApiOperation("根据ID删除歌手")
     @DeleteMapping("deleteSinger/{id}")
     public ReturnUnifiedCode deleteSingerById(@PathVariable("id") Integer id){
 
@@ -119,7 +122,7 @@ public class SingerController {
      * @return
      * @date 2020-12-11 -- 17:14
     */
-    @ApiModelProperty("根据id批量删除歌手")
+    @ApiOperation("根据id批量删除歌手")
     @DeleteMapping("deleteBatch/{params}")
     public ReturnUnifiedCode deleteBatchSingerByIds(@PathVariable Integer[] params){
         if (params.length<=0){
@@ -138,7 +141,7 @@ public class SingerController {
      * @return
      * @date 2020-12-11 -- 16:56
     */
-    @ApiModelProperty("修改Singer信息")
+    @ApiOperation("修改Singer信息")
     @PutMapping("/update")
     public ReturnUnifiedCode updateSingeById(@RequestBody Singer singer){
         if (null == singer){
@@ -156,11 +159,32 @@ public class SingerController {
      * @return
      * @date 2020-12-11 -- 17:16
     */
-    @ApiModelProperty("添加歌手信息")
+    @ApiOperation("添加歌手信息")
     @PostMapping("/add")
     public ReturnUnifiedCode insertSingerInfo(@RequestBody Singer singer){
         boolean insert = singerService.insertSingerOne(singer);
         return insert?ReturnUnifiedCode.successState().message("添加成功"):ReturnUnifiedCode.errorState().message("添加失败");
     }
+
+    /**
+     * 方法说明
+     * @Title: 上传歌手封面
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-11 -- 17:16
+     */
+    @ApiOperation(value = "上传歌手封面")
+    @PostMapping(value = "/upload", consumes = "multipart/*",  headers = "content-type=multipart/form-data")
+    public ReturnUnifiedCode uploadSingerCover(MultipartFile file){
+        if(file.isEmpty()){
+            throw  new MusicExceptionMessage(ERROR_STATUS,"上传文件为空");
+        }
+        String uploadPath = singerService.uploadSingerFileOne(file);
+        return null!=uploadPath?ReturnUnifiedCode.successState().data("path",uploadPath):
+                ReturnUnifiedCode.errorState().message("文件上传失败");
+    }
+
+
 }
 

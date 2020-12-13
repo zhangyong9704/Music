@@ -67,13 +67,12 @@ public class UploadToLocalServiceImpl implements UploadToLocalService {
             folder.mkdirs();
         }
         String oldName = file.getOriginalFilename();
-
-        String newName = format + UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."));
+        String newName = new SimpleDateFormat("yyyyMMdd").format(new Date()) + UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."));
         File newFile = new File(folder, newName);
         try {
             //保存文件，返回文件路径
             file.transferTo(newFile);
-            return folder + newName;
+            return folder +System.getProperty("file.separator") + newName;
         } catch (IOException ioException) {
             throw new MusicExceptionMessage(ERROR_STATUS,ioException.getMessage());
         }

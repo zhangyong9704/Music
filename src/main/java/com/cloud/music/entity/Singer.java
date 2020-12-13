@@ -1,7 +1,6 @@
 package com.cloud.music.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -29,7 +28,7 @@ public class Singer implements Serializable {
 
     @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.ASSIGN_UUID)
-    private Integer id;
+    private String id;
 
     @ApiModelProperty(value = "姓名")
     private String name;
@@ -49,5 +48,16 @@ public class Singer implements Serializable {
     @ApiModelProperty(value = "简介")
     private String introduction;
 
+    @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
+    private Data createTime;
+
+    @ApiModelProperty(value = "更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Data updateTime;
+
+    @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
+    @TableLogic(value = "0")  //标注逻辑删除字段
+    private Integer isdelete;
 
 }

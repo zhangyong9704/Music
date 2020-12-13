@@ -4,11 +4,16 @@ import com.alibaba.druid.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cloud.music.common.constParams.UploadLocalPathConfig;
+import com.cloud.music.common.upload.UploadToLocalService;
 import com.cloud.music.entity.Singer;
 import com.cloud.music.entity.vo.SingerQueryVo;
 import com.cloud.music.mapper.SingerMapper;
 import com.cloud.music.service.SingerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +29,14 @@ import java.util.Map;
  * @since 2020-12-09
  */
 @Service
+@Transactional
 public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> implements SingerService {
+
+    @Autowired
+    UploadToLocalService uploadToLocalService;
+
+    @Autowired
+    UploadLocalPathConfig uploadLocalPathConfig;
 
     @Override
     public Map<String,Object> getSingerPages(Page<Singer> singerPage, SingerQueryVo singerQueryVo) {
@@ -87,5 +99,11 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
             save = this.save(singer);
         }
         return save;
+    }
+
+    @Override
+    public String uploadSingerFileOne(MultipartFile file) {
+        String singerCoverPath = uploadToLocalService.uploadFileOne(file, UploadLocalPathConfig.singerCoverPath, "SINGER");
+        return null==singerCoverPath?"":singerCoverPath;
     }
 }

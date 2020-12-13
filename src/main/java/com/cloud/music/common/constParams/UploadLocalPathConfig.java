@@ -14,20 +14,34 @@ import org.springframework.stereotype.Component;
 public class UploadLocalPathConfig {
 
     //歌手封面图片地址
-    @Value("${upload.file.singer.path}")
-    private String singerCoverPath;
+    public static String singerCoverPath;
 
     //歌单列表封面地址
-    @Value("${upload.file.songs.cover.path}")
-    private String songsCoverPath;
+    public static String songsCoverPath;
 
     //上传歌曲保存地址
-    @Value("${upload.file.songs.path}")
-    private String songsPath;
+    public static String songsPath;
 
     //用户头像上传保存地址
+    public static String userCoverPath;
+
+    @Value("${upload.file.singer.path}")
+    public  void setSingerCoverPath(String singerCoverPath) {
+        UploadLocalPathConfig.singerCoverPath = singerCoverPath;
+    }
+
+    @Value("${upload.file.songs.cover.path}")
+    public  void setSongsCoverPath(String songsCoverPath) {
+        UploadLocalPathConfig.songsCoverPath = songsCoverPath;
+    }
+
+    @Value("${upload.file.songs.path}")
+    public  void setSongsPath(String songsPath) {
+        UploadLocalPathConfig.songsPath = songsPath;
+    }
+
     @Value("${upload.file.user.path}")
-    private String userCoverPath;
-
-
+    public  void setUserCoverPath(String userCoverPath) {
+        UploadLocalPathConfig.userCoverPath = userCoverPath;
+    }
 }
