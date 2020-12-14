@@ -50,14 +50,14 @@ public class Singer implements Serializable {
 
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
-    private Data createTime;
+    private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Data updateTime;
+    private Date updateTime;
 
     @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
     @TableLogic(value = "0")  //标注逻辑删除字段
-    private Integer isdelete;
+    private Integer isDelete;
 
 }
