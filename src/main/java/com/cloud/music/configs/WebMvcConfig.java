@@ -2,6 +2,7 @@ package com.cloud.music.configs;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -22,5 +23,17 @@ public class WebMvcConfig implements WebMvcConfigurer{
                 .allowedOrigins("*")
                 .allowedMethods("*")
                 .allowCredentials(true);
+    }
+
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        //获取上传的映射路径
+        registry.addResourceHandler("/uploads/**")
+                .addResourceLocations(
+                "file:"+System.getProperty("user.dir")+System.getProperty("file.separator")+"uploads"
+                        +System.getProperty("file.separator")
+                );
+        WebMvcConfigurer.super.addResourceHandlers(registry);
     }
 }

@@ -1,4 +1,4 @@
-package com.cloud.music.common.constParams;
+package com.cloud.music.common.uploadcConstParams;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;

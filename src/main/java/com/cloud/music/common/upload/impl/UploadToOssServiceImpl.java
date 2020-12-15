@@ -3,7 +3,7 @@ package com.cloud.music.common.upload.impl;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.CannedAccessControlList;
-import com.cloud.music.common.constParams.UploadOssPropertiesConfig;
+import com.cloud.music.common.uploadcConstParams.UploadOssPropertiesConfig;
 import com.cloud.music.common.upload.UploadToOssService;
 import com.cloud.music.configs.exception.MusicExceptionMessage;
 import org.joda.time.DateTime;

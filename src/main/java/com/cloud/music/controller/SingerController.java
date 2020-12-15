@@ -104,8 +104,7 @@ public class SingerController {
     */
     @ApiOperation("根据ID删除歌手")
     @DeleteMapping("deleteSinger/{id}")
-    public ReturnUnifiedCode deleteSingerById(@PathVariable("id") Integer id){
-
+    public ReturnUnifiedCode deleteSingerById(@PathVariable("id") String id){
         if (null == id){
             throw new MusicExceptionMessage(ReturnStatusCode.ERROR_STATUS,"当前id为空,无法删除");
         }

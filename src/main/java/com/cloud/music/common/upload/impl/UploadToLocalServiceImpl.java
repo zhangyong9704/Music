@@ -47,22 +47,30 @@ public class UploadToLocalServiceImpl implements UploadToLocalService {
         if (StringUtils.isEmpty(uploadType)){
             throw  new MusicExceptionMessage(ERROR_STATUS,"上传文件类型为空");
         }
-        String storePath = ""; //最终存储路径
+        String storePath = System.getProperty("user.dir")+System.getProperty("file.separator"); //最终存储路径
+        String returnPath = "";  //返回保存的相对路径
         // 使用日期来分类管理上传的文件
         String format = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         if ("SINGER".equalsIgnoreCase(uploadType)){ //当前类型是歌手图片上传
-            storePath = System.getProperty("user.dir")+System.getProperty("file.separator")+filePath
-                    +System.getProperty("file.separator")+format;
+            storePath = System.getProperty("user.dir")+System.getProperty("file.separator")+"uploads"+
+                    System.getProperty("file.separator")+filePath+System.getProperty("file.separator")+format;
+            returnPath = System.getProperty("file.separator") + "uploads"+ System.getProperty("file.separator")+
+                    filePath + System.getProperty("file.separator")+format;
         }
         if ("SONGS".equalsIgnoreCase(uploadType)){  //歌曲存储路径
-            storePath = System.getProperty("user.dir")+System.getProperty("file.separator")+"songs"
-                    +System.getProperty("file.separator")+filePath+System.getProperty("file.separator")+format;
+            storePath = System.getProperty("user.dir")+System.getProperty("file.separator")+"uploads"+
+                    System.getProperty("file.separator")+"songs" +System.getProperty("file.separator")+
+                    filePath + System.getProperty("file.separator") + format;
+            returnPath = System.getProperty("file.separator") + "uploads"+ System.getProperty("file.separator")+"songs" +
+                    System.getProperty("file.separator")+ filePath + System.getProperty("file.separator") + format;
         }
         if ("USERS".equalsIgnoreCase(uploadType)){  //用户图片存储路径
-            storePath = System.getProperty("user.dir")+System.getProperty("file.separator")+filePath
-                    +System.getProperty("file.separator")+format;
+            storePath = System.getProperty("user.dir")+System.getProperty("file.separator")+"uploads"+
+                    System.getProperty("file.separator") + filePath +System.getProperty("file.separator")+format;
+            returnPath = System.getProperty("file.separator") + "uploads"+ System.getProperty("file.separator") +
+                    filePath +System.getProperty("file.separator")+format;
         }
-        File folder = new File(storePath);
+        File folder = new File(storePath);   //创建文件夹地址
         if (!folder.exists()) {
             folder.mkdirs();
         }
@@ -72,7 +80,7 @@ public class UploadToLocalServiceImpl implements UploadToLocalService {
         try {
             //保存文件，返回文件路径
             file.transferTo(newFile);
-            return folder +System.getProperty("file.separator") + newName;
+            return returnPath +System.getProperty("file.separator") + newName;
         } catch (IOException ioException) {
             throw new MusicExceptionMessage(ERROR_STATUS,ioException.getMessage());
         }

@@ -108,6 +108,11 @@
             <version>1.2.47</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId></artifactId>
+        </dependency>
+
         <!-- swagger 3.0.0-->
         <dependency>
             <groupId>io.springfox</groupId>

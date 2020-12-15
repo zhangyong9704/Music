@@ -1,6 +1,6 @@
 package com.cloud.music;
 
-import com.cloud.music.common.constParams.UploadLocalPathConfig;
+import com.cloud.music.common.uploadcConstParams.UploadLocalPathConfig;
 import com.cloud.music.common.upload.UploadToLocalService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

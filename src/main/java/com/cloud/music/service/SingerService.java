@@ -57,7 +57,7 @@ public interface SingerService extends IService<Singer> {
      * @return
      * @date 2020-12-11 -- 16:40
     */
-    boolean deleteSinger(Integer id);
+    boolean deleteSinger(String id);
 
 
     /**

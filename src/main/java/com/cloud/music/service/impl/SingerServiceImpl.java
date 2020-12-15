@@ -4,7 +4,7 @@ import com.alibaba.druid.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.cloud.music.common.constParams.UploadLocalPathConfig;
+import com.cloud.music.common.uploadcConstParams.UploadLocalPathConfig;
 import com.cloud.music.common.upload.UploadToLocalService;
 import com.cloud.music.entity.Singer;
 import com.cloud.music.entity.vo.SingerQueryVo;
@@ -74,7 +74,8 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
     }
 
     @Override
-    public boolean deleteSinger(Integer id) {
+    public boolean deleteSinger(String id) {
+//        baseMapper.deleteById(id);
         return this.removeById(id);
     }
 
