@@ -80,8 +80,8 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
     }
 
     @Override
-    public boolean deleteBatchSingerByIds(Integer[] params) {
-        List<Integer> deleteParams = new ArrayList<>();
+    public boolean deleteBatchSingerByIds(String[] params) {
+        List<String> deleteParams = new ArrayList<>();
         for (int i = params.length - 1; i >= 0; i--) {
             deleteParams.add(params[i]);
         }

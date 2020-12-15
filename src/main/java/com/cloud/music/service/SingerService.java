@@ -68,7 +68,7 @@ public interface SingerService extends IService<Singer> {
      * @return
      * @date 2020-12-11 -- 17:05
     */
-    boolean deleteBatchSingerByIds(Integer[] params);
+    boolean deleteBatchSingerByIds(String[] params);
     /** 
      * 方法说明
      * @Title: 更新歌手信息

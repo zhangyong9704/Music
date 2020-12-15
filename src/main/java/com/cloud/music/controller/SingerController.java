@@ -103,7 +103,7 @@ public class SingerController {
      * @date 2020-12-11 -- 16:13
     */
     @ApiOperation("根据ID删除歌手")
-    @DeleteMapping("deleteSinger/{id}")
+    @DeleteMapping("/deleteSinger/{id}")
     public ReturnUnifiedCode deleteSingerById(@PathVariable("id") String id){
         if (null == id){
             throw new MusicExceptionMessage(ReturnStatusCode.ERROR_STATUS,"当前id为空,无法删除");
@@ -122,8 +122,8 @@ public class SingerController {
      * @date 2020-12-11 -- 17:14
     */
     @ApiOperation("根据id批量删除歌手")
-    @DeleteMapping("deleteBatch/{params}")
-    public ReturnUnifiedCode deleteBatchSingerByIds(@PathVariable Integer[] params){
+    @DeleteMapping("/deleteBatch/{params}")
+    public ReturnUnifiedCode deleteBatchSingerByIds(@PathVariable String[] params){
         if (params.length<=0){
             throw new MusicExceptionMessage(ReturnStatusCode.ERROR_STATUS,"删除ids为空,无法删除");
         }
