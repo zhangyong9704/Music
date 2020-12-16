@@ -39,7 +39,7 @@ public class CodeGenerator {
         dsc.setDbType(DbType.MYSQL);  //设置数据库类型
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("123456");
+        dsc.setPassword("");
         mpg.setDataSource(dsc);
 
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
