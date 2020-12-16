@@ -25,12 +25,12 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     public boolean getInfoByAccount(Admin admin) {
 
         //判断用户账户是否存在
-        Integer isExists = adminDao.queryIsExistsAccount(admin.getUsername());
+        Integer isExists = adminDao.queryIsExistsAccount(admin.getName());
         if (isExists==null || isExists<0){
             return false;
         }
         //对比账户和密码信息
-        Admin adminInfo = adminDao.queryAdminInfo(admin.getUsername());
+        Admin adminInfo = adminDao.queryAdminInfo(admin.getName());
 
         return adminInfo.getPassword().equalsIgnoreCase(admin.getPassword());
     }

@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 /**
  * <p>
- * 管理员
+ * 歌单
  * </p>
  *
  * @author zy
@@ -21,19 +21,25 @@ import java.time.LocalDate;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="Admin对象", description="管理员")
-public class Admin implements Serializable {
+@ApiModel(value="SongList对象", description="歌单")
+public class SongList implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键")
       private String id;
 
-    @ApiModelProperty(value = "账号")
-    private String name;
+    @ApiModelProperty(value = "标题")
+    private String title;
 
-    @ApiModelProperty(value = "密码")
-    private String password;
+    @ApiModelProperty(value = "歌单图片")
+    private String pic;
+
+    @ApiModelProperty(value = "简介")
+    private String introduction;
+
+    @ApiModelProperty(value = "风格")
+    private String style;
 
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
@@ -45,10 +51,7 @@ public class Admin implements Serializable {
 
     @ApiModelProperty(value = "0未删除1已删除")
     @TableLogic  //标注逻辑删除字段
-    private Integer isDelete;
-
-    @ApiModelProperty(value = "盐值")
-    private Integer salt;
+    private String isDelete;
 
 
 }
