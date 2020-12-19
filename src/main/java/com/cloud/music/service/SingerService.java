@@ -99,4 +99,14 @@ public interface SingerService extends IService<Singer> {
      * @date 2020-12-11 -- 17:16
      */
     String uploadSingerFileOne(MultipartFile file);
+
+    /**
+     * 方法说明
+     * @Title: 删除上次上传歌手封面(编辑时)
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-11 -- 17:16
+     */
+    boolean deletePreviousSingerCover(String filePath);
 }

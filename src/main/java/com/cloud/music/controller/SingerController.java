@@ -184,6 +184,17 @@ public class SingerController {
                 ReturnUnifiedCode.errorState().message("文件上传失败");
     }
 
+    @ApiOperation(value = "删除上次上传歌手封面")
+    @PostMapping("/delete-upload")
+    public ReturnUnifiedCode uploadDeletePreviousSingerCover(@RequestParam("filePath") String filePath){
+        if(filePath.isEmpty()){
+            throw  new MusicExceptionMessage(ERROR_STATUS,"删除文件地址为空");
+        }
+        boolean uploadPath = singerService.deletePreviousSingerCover(filePath);
+        return uploadPath?ReturnUnifiedCode.successState().message("删除文件成功"):
+                ReturnUnifiedCode.errorState().message("文件上传失败");
+    }
+
 
 }
 

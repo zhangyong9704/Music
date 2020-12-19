@@ -2,6 +2,7 @@ package com.cloud.music.common.upload.impl;
 
 import com.cloud.music.common.upload.UploadToLocalService;
 import com.cloud.music.configs.exception.MusicExceptionMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,8 +10,11 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import static com.cloud.music.utils.ReturnStatusCode.ERROR_STATUS;
 
@@ -27,6 +31,7 @@ import static com.cloud.music.utils.ReturnStatusCode.ERROR_STATUS;
  * @Description TODO
  */
 @Component
+@Slf4j
 public class UploadToLocalServiceImpl implements UploadToLocalService {
 
     /**
@@ -37,6 +42,7 @@ public class UploadToLocalServiceImpl implements UploadToLocalService {
      * @return
      * @date 2020-12-11 -- 17:34
     */
+    @Override
     public String uploadFileOne(MultipartFile file,String filePath,String uploadType) {
         if(file.isEmpty()){
             throw  new MusicExceptionMessage(ERROR_STATUS,"上传文件为空");
@@ -96,6 +102,7 @@ public class UploadToLocalServiceImpl implements UploadToLocalService {
      * @return
      * @date 2020-12-11 -- 17:34
      */
+    @Override
     public void downFileToLocal(String filePath, HttpServletResponse response) throws UnsupportedEncodingException {
         File file = new File(filePath);
         if(file.exists()){ //判断文件父目录是否存在
@@ -140,14 +147,48 @@ public class UploadToLocalServiceImpl implements UploadToLocalService {
      * @return
      * @date 2020-12-11 -- 17:34
      */
+    @Override
     public void downFileToLocal(String fileName,String filePath,HttpServletResponse response) throws UnsupportedEncodingException {
-//        String filename="2.xlsx";
-//        String filePath = "D:/download" ;
+        //String filename="2.xlsx";
+        //String filePath = "D:/download" ;
         String FilePath = filePath + "/" + fileName;
         this.downFileToLocal(FilePath,response);
     }
 
+    @Override
+    public boolean deleteFile(String filePath) {
+        String dirPath = System.getProperty("user.dir")+System.getProperty("file.separator");
+        if (StringUtils.isEmpty(filePath)){
+            throw new MusicExceptionMessage(ERROR_STATUS,"文件路径为空");
+        }
+        String img_path = dirPath + filePath ;
+        //System.out.println(img_path);//输出测试一下文件路径是否正确
+        File file = new File(img_path);
+        if (file.exists()) {//文件是否存在
+            return file.delete();
+        }else{
+            log.info("删除文件不存在");
+            return false;
+        }
+    }
 
-
-
+    @Override
+    public boolean deleteBatchFiles(List<String> filePaths) {
+        if (filePaths.size()<=0){
+            throw new MusicExceptionMessage(ERROR_STATUS,"批量删除文件路径为空");
+        }
+        Stream<String> stringStream = filePaths.stream().map(values ->
+                System.getProperty("user.dir")+System.getProperty("file.separator") + values);  //进行路径拼接
+        List<Boolean> result = new ArrayList<>();
+        stringStream.forEachOrdered((path)->{
+            File file = new File(path);
+            if (file.exists()) {//文件是否存在
+                boolean delete = file.delete();
+                result.add(delete);
+            }else{
+                log.info(path+"删除文件不存在");
+            }
+        });
+        return result.isEmpty() && result.size() == filePaths.size();
+    }
 }

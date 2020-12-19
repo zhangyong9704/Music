@@ -39,7 +39,7 @@ public class CodeGenerator {
         dsc.setDbType(DbType.MYSQL);  //设置数据库类型
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("");
+        dsc.setPassword("mysql@2020#zy");
         mpg.setDataSource(dsc);
 
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
@@ -64,7 +64,7 @@ public class CodeGenerator {
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("admin"); //对那一张表生成代码
+        strategy.setInclude("song_list"); //对那一张表生成代码
         strategy.setNaming(NamingStrategy.underline_to_camel); //数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_");  ////生成实体时去掉表前缀
 

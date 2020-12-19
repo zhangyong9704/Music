@@ -4,8 +4,8 @@ import com.alibaba.druid.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.cloud.music.common.uploadcConstParams.UploadLocalPathConfig;
 import com.cloud.music.common.upload.UploadToLocalService;
+import com.cloud.music.common.uploadcConstParams.UploadLocalPathConfig;
 import com.cloud.music.entity.Singer;
 import com.cloud.music.entity.vo.SingerQueryVo;
 import com.cloud.music.mapper.SingerMapper;
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -69,14 +70,13 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
 
     @Override
     public Singer getSingerOneById(Integer id) {
-
         return this.getById(id);
     }
 
     @Override
     public boolean deleteSinger(String id) {
-//        baseMapper.deleteById(id);
-        return this.removeById(id);
+        boolean deleteFile = uploadToLocalService.deleteFile(this.getById(id).getPic()); //获得图片地址并删除
+        return deleteFile && this.removeById(id);
     }
 
     @Override
@@ -85,7 +85,10 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
         for (int i = params.length - 1; i >= 0; i--) {
             deleteParams.add(params[i]);
         }
-        return this.removeByIds(deleteParams);
+        //获取图片地址
+        List<String> collect = baseMapper.selectBatchIds(deleteParams).stream().map(Singer::getPic).collect(Collectors.toList());
+        boolean batchFiles = uploadToLocalService.deleteBatchFiles(collect);  //批量删除图片
+        return batchFiles && this.removeByIds(deleteParams);
     }
 
     @Override
@@ -106,5 +109,10 @@ public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> impleme
     public String uploadSingerFileOne(MultipartFile file) {
         String singerCoverPath = uploadToLocalService.uploadFileOne(file, UploadLocalPathConfig.singerCoverPath, "SINGER");
         return null==singerCoverPath?"":singerCoverPath;
+    }
+
+    @Override
+    public boolean deletePreviousSingerCover(String filePath) {
+        return uploadToLocalService.deleteFile(filePath);
     }
 }

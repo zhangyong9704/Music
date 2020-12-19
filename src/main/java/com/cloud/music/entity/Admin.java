@@ -30,7 +30,7 @@ public class Admin implements Serializable {
       private String id;
 
     @ApiModelProperty(value = "账号")
-    private String name;
+    private String username;
 
     @ApiModelProperty(value = "密码")
     private String password;
