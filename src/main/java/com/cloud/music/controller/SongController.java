@@ -174,14 +174,33 @@ public class SongController {
      * @date 2020-12-11 -- 17:16
      */
     @ApiOperation(value = "上传歌曲封面")
-    @PostMapping(value = "/upload", consumes = "multipart/*",  headers = "content-type=multipart/form-data")
+    @PostMapping(value = "/upload-cover", consumes = "multipart/*",  headers = "content-type=multipart/form-data")
     public ReturnUnifiedCode uploadSongsCover(MultipartFile file){
         if(file.isEmpty()){
-            throw  new MusicExceptionMessage(ERROR_STATUS,"上传文件为空");
+            throw  new MusicExceptionMessage(ERROR_STATUS,"上传歌曲封面文件为空");
         }
-        String uploadPath = songService.uploadSongsFileOne(file);
+        String uploadPath = songService.uploadSongsCovers(file);
         return null!=uploadPath? ReturnUnifiedCode.successState().data("path",uploadPath):
-                ReturnUnifiedCode.errorState().message("文件上传失败");
+                ReturnUnifiedCode.errorState().message("歌曲封面文件上传失败");
+    }
+
+    /**
+     * 方法说明
+     * @Title: 上传歌曲
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-11 -- 17:16
+     */
+    @ApiOperation(value = "上传歌曲")
+    @PostMapping(value = "/upload-file", consumes = "multipart/*",  headers = "content-type=multipart/form-data")
+    public ReturnUnifiedCode uploadSongsFiles(MultipartFile file){
+        if(file.isEmpty()){
+            throw  new MusicExceptionMessage(ERROR_STATUS,"上传音乐文件为空");
+        }
+        String uploadPath = songService.uploadSongsFile(file);
+        return null!=uploadPath? ReturnUnifiedCode.successState().data("path",uploadPath):
+                ReturnUnifiedCode.errorState().message("音乐文件上传失败");
     }
 
     @ApiOperation(value = "删除上次上传歌手封面")
@@ -190,11 +209,10 @@ public class SongController {
         if(filePath.isEmpty()){
             throw  new MusicExceptionMessage(ERROR_STATUS,"删除文件地址为空");
         }
-        boolean uploadPath = songService.deletePreviousSongsCover(filePath);
+        boolean uploadPath = songService.deleteSongsCoverAndFiles(filePath);
         return uploadPath?ReturnUnifiedCode.successState().message("删除文件成功"):
                 ReturnUnifiedCode.errorState().message("文件上传失败");
     }
-
 
 }
 

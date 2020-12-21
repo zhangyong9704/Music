@@ -63,7 +63,7 @@ public class UploadToLocalServiceImpl implements UploadToLocalService {
             returnPath = System.getProperty("file.separator") + "uploads"+ System.getProperty("file.separator")+
                     filePath + System.getProperty("file.separator")+format;
         }
-        if ("SONGS".equalsIgnoreCase(uploadType)){  //歌曲存储路径
+        if ("SONGS".equalsIgnoreCase(uploadType)){  //歌曲、歌曲图片存储路径
             storePath = System.getProperty("user.dir")+System.getProperty("file.separator")+"uploads"+
                     System.getProperty("file.separator")+"songs" +System.getProperty("file.separator")+
                     filePath + System.getProperty("file.separator") + format;

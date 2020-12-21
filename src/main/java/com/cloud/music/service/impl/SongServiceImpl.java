@@ -71,8 +71,10 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
 
     @Override
     public boolean deleteSongByID(String id) {
-        boolean deleteFile = uploadToLocalService.deleteFile(this.getById(id).getPic()); //获得图片地址并删除
-        return deleteFile && this.removeById(id);
+        Song songs = this.getById(id);
+        boolean deleteCover = uploadToLocalService.deleteFile(songs.getPic()); //获得图片地址并删除
+        boolean deleteFile = uploadToLocalService.deleteFile(songs.getUrl()); //获得文件地址并删除
+        return deleteCover && deleteFile && this.removeById(id);
     }
 
     @Override
@@ -81,10 +83,13 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
         for (int i = params.length - 1; i >= 0; i--) {
             deleteParams.add(params[i]);
         }
-        //获取图片地址
-        List<String> collect = baseMapper.selectBatchIds(deleteParams).stream().map(Song::getPic).collect(Collectors.toList());
-        boolean batchFiles = uploadToLocalService.deleteBatchFiles(collect);  //批量删除图片
-        return batchFiles && this.removeByIds(deleteParams);
+        //获取Songs集合
+        List<Song> songsCollect = baseMapper.selectBatchIds(deleteParams);
+        List<String> coverCollect = songsCollect.stream().map(Song::getPic).collect(Collectors.toList());
+        List<String> filesCollect = songsCollect.stream().map(Song::getUrl).collect(Collectors.toList());
+        boolean batchCovers = uploadToLocalService.deleteBatchFiles(coverCollect);  //批量删除图片
+        boolean batchFiles = uploadToLocalService.deleteBatchFiles(filesCollect);  //批量删除文件
+        return batchCovers && batchFiles && this.removeByIds(deleteParams);
     }
 
     @Override
@@ -102,13 +107,20 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
     }
 
     @Override
-    public String uploadSongsFileOne(MultipartFile file) {
-        String singerCoverPath = uploadToLocalService.uploadFileOne(file, UploadLocalPathConfig.singerCoverPath, "SINGER");
+    public String uploadSongsCovers(MultipartFile file) {
+        String singerCoverPath = uploadToLocalService.uploadFileOne(file, UploadLocalPathConfig.songsCoverPath, "SONGS");
         return null==singerCoverPath?"":singerCoverPath;
     }
 
+
     @Override
-    public boolean deletePreviousSongsCover(String filePath) {
+    public String uploadSongsFile(MultipartFile file) {
+        String singerFiles = uploadToLocalService.uploadFileOne(file, UploadLocalPathConfig.songsPath, "SONGS");
+        return null==singerFiles?"":singerFiles;
+    }
+
+    @Override
+    public boolean deleteSongsCoverAndFiles(String filePath) {
         return uploadToLocalService.deleteFile(filePath);
     }
 

@@ -81,13 +81,23 @@ public interface SongService extends IService<Song> {
 
     /**
      * 方法说明
-     * @Title: 上传歌单封面
+     * @Title: 上传歌曲封面
      * @Description TODO
      * @Param
      * @return
      * @date 2020-12-11 -- 15:45
      */
-    String uploadSongsFileOne(MultipartFile file);
+    String uploadSongsCovers(MultipartFile file);
+
+    /**
+     * 方法说明
+     * @Title: 上传音乐文件(MP3)
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-21 -- 14:11
+     */
+    String uploadSongsFile(MultipartFile file);
 
     /**
      * 方法说明
@@ -97,7 +107,7 @@ public interface SongService extends IService<Song> {
      * @return
      * @date 2020-12-11 -- 15:45
      */
-    boolean deletePreviousSongsCover(String filePath);
+    boolean deleteSongsCoverAndFiles(String filePath);
 
     /**
      * 方法说明
@@ -108,4 +118,6 @@ public interface SongService extends IService<Song> {
      * @date 2020-12-11 -- 15:45
      */
     Song getSongOneById(Integer id);
+
+
 }
