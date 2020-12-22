@@ -38,14 +38,14 @@ public class ListSongServiceImpl extends ServiceImpl<ListSongMapper, ListSong> i
         //进行查询当前歌单关联的歌曲id
         QueryWrapper<Song> listSongWrapper = new QueryWrapper<>(); //构造条件筛选器
         if (!StringUtils.isEmpty(listSong.getId())){  //根据歌单id(主要筛选条件)
-            listSongSIdByCondition = this.getListSongSIdByCondition(listSong.getId());
+            listSongSIdByCondition = this.getListSongsIdByCondition(listSong.getId());
         }
 
         return songService.getListSongPages(listSongsPage, listSongSIdByCondition);
     }
 
     @Override
-    public List<Integer> getListSongSIdByCondition(String songListId) {
+    public List<Integer> getListSongsIdByCondition(String songListId) {
         List<ListSong> song_list_id = this.list(new QueryWrapper<ListSong>().eq("song_list_id", songListId));
         return song_list_id.stream().map(ListSong::getSongId).collect(Collectors.toList());
     }

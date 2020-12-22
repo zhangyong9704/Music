@@ -36,5 +36,5 @@ public interface ListSongService extends IService<ListSong> {
      * @return
      * @date 2020-12-22 -- 14:37
      */
-    List<Integer> getListSongSIdByCondition(String songListId);
+    List<Integer> getListSongsIdByCondition(String songListId);
 }
