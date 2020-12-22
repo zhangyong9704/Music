@@ -120,4 +120,14 @@ public interface SongService extends IService<Song> {
     Song getSongOneById(Integer id);
 
 
+    /**
+     * 方法说明
+     * @Title: 提供给歌单查询使用
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-11 -- 15:45
+     */
+    Map<String, Object> getListSongPages(Page<Song> listSongsPage, List<Integer> listSongSId);
+
 }

@@ -52,6 +52,4 @@ public class SongList implements Serializable {
     @ApiModelProperty(value = "0未删除1已删除")
     @TableLogic  //标注逻辑删除字段
     private String isDelete;
-
-
 }

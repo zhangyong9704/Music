@@ -25,6 +25,9 @@ public class UploadLocalPathConfig {
     //用户头像上传保存地址
     public static String userCoverPath;
 
+    //歌单封面地址
+    public static String songsSheetPath;
+
     @Value("${upload.file.singer.path}")
     public  void setSingerCoverPath(String singerCoverPath) {
         UploadLocalPathConfig.singerCoverPath = singerCoverPath;
@@ -43,5 +46,10 @@ public class UploadLocalPathConfig {
     @Value("${upload.file.user.path}")
     public  void setUserCoverPath(String userCoverPath) {
         UploadLocalPathConfig.userCoverPath = userCoverPath;
+    }
+
+    @Value("${upload.file.songs.sheet.path}")
+    public  void setSongsSheetPath(String songsSheetPath) {
+        UploadLocalPathConfig.songsSheetPath = songsSheetPath;
     }
 }

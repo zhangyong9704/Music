@@ -108,15 +108,16 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
 
     @Override
     public String uploadSongsCovers(MultipartFile file) {
-        String singerCoverPath = uploadToLocalService.uploadFileOne(file, UploadLocalPathConfig.songsCoverPath, "SONGS");
-        return null==singerCoverPath?"":singerCoverPath;
+        String songsCoverPath = uploadToLocalService.uploadFileOne(file,
+                UploadLocalPathConfig.songsCoverPath, "SONGS");
+        return null==songsCoverPath?"":songsCoverPath;
     }
 
 
     @Override
     public String uploadSongsFile(MultipartFile file) {
-        String singerFiles = uploadToLocalService.uploadFileOne(file, UploadLocalPathConfig.songsPath, "SONGS");
-        return null==singerFiles?"":singerFiles;
+        String songsFiles = uploadToLocalService.uploadFileOne(file, UploadLocalPathConfig.songsPath, "SONGS");
+        return null==songsFiles?"":songsFiles;
     }
 
     @Override
@@ -129,4 +130,20 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
         return this.getById(id);
     }
 
+
+    @Override
+    public Map<String, Object> getListSongPages(Page<Song> listSongsPage, List<Integer> listSongSId) {
+        //进行查询当前歌单关联的歌曲id
+        QueryWrapper<Song> listSongWrapper = new QueryWrapper<>(); //构造条件筛选器
+        listSongWrapper.in("song_id",listSongSId);
+        listSongWrapper.orderByAsc("id");//根据id排序
+
+        Page<Song> page = this.page(listSongsPage, listSongWrapper);
+
+        Map<String,Object> result = new HashMap<>();
+        result.put("listSongs",page.getRecords()); //获取歌单下歌曲集合
+        result.put("total", page.getTotal());  //获取记录总数
+
+        return result;
+    }
 }

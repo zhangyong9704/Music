@@ -3,9 +3,10 @@ package com.cloud.music.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cloud.music.configs.exception.MusicExceptionMessage;
+import com.cloud.music.entity.ListSong;
 import com.cloud.music.entity.Song;
 import com.cloud.music.entity.vo.SongQueryVo;
-import com.cloud.music.service.SongService;
+import com.cloud.music.service.ListSongService;
 import com.cloud.music.utils.ReturnStatusCode;
 import com.cloud.music.utils.ReturnUnifiedCode;
 import io.swagger.annotations.Api;
@@ -21,40 +22,40 @@ import static com.cloud.music.utils.ReturnStatusCode.ERROR_STATUS;
 
 /**
  * <p>
- * 歌曲 前端控制器
+ * 歌单包含歌曲列表 前端控制器
  * </p>
  *
  * @author zy
- * @since 2020-12-16
+ * @since 2020-12-22
  */
-@Api(tags = "SongsController")
+@Api(tags = "ListSongController")
 @CrossOrigin
 @RestController
-@RequestMapping("/song")
-public class SongController {
+@RequestMapping("/list-song")
+public class ListSongController {
 
     @Autowired
-    SongService songService;
+    ListSongService listSongService;
 
     /**
      * 方法说明
-     * @Title: 带条件的的歌曲信息分页查询
+     * @Title: 带条件的的歌单下所有歌曲信息分页查询
      * @Description TODO
      * @Param
      * @return
-     * @date 2020-12-11 -- 14:37
+     * @date 2020-12-22 -- 14:37
      */
     @ApiOperation("条件歌曲信息分页查询")
-    @PostMapping("/querySongs/{currentPage}/{limitSize}")
-    public ReturnUnifiedCode selectSongsPages(@RequestBody(required = false) SongQueryVo songQueryVo,
-                                               @PathVariable long currentPage,
-                                               @PathVariable long limitSize){
+    @PostMapping("/queryListSongs/{currentPage}/{limitSize}")
+    public ReturnUnifiedCode selectListSongsPages(@RequestBody(required = false) ListSong listSong,
+                                              @PathVariable long currentPage,
+                                              @PathVariable long limitSize){
 
-        Page<Song> songsPage = new Page<>(currentPage,limitSize);  //创建page对象
+        Page<Song> listSongsPage = new Page<>(currentPage,limitSize);  //创建page对象
 
-        Map<String,Object> songList =  songService.getSongPages(songsPage,songQueryVo)  ;
+        Map<String,Object> listSongs =  listSongService.getListSongPages(listSongsPage,listSong)  ;
 
-        return songList.size()>0?ReturnUnifiedCode.successState().data("songs",songList.get("Songs")).data("total",songList.get("total")):
+        return listSongs.size()>0?ReturnUnifiedCode.successState().data("listSongs",listSongs.get("listSongs")).data("total",listSongs.get("total")):
                 ReturnUnifiedCode.errorState().message("获取分页数据异常");
     }
 
@@ -221,6 +222,9 @@ public class SongController {
         return uploadPath?ReturnUnifiedCode.successState().message("删除文件成功"):
                 ReturnUnifiedCode.errorState().message("文件上传失败");
     }
+
+
+
 
 }
 
