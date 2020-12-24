@@ -135,7 +135,7 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
     public Map<String, Object> getListSongPages(Page<Song> listSongsPage, List<Integer> listSongSId) {
         //进行查询当前歌单关联的歌曲id
         QueryWrapper<Song> listSongWrapper = new QueryWrapper<>(); //构造条件筛选器
-        listSongWrapper.in("song_id",listSongSId);
+        listSongWrapper.in("id",listSongSId);
         listSongWrapper.orderByAsc("id");//根据id排序
 
         Page<Song> page = this.page(listSongsPage, listSongWrapper);

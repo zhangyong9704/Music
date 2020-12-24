@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * <p>
@@ -43,13 +43,13 @@ public class SongList implements Serializable {
 
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
-    private LocalDate createTime;
+    private Date createTime;
 
     @ApiModelProperty(value = "修改时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDate updateTime;
+    private Date updateTime;
 
     @ApiModelProperty(value = "0未删除1已删除")
     @TableLogic  //标注逻辑删除字段
-    private String isDelete;
+    private Integer isDelete;
 }

@@ -1,9 +1,10 @@
 package com.cloud.music.service.impl;
 
-import com.alibaba.druid.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cloud.music.common.upload.UploadToLocalService;
+import com.cloud.music.common.uploadcConstParams.UploadLocalPathConfig;
 import com.cloud.music.entity.ListSong;
 import com.cloud.music.entity.Song;
 import com.cloud.music.mapper.ListSongMapper;
@@ -12,6 +13,7 @@ import com.cloud.music.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -30,15 +32,19 @@ public class ListSongServiceImpl extends ServiceImpl<ListSongMapper, ListSong> i
     @Autowired
     SongService songService;
 
+    @Autowired
+    UploadToLocalService uploadToLocalService;
+
+    @Autowired
+    UploadLocalPathConfig uploadLocalPathConfig;
 
     @Override
-    public Map<String, Object> getListSongPages(Page<Song> listSongsPage, ListSong listSong) {
+    public Map<String, Object> getListSongPages(Page<Song> listSongsPage, String id) {
 
         List<Integer> listSongSIdByCondition = null;
         //进行查询当前歌单关联的歌曲id
-        QueryWrapper<Song> listSongWrapper = new QueryWrapper<>(); //构造条件筛选器
-        if (!StringUtils.isEmpty(listSong.getId())){  //根据歌单id(主要筛选条件)
-            listSongSIdByCondition = this.getListSongsIdByCondition(listSong.getId());
+        if (!id.isEmpty()){  //根据歌单id(主要筛选条件)
+            listSongSIdByCondition = this.getListSongsIdByCondition(id);
         }
 
         return songService.getListSongPages(listSongsPage, listSongSIdByCondition);
@@ -49,4 +55,25 @@ public class ListSongServiceImpl extends ServiceImpl<ListSongMapper, ListSong> i
         List<ListSong> song_list_id = this.list(new QueryWrapper<ListSong>().eq("song_list_id", songListId));
         return song_list_id.stream().map(ListSong::getSongId).collect(Collectors.toList());
     }
+
+    @Override
+    public boolean deleteListSongByID(String id,String songId) {
+        return this.remove(new QueryWrapper<ListSong>().eq("song_list_id", id).eq("song_id", songId));
+    }
+
+    @Override
+    public boolean deleteBatchListSongsByIds(String[] params, String id) {
+        List<String> deleteParams = new ArrayList<>();
+        for (int i = params.length - 1; i >= 0; i--) {
+            deleteParams.add(params[i]);
+        }
+        return this.remove(new QueryWrapper<ListSong>().eq("song_list_id", id).eq("song_id", deleteParams));
+    }
+
+    @Override
+    public boolean insertlistSongsOne(Song song) {
+        //TODO
+        return false;
+    }
+
 }

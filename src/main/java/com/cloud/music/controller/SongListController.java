@@ -73,7 +73,7 @@ public class SongListController {
 
         List<SongList> songsList = songListService.getAllSongList();
 
-        return ReturnUnifiedCode.successState().data("songList",songsList);
+        return ReturnUnifiedCode.successState().data("songList",songsList).data("total",songsList.size());
 
     }
 

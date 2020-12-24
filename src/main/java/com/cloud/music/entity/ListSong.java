@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * <p>
@@ -33,7 +33,7 @@ public class ListSong implements Serializable {
     private Integer songListId;
 
     @ApiModelProperty(value = "创建时间")
-    private LocalDate createTime;
+    private Date createTime;
 
 
 }
