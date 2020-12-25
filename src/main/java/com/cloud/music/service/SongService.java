@@ -3,6 +3,7 @@ package com.cloud.music.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cloud.music.entity.Song;
+import com.cloud.music.entity.vo.ListSongsQueryVo;
 import com.cloud.music.entity.vo.SongQueryVo;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -79,6 +80,16 @@ public interface SongService extends IService<Song> {
      */
     boolean insertSongOne(Song song);
 
+//    /**
+//     * 方法说明
+//     * @Title: 添加歌曲信息,返回主键id
+//     * @Description TODO
+//     * @Param
+//     * @return
+//     * @date 2020-12-11 -- 15:45
+//     */
+//    String returnIDByInsertSong(Song song);
+
     /**
      * 方法说明
      * @Title: 上传歌曲封面
@@ -128,6 +139,6 @@ public interface SongService extends IService<Song> {
      * @return
      * @date 2020-12-11 -- 15:45
      */
-    Map<String, Object> getListSongPages(Page<Song> listSongsPage, List<Integer> listSongSId);
+    Map<String, Object> getListSongPages(Page<Song> listSongsPage, List<String> listSongSId, ListSongsQueryVo listSongsQueryVo);
 
 }

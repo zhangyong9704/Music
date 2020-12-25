@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cloud.music.entity.ListSong;
 import com.cloud.music.entity.Song;
+import com.cloud.music.entity.vo.ListSongsQueryVo;
 
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,7 @@ public interface ListSongService extends IService<ListSong> {
      * @return
      * @date 2020-12-22 -- 14:37
      */
-    Map<String, Object> getListSongPages(Page<Song> listSongsPage, String id);
+    Map<String, Object> getListSongPages(Page<Song> listSongsPage,ListSongsQueryVo listSongsQueryVo);
 
     /**
      * 方法说明
@@ -36,7 +37,7 @@ public interface ListSongService extends IService<ListSong> {
      * @return
      * @date 2020-12-22 -- 14:37
      */
-    List<Integer> getListSongsIdByCondition(String songListId);
+    List<String> getListSongsIdByCondition(String songListId);
 
 
 
@@ -68,7 +69,7 @@ public interface ListSongService extends IService<ListSong> {
      * @return
      * @date 2020-12-11 -- 17:16
      */
-    boolean insertlistSongsOne(Song song);
+    boolean insertListSongsOne(Song song,String id);
 
 
 }

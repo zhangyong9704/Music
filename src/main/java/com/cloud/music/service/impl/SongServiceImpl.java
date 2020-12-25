@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloud.music.common.upload.UploadToLocalService;
 import com.cloud.music.common.uploadcConstParams.UploadLocalPathConfig;
 import com.cloud.music.entity.Song;
+import com.cloud.music.entity.vo.ListSongsQueryVo;
 import com.cloud.music.entity.vo.SongQueryVo;
 import com.cloud.music.mapper.SongMapper;
 import com.cloud.music.service.SongService;
@@ -132,9 +133,18 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
 
 
     @Override
-    public Map<String, Object> getListSongPages(Page<Song> listSongsPage, List<Integer> listSongSId) {
+    public Map<String, Object> getListSongPages(Page<Song> listSongsPage, List<String> listSongSId, ListSongsQueryVo listSongsQueryVo) {
         //进行查询当前歌单关联的歌曲id
         QueryWrapper<Song> listSongWrapper = new QueryWrapper<>(); //构造条件筛选器
+        if (!StringUtils.isEmpty(listSongsQueryVo.getName())){   //根据歌名查询
+            listSongWrapper.like("name",listSongsQueryVo.getName());
+        }
+        if (null!=listSongsQueryVo.getLyric()){ //歌词模糊匹配
+            listSongWrapper.like("lyric",listSongsQueryVo.getLyric());
+        }
+        if (!StringUtils.isEmpty(listSongsQueryVo.getIntroduction())){  //根据专辑
+            listSongWrapper.like("introduction",listSongsQueryVo.getIntroduction());
+        }
         listSongWrapper.in("id",listSongSId);
         listSongWrapper.orderByAsc("id");//根据id排序
 
@@ -143,6 +153,7 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
         Map<String,Object> result = new HashMap<>();
         result.put("listSongs",page.getRecords()); //获取歌单下歌曲集合
         result.put("total", page.getTotal());  //获取记录总数
+
 
         return result;
     }

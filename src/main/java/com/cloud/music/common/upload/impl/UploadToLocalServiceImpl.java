@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
+import static com.cloud.music.common.uploadcConstParams.UploadLocalPathConfig.uploadPath;
 import static com.cloud.music.utils.ReturnStatusCode.ERROR_STATUS;
 
 /**
@@ -58,28 +59,28 @@ public class UploadToLocalServiceImpl implements UploadToLocalService {
         // 使用日期来分类管理上传的文件
         String format = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         if ("SINGER".equalsIgnoreCase(uploadType)){ //当前类型是歌手图片上传
-            storePath = System.getProperty("user.dir")+System.getProperty("file.separator")+"uploads"+
+            storePath = System.getProperty("user.dir")+System.getProperty("file.separator") + uploadPath +
                     System.getProperty("file.separator")+filePath+System.getProperty("file.separator")+format;
-            returnPath = System.getProperty("file.separator") + "uploads"+ System.getProperty("file.separator")+
+            returnPath = System.getProperty("file.separator") + uploadPath+ System.getProperty("file.separator")+
                     filePath + System.getProperty("file.separator")+format;
         }
         if ("SONGS".equalsIgnoreCase(uploadType)){  //歌曲、歌曲图片存储路径
-            storePath = System.getProperty("user.dir")+System.getProperty("file.separator")+"uploads"+
+            storePath = System.getProperty("user.dir")+System.getProperty("file.separator") + uploadPath +
                     System.getProperty("file.separator")+"songs" +System.getProperty("file.separator")+
                     filePath + System.getProperty("file.separator") + format;
-            returnPath = System.getProperty("file.separator") + "uploads"+ System.getProperty("file.separator")+"songs" +
+            returnPath = System.getProperty("file.separator") + uploadPath + System.getProperty("file.separator")+"songs" +
                     System.getProperty("file.separator")+ filePath + System.getProperty("file.separator") + format;
         }
         if ("USERS".equalsIgnoreCase(uploadType)){  //用户图片存储路径
-            storePath = System.getProperty("user.dir")+System.getProperty("file.separator")+"uploads"+
+            storePath = System.getProperty("user.dir")+System.getProperty("file.separator")+ uploadPath +
                     System.getProperty("file.separator") + filePath +System.getProperty("file.separator")+format;
-            returnPath = System.getProperty("file.separator") + "uploads"+ System.getProperty("file.separator") +
+            returnPath = System.getProperty("file.separator") + uploadPath + System.getProperty("file.separator") +
                     filePath +System.getProperty("file.separator")+format;
         }
         if ("SHEET".equalsIgnoreCase(uploadType)){  //歌单图片存储路径
-            storePath = System.getProperty("user.dir")+System.getProperty("file.separator")+"uploads"+
+            storePath = System.getProperty("user.dir")+System.getProperty("file.separator")+ uploadPath +
                     System.getProperty("file.separator") + filePath +System.getProperty("file.separator")+format;
-            returnPath = System.getProperty("file.separator") + "uploads"+ System.getProperty("file.separator") +
+            returnPath = System.getProperty("file.separator") + uploadPath + System.getProperty("file.separator") +
                     filePath +System.getProperty("file.separator")+format;
         }
         File folder = new File(storePath);   //创建文件夹地址

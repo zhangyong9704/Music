@@ -4,6 +4,7 @@ package com.cloud.music.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cloud.music.configs.exception.MusicExceptionMessage;
 import com.cloud.music.entity.Song;
+import com.cloud.music.entity.vo.ListSongsQueryVo;
 import com.cloud.music.service.ListSongService;
 import com.cloud.music.utils.ReturnStatusCode;
 import com.cloud.music.utils.ReturnUnifiedCode;
@@ -36,18 +37,19 @@ public class ListSongController {
      * @Title: 带条件的的歌单下所有歌曲信息分页查询
      * @Description TODO
      * @Param ListSong 用于接收歌单id使用
+     * @Param SongQueryVo 用于筛选歌曲搜索条件
      * @return
      * @date 2020-12-22 -- 14:37
      */
     @ApiOperation("条件歌曲信息分页查询")
-    @PostMapping("/queryListSongs/{currentPage}/{limitSize}/{id}")
-    public ReturnUnifiedCode selectListSongsPages(@PathVariable String id,
-                                              @PathVariable long currentPage,
-                                              @PathVariable long limitSize){
+    @PostMapping("/queryListSongs/{currentPage}/{limitSize}")
+    public ReturnUnifiedCode selectListSongsPages(@RequestBody(required = false) ListSongsQueryVo listSongsQueryVo ,
+                                                  @PathVariable long currentPage,
+                                                  @PathVariable long limitSize){
 
         Page<Song> listSongsPage = new Page<>(currentPage,limitSize);  //创建page对象
 
-        Map<String,Object> listSongs =  listSongService.getListSongPages(listSongsPage,id)  ;
+        Map<String,Object> listSongs =  listSongService.getListSongPages(listSongsPage,listSongsQueryVo)  ;
 
         return listSongs.size()>0?ReturnUnifiedCode.successState().data("listSongs",listSongs.get("listSongs")).data("total",listSongs.get("total")):
                 ReturnUnifiedCode.errorState().message("获取分页数据异常");
@@ -103,14 +105,20 @@ public class ListSongController {
      * 方法说明
      * @Title: 添加歌曲信息
      * @Description TODO unfinished
-     * @Param
+     * @Param song 歌曲表单信息  id 歌单id
      * @return
      * @date 2020-12-11 -- 17:16
      */
     @ApiOperation("添加歌单信息")
-    @PostMapping("/add")
-    public ReturnUnifiedCode insertSongsInfo(@RequestBody Song song){
-        boolean insert = listSongService.insertlistSongsOne(song);
+    @PostMapping("/add/{id}")
+    public ReturnUnifiedCode insertSongsInfo(@RequestBody Song song,@PathVariable("id") String id){
+        if (null == song){
+            throw new MusicExceptionMessage(ReturnStatusCode.ERROR_STATUS,"新增歌单信息为空");
+        }
+        if (id.isEmpty()){
+            throw new MusicExceptionMessage(ReturnStatusCode.ERROR_STATUS,"歌单id为空,无法新增");
+        }
+        boolean insert = listSongService.insertListSongsOne(song,id);
         return insert?ReturnUnifiedCode.successState().message("添加成功"):ReturnUnifiedCode.errorState().message("添加失败");
     }
 

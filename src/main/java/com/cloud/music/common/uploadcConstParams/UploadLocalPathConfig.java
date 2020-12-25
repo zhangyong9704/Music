@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class UploadLocalPathConfig {
 
+    //上传目录根路径
+    public static String uploadPath;
+
     //歌手封面图片地址
     public static String singerCoverPath;
 
@@ -27,6 +30,11 @@ public class UploadLocalPathConfig {
 
     //歌单封面地址
     public static String songsSheetPath;
+
+    @Value("${upload.file.path}")
+    public  void setUploadPath(String uploadPath) {
+        UploadLocalPathConfig.uploadPath = uploadPath;
+    }
 
     @Value("${upload.file.singer.path}")
     public  void setSingerCoverPath(String singerCoverPath) {

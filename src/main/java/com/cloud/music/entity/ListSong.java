@@ -27,10 +27,10 @@ public class ListSong implements Serializable {
       private String id;
 
     @ApiModelProperty(value = "歌曲id")
-    private Integer songId;
+    private String songId;
 
     @ApiModelProperty(value = "歌单id")
-    private Integer songListId;
+    private String songListId;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;

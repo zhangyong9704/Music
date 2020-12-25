@@ -7,6 +7,7 @@ import com.cloud.music.common.upload.UploadToLocalService;
 import com.cloud.music.common.uploadcConstParams.UploadLocalPathConfig;
 import com.cloud.music.entity.ListSong;
 import com.cloud.music.entity.Song;
+import com.cloud.music.entity.vo.ListSongsQueryVo;
 import com.cloud.music.mapper.ListSongMapper;
 import com.cloud.music.service.ListSongService;
 import com.cloud.music.service.SongService;
@@ -39,19 +40,19 @@ public class ListSongServiceImpl extends ServiceImpl<ListSongMapper, ListSong> i
     UploadLocalPathConfig uploadLocalPathConfig;
 
     @Override
-    public Map<String, Object> getListSongPages(Page<Song> listSongsPage, String id) {
+    public Map<String, Object> getListSongPages(Page<Song> listSongsPage,ListSongsQueryVo listSongsQueryVo) {
 
-        List<Integer> listSongSIdByCondition = null;
+        List<String> listSongSIdByCondition = null;
         //进行查询当前歌单关联的歌曲id
-        if (!id.isEmpty()){  //根据歌单id(主要筛选条件)
-            listSongSIdByCondition = this.getListSongsIdByCondition(id);
+        if (null!=listSongsQueryVo){  //根据歌单id(主要筛选条件)
+            listSongSIdByCondition = this.getListSongsIdByCondition(listSongsQueryVo.getId()); //返回歌单对应的所有的歌曲信息
         }
 
-        return songService.getListSongPages(listSongsPage, listSongSIdByCondition);
+        return songService.getListSongPages(listSongsPage, listSongSIdByCondition,listSongsQueryVo);
     }
 
     @Override
-    public List<Integer> getListSongsIdByCondition(String songListId) {
+    public List<String> getListSongsIdByCondition(String songListId) {
         List<ListSong> song_list_id = this.list(new QueryWrapper<ListSong>().eq("song_list_id", songListId));
         return song_list_id.stream().map(ListSong::getSongId).collect(Collectors.toList());
     }
@@ -71,9 +72,17 @@ public class ListSongServiceImpl extends ServiceImpl<ListSongMapper, ListSong> i
     }
 
     @Override
-    public boolean insertlistSongsOne(Song song) {
+    public boolean insertListSongsOne(Song song,String id) {
         //TODO
-        return false;
+        boolean b = songService.insertSongOne(song);   //添加歌曲信息
+        String song_id = "";
+        if (b){
+            song_id = song.getId();  //获得添加歌曲后的主键id
+        }
+        ListSong listSong = new ListSong();
+        listSong.setSongId(song_id);
+        listSong.setSongListId(id);
+        return this.save(listSong);
     }
 
 }
