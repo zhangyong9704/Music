@@ -68,7 +68,7 @@ public class ListSongServiceImpl extends ServiceImpl<ListSongMapper, ListSong> i
         for (int i = params.length - 1; i >= 0; i--) {
             deleteParams.add(params[i]);
         }
-        return this.remove(new QueryWrapper<ListSong>().eq("song_list_id", id).eq("song_id", deleteParams));
+        return this.remove(new QueryWrapper<ListSong>().eq("song_list_id", id).in("song_id",deleteParams));
     }
 
     @Override
