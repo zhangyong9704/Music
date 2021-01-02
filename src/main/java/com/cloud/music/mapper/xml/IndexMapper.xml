@@ -2,4 +2,75 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloud.music.mapper.IndexMapper">
 
+    <!--  获得歌手国际地区分布  -->
+    <select id="getSingersRegionalDistribution" resultType="java.util.Map">
+        select singer_location singer_region, count(*) count
+        from (
+            select
+                case
+                    location when locate('中国', location)>0 then location
+                    else "中国"
+                end as singer_location
+            from
+                singer ) region
+        group by
+            singer_location
+    </select>
+
+    <!--获得歌手类型组合-->
+    <select id="getSingersCombinationType" resultType="java.util.Map">
+        select
+            count(*) 'count',
+            case
+                sex when 0 then '女'
+                when 1 then '男'
+                when 3 then '组合'
+                else "未知"
+            end as type
+        from
+            singer s
+        group by
+            sex
+    </select>
+
+    <!--获取单风格类型-->
+    <select id="getSongListRegionalDistribution" resultType="java.util.Map">
+        select sl.style, count(*) count
+        from song_list sl
+        group by style
+    </select>
+
+    <!--获得用户性别分布-->
+    <select id="getUsersGenderDistribution" resultType="java.util.Map">
+        select count(*) count,
+            case
+                sex when 0 then '女'
+                when 1 then '男'
+                else "未知"
+            end as type
+        from consumer con
+        group by sex
+    </select>
+
+    <!--获得用户地区分布-->
+    <select id="getUsersRegionalDistribution" resultType="java.util.Map">
+        select if(length(location) <![CDATA[ <= ]]> 0, '未知',
+            location) location ,
+            count(*) count
+        from consumer c2
+        group by location
+    </select>
+
+    <!--获得歌单高分榜-->
+    <select id="getSongListHighScore" resultType="java.util.Map">
+        select sl.title,s2.score
+        from song_list sl
+        right join (
+            select song_list_id, avg(score) score
+            from rank
+            group by song_list_id
+            order by score desc limit 10) s2
+            on sl.id = s2.song_list_id
+    </select>
+
 </mapper>
