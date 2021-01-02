@@ -11,7 +11,7 @@
  Target Server Version : 50732
  File Encoding         : 65001
 
- Date: 16/12/2020 23:38:56
+ Date: 03/01/2021 00:10:16
 */
 
 SET NAMES utf8mb4;
@@ -23,7 +23,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin`  (
   `id` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '主键',
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '账号',
+  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '账号',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '密码',
   `create_time` date DEFAULT NULL COMMENT '创建时间',
   `update_time` date DEFAULT NULL COMMENT '修改时间',
@@ -37,6 +37,30 @@ CREATE TABLE `admin`  (
 -- ----------------------------
 INSERT INTO `admin` VALUES ('1', 'admin', '1', NULL, NULL, NULL, NULL);
 INSERT INTO `admin` VALUES ('2', 'admin1', '1', NULL, NULL, NULL, NULL);
+INSERT INTO `admin` VALUES ('3', 'zhangsan', '1', NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for banner
+-- ----------------------------
+DROP TABLE IF EXISTS `banner`;
+CREATE TABLE `banner`  (
+  `id` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT 'ID',
+  `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '标题',
+  `image_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '图片地址',
+  `link_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '链接地址',
+  `sort` int(10) UNSIGNED DEFAULT 0 COMMENT '排序',
+  `is_deleted` tinyint(4) UNSIGNED DEFAULT 0 COMMENT '逻辑删除 1（true）已删除， 0（false）未删除',
+  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `uk_name`(`title`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '首页banner表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of banner
+-- ----------------------------
+INSERT INTO `banner` VALUES ('1194556896025845762', 'test1', 'https://guili-ptcture.oss-cn-beijing.aliyuncs.com/picture/c851d1cb-f053-4ae4-94ce-205b5321304a.png', '/course', 1, 0, '2019-11-13 00:00:00', '2019-11-18 00:00:00');
+INSERT INTO `banner` VALUES ('1194607458461216769', 'test2', 'http://guili-ptcture.oss-cn-beijing.aliyuncs.com/picture/2020-08-14/f2f3683b-649e-48da-8afc-077949c6237d.jpg', '/teacher', 2, 0, '2019-11-16 00:00:00', '2019-11-18 00:00:00');
 
 -- ----------------------------
 -- Table structure for collect
@@ -171,13 +195,13 @@ INSERT INTO `consumer` VALUES (2, '012', '012', 0, '13754803255', 'love@gmail.co
 INSERT INTO `consumer` VALUES (5, '789', '789', 0, '13634377258', '666@126.com', '2019-01-08 21:15:48', '今天很开心啊', '山西', '/avatorImages/1552354056660L1.jpg', '2019-01-07 16:16:42', '2019-01-08 21:15:48');
 INSERT INTO `consumer` VALUES (8, 'tawuhen', '123', 0, '', '192673541@qq.com', '2019-04-25 18:58:39', '你好', '北京', '/img/user.jpg', '2019-04-25 00:28:58', '2019-04-25 18:58:39');
 INSERT INTO `consumer` VALUES (12, 'yoona', '123', 0, '13854173655', '1236795@qq.com', '2019-04-25 10:56:54', 'hhh', '北京', '/avatorImages/1584896565998L1.jpg', '2019-04-25 10:56:54', '2019-04-25 10:56:54');
-INSERT INTO `consumer` VALUES (16, '1234321', '123', 1, '13754803257', '123@qq.com', '2020-03-08 17:25:45', '', '', '/img/user.jpg', '2020-03-08 17:25:45', '2020-03-08 17:25:45');
-INSERT INTO `consumer` VALUES (20, '234321', '123', 0, '15754801257', '12987@qq.com', '2020-03-08 23:41:22', '', '', '/img/user.jpg', '2020-03-08 23:41:22', '2020-03-08 23:41:22');
-INSERT INTO `consumer` VALUES (21, 'yoonaA', '123', 1, NULL, NULL, '2020-03-25 00:00:00', '', '', '/img/user.jpg', '2020-03-21 22:18:33', '2020-03-21 22:18:33');
-INSERT INTO `consumer` VALUES (24, 'yoonaAA', '123', 1, NULL, NULL, '2020-03-04 00:00:00', '', '', '/img/user.jpg', '2020-03-21 22:20:27', '2020-03-21 22:20:27');
-INSERT INTO `consumer` VALUES (25, 'yoonaAB', '123', 1, NULL, NULL, '2020-03-02 00:00:00', '', '', '/img/user.jpg', '2020-03-21 22:21:50', '2020-03-21 22:21:50');
-INSERT INTO `consumer` VALUES (26, 'yoonaAC', '123', 1, 'null', 'null', '2020-03-11 00:00:00', '', '', '/img/user.jpg', '2020-03-21 22:23:43', '2020-04-05 03:30:34');
-INSERT INTO `consumer` VALUES (27, 'yoonaAD', '123', 1, NULL, NULL, '2020-03-11 00:00:00', '', '', '/img/user.jpg', '2020-03-21 22:24:47', '2020-03-21 22:24:47');
+INSERT INTO `consumer` VALUES (16, '1234321', '123', 1, '13754803257', '123@qq.com', '2020-03-08 17:25:45', '', '山东', '/img/user.jpg', '2020-03-08 17:25:45', '2020-03-08 17:25:45');
+INSERT INTO `consumer` VALUES (20, '234321', '123', 0, '15754801257', '12987@qq.com', '2020-03-08 23:41:22', '', '山西', '/img/user.jpg', '2020-03-08 23:41:22', '2020-03-08 23:41:22');
+INSERT INTO `consumer` VALUES (21, 'yoonaA', '123', 1, NULL, NULL, '2020-03-25 00:00:00', '', '湖北', '/img/user.jpg', '2020-03-21 22:18:33', '2020-03-21 22:18:33');
+INSERT INTO `consumer` VALUES (24, 'yoonaAA', '123', 1, NULL, NULL, '2020-03-04 00:00:00', '', '湖南', '/img/user.jpg', '2020-03-21 22:20:27', '2020-03-21 22:20:27');
+INSERT INTO `consumer` VALUES (25, 'yoonaAB', '123', 1, NULL, NULL, '2020-03-02 00:00:00', '', '河北', '/img/user.jpg', '2020-03-21 22:21:50', '2020-03-21 22:21:50');
+INSERT INTO `consumer` VALUES (26, 'yoonaAC', '123', 1, 'null', 'null', '2020-03-11 00:00:00', '', '河南', '/img/user.jpg', '2020-03-21 22:23:43', '2020-04-05 03:30:34');
+INSERT INTO `consumer` VALUES (27, 'yoonaAD', '123', 1, NULL, NULL, '2020-03-11 00:00:00', '', '重庆', '/img/user.jpg', '2020-03-21 22:24:47', '2020-03-21 22:24:47');
 INSERT INTO `consumer` VALUES (28, 'yoona90', '123', 0, NULL, NULL, '2020-04-28 00:00:00', '', '', '/img/user.jpg', '2020-04-02 22:10:34', '2020-04-02 22:10:34');
 
 -- ----------------------------
@@ -185,218 +209,217 @@ INSERT INTO `consumer` VALUES (28, 'yoona90', '123', 0, NULL, NULL, '2020-04-28 
 -- ----------------------------
 DROP TABLE IF EXISTS `list_song`;
 CREATE TABLE `list_song`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `song_id` int(11) DEFAULT NULL COMMENT '歌曲id',
-  `song_list_id` int(11) DEFAULT NULL COMMENT '歌单id',
+  `id` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '主键',
+  `song_id` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '歌曲id',
+  `song_list_id` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '歌单id',
+  `create_time` date DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 210 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '歌单包含歌曲列表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '歌单包含歌曲列表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of list_song
 -- ----------------------------
-INSERT INTO `list_song` VALUES (3, 5, 2);
-INSERT INTO `list_song` VALUES (4, 7, 2);
-INSERT INTO `list_song` VALUES (5, 11, 2);
-INSERT INTO `list_song` VALUES (6, 38, 6);
-INSERT INTO `list_song` VALUES (7, 39, 6);
-INSERT INTO `list_song` VALUES (9, 22, 2);
-INSERT INTO `list_song` VALUES (10, 22, 12);
-INSERT INTO `list_song` VALUES (11, 38, 5);
-INSERT INTO `list_song` VALUES (12, 39, 5);
-INSERT INTO `list_song` VALUES (13, 38, 5);
-INSERT INTO `list_song` VALUES (14, 39, 5);
-INSERT INTO `list_song` VALUES (15, 45, 4);
-INSERT INTO `list_song` VALUES (16, 45, 12);
-INSERT INTO `list_song` VALUES (17, 10, 13);
-INSERT INTO `list_song` VALUES (18, 10, 2);
-INSERT INTO `list_song` VALUES (20, 10, 3);
-INSERT INTO `list_song` VALUES (21, 30, 10);
-INSERT INTO `list_song` VALUES (22, 31, 10);
-INSERT INTO `list_song` VALUES (23, 82, 6);
-INSERT INTO `list_song` VALUES (24, 83, 6);
-INSERT INTO `list_song` VALUES (25, 84, 6);
-INSERT INTO `list_song` VALUES (26, 85, 6);
-INSERT INTO `list_song` VALUES (27, 99, 7);
-INSERT INTO `list_song` VALUES (28, 100, 8);
-INSERT INTO `list_song` VALUES (29, 78, 9);
-INSERT INTO `list_song` VALUES (30, 79, 9);
-INSERT INTO `list_song` VALUES (31, 80, 9);
-INSERT INTO `list_song` VALUES (32, 86, 7);
-INSERT INTO `list_song` VALUES (33, 87, 7);
-INSERT INTO `list_song` VALUES (34, 88, 8);
-INSERT INTO `list_song` VALUES (35, 100, 7);
-INSERT INTO `list_song` VALUES (36, 82, 11);
-INSERT INTO `list_song` VALUES (37, 65, 11);
-INSERT INTO `list_song` VALUES (38, 50, 11);
-INSERT INTO `list_song` VALUES (39, 67, 14);
-INSERT INTO `list_song` VALUES (40, 78, 14);
-INSERT INTO `list_song` VALUES (41, 26, 14);
-INSERT INTO `list_song` VALUES (42, 4, 15);
-INSERT INTO `list_song` VALUES (43, 7, 15);
-INSERT INTO `list_song` VALUES (44, 21, 15);
-INSERT INTO `list_song` VALUES (45, 24, 16);
-INSERT INTO `list_song` VALUES (46, 40, 16);
-INSERT INTO `list_song` VALUES (47, 50, 16);
-INSERT INTO `list_song` VALUES (48, 70, 16);
-INSERT INTO `list_song` VALUES (49, 72, 17);
-INSERT INTO `list_song` VALUES (50, 73, 17);
-INSERT INTO `list_song` VALUES (51, 51, 18);
-INSERT INTO `list_song` VALUES (52, 52, 18);
-INSERT INTO `list_song` VALUES (53, 65, 18);
-INSERT INTO `list_song` VALUES (54, 67, 18);
-INSERT INTO `list_song` VALUES (55, 2, 19);
-INSERT INTO `list_song` VALUES (56, 7, 19);
-INSERT INTO `list_song` VALUES (57, 55, 19);
-INSERT INTO `list_song` VALUES (58, 53, 19);
-INSERT INTO `list_song` VALUES (59, 54, 19);
-INSERT INTO `list_song` VALUES (60, 4, 20);
-INSERT INTO `list_song` VALUES (61, 7, 20);
-INSERT INTO `list_song` VALUES (62, 11, 20);
-INSERT INTO `list_song` VALUES (63, 26, 20);
-INSERT INTO `list_song` VALUES (64, 99, 21);
-INSERT INTO `list_song` VALUES (65, 100, 21);
-INSERT INTO `list_song` VALUES (66, 86, 21);
-INSERT INTO `list_song` VALUES (67, 91, 22);
-INSERT INTO `list_song` VALUES (68, 94, 22);
-INSERT INTO `list_song` VALUES (69, 77, 22);
-INSERT INTO `list_song` VALUES (70, 68, 22);
-INSERT INTO `list_song` VALUES (71, 50, 22);
-INSERT INTO `list_song` VALUES (72, 76, 17);
-INSERT INTO `list_song` VALUES (73, 93, 15);
-INSERT INTO `list_song` VALUES (74, 92, 15);
-INSERT INTO `list_song` VALUES (75, 78, 72);
-INSERT INTO `list_song` VALUES (76, 79, 72);
-INSERT INTO `list_song` VALUES (77, 80, 72);
-INSERT INTO `list_song` VALUES (78, 64, 71);
-INSERT INTO `list_song` VALUES (79, 65, 71);
-INSERT INTO `list_song` VALUES (80, 50, 71);
-INSERT INTO `list_song` VALUES (81, 51, 71);
-INSERT INTO `list_song` VALUES (82, 51, 70);
-INSERT INTO `list_song` VALUES (83, 50, 70);
-INSERT INTO `list_song` VALUES (84, 64, 62);
-INSERT INTO `list_song` VALUES (85, 65, 62);
-INSERT INTO `list_song` VALUES (86, 66, 62);
-INSERT INTO `list_song` VALUES (87, 67, 62);
-INSERT INTO `list_song` VALUES (88, 25, 63);
-INSERT INTO `list_song` VALUES (89, 26, 63);
-INSERT INTO `list_song` VALUES (90, 79, 63);
-INSERT INTO `list_song` VALUES (91, 65, 64);
-INSERT INTO `list_song` VALUES (92, 64, 64);
-INSERT INTO `list_song` VALUES (93, 80, 64);
-INSERT INTO `list_song` VALUES (94, 25, 65);
-INSERT INTO `list_song` VALUES (95, 64, 65);
-INSERT INTO `list_song` VALUES (96, 67, 67);
-INSERT INTO `list_song` VALUES (97, 64, 67);
-INSERT INTO `list_song` VALUES (98, 25, 67);
-INSERT INTO `list_song` VALUES (99, 25, 69);
-INSERT INTO `list_song` VALUES (100, 24, 69);
-INSERT INTO `list_song` VALUES (101, 25, 69);
-INSERT INTO `list_song` VALUES (102, 26, 69);
-INSERT INTO `list_song` VALUES (103, 48, 69);
-INSERT INTO `list_song` VALUES (104, 80, 68);
-INSERT INTO `list_song` VALUES (105, 64, 68);
-INSERT INTO `list_song` VALUES (106, 25, 68);
-INSERT INTO `list_song` VALUES (107, 67, 66);
-INSERT INTO `list_song` VALUES (108, 64, 66);
-INSERT INTO `list_song` VALUES (109, 80, 66);
-INSERT INTO `list_song` VALUES (110, 102, 23);
-INSERT INTO `list_song` VALUES (112, 101, 25);
-INSERT INTO `list_song` VALUES (113, 102, 30);
-INSERT INTO `list_song` VALUES (114, 102, 32);
-INSERT INTO `list_song` VALUES (115, 101, 34);
-INSERT INTO `list_song` VALUES (116, 42, 36);
-INSERT INTO `list_song` VALUES (117, 43, 36);
-INSERT INTO `list_song` VALUES (118, 41, 36);
-INSERT INTO `list_song` VALUES (120, 37, 38);
-INSERT INTO `list_song` VALUES (121, 101, 38);
-INSERT INTO `list_song` VALUES (122, 101, 37);
-INSERT INTO `list_song` VALUES (123, 102, 39);
-INSERT INTO `list_song` VALUES (124, 37, 40);
-INSERT INTO `list_song` VALUES (125, 108, 40);
-INSERT INTO `list_song` VALUES (126, 102, 40);
-INSERT INTO `list_song` VALUES (127, 112, 41);
-INSERT INTO `list_song` VALUES (128, 102, 41);
-INSERT INTO `list_song` VALUES (129, 102, 42);
-INSERT INTO `list_song` VALUES (130, 41, 24);
-INSERT INTO `list_song` VALUES (131, 100, 23);
-INSERT INTO `list_song` VALUES (132, 98, 47);
-INSERT INTO `list_song` VALUES (133, 61, 47);
-INSERT INTO `list_song` VALUES (134, 62, 47);
-INSERT INTO `list_song` VALUES (135, 33, 49);
-INSERT INTO `list_song` VALUES (136, 68, 49);
-INSERT INTO `list_song` VALUES (137, 33, 49);
-INSERT INTO `list_song` VALUES (138, 23, 49);
-INSERT INTO `list_song` VALUES (139, 33, 50);
-INSERT INTO `list_song` VALUES (140, 21, 50);
-INSERT INTO `list_song` VALUES (141, 61, 52);
-INSERT INTO `list_song` VALUES (142, 62, 52);
-INSERT INTO `list_song` VALUES (143, 21, 60);
-INSERT INTO `list_song` VALUES (144, 22, 60);
-INSERT INTO `list_song` VALUES (145, 23, 60);
-INSERT INTO `list_song` VALUES (146, 63, 58);
-INSERT INTO `list_song` VALUES (147, 98, 58);
-INSERT INTO `list_song` VALUES (148, 63, 53);
-INSERT INTO `list_song` VALUES (149, 30, 54);
-INSERT INTO `list_song` VALUES (150, 61, 56);
-INSERT INTO `list_song` VALUES (151, 63, 56);
-INSERT INTO `list_song` VALUES (152, 98, 57);
-INSERT INTO `list_song` VALUES (153, 32, 54);
-INSERT INTO `list_song` VALUES (154, 22, 57);
-INSERT INTO `list_song` VALUES (155, 98, 59);
-INSERT INTO `list_song` VALUES (156, 63, 59);
-INSERT INTO `list_song` VALUES (157, 62, 61);
-INSERT INTO `list_song` VALUES (158, 22, 61);
-INSERT INTO `list_song` VALUES (159, 68, 51);
-INSERT INTO `list_song` VALUES (160, 35, 51);
-INSERT INTO `list_song` VALUES (161, 32, 51);
-INSERT INTO `list_song` VALUES (162, 33, 61);
-INSERT INTO `list_song` VALUES (163, 86, 43);
-INSERT INTO `list_song` VALUES (164, 100, 44);
-INSERT INTO `list_song` VALUES (165, 87, 45);
-INSERT INTO `list_song` VALUES (166, 86, 45);
-INSERT INTO `list_song` VALUES (167, 100, 44);
-INSERT INTO `list_song` VALUES (168, 88, 46);
-INSERT INTO `list_song` VALUES (169, 99, 73);
-INSERT INTO `list_song` VALUES (170, 88, 74);
-INSERT INTO `list_song` VALUES (171, 99, 74);
-INSERT INTO `list_song` VALUES (172, 88, 73);
-INSERT INTO `list_song` VALUES (173, 103, 78);
-INSERT INTO `list_song` VALUES (174, 103, 84);
-INSERT INTO `list_song` VALUES (175, 103, 75);
-INSERT INTO `list_song` VALUES (176, 103, 76);
-INSERT INTO `list_song` VALUES (177, 103, 77);
-INSERT INTO `list_song` VALUES (178, 103, 79);
-INSERT INTO `list_song` VALUES (179, 88, 80);
-INSERT INTO `list_song` VALUES (180, 99, 80);
-INSERT INTO `list_song` VALUES (181, 103, 80);
-INSERT INTO `list_song` VALUES (182, 104, 80);
-INSERT INTO `list_song` VALUES (183, 104, 81);
-INSERT INTO `list_song` VALUES (184, 88, 82);
-INSERT INTO `list_song` VALUES (185, 99, 82);
-INSERT INTO `list_song` VALUES (186, 105, 83);
-INSERT INTO `list_song` VALUES (187, 99, 48);
-INSERT INTO `list_song` VALUES (188, 95, 26);
-INSERT INTO `list_song` VALUES (189, 96, 27);
-INSERT INTO `list_song` VALUES (190, 97, 26);
-INSERT INTO `list_song` VALUES (191, 95, 28);
-INSERT INTO `list_song` VALUES (192, 98, 29);
-INSERT INTO `list_song` VALUES (193, 62, 29);
-INSERT INTO `list_song` VALUES (194, 87, 31);
-INSERT INTO `list_song` VALUES (195, 61, 31);
-INSERT INTO `list_song` VALUES (196, 63, 31);
-INSERT INTO `list_song` VALUES (197, 87, 55);
-INSERT INTO `list_song` VALUES (198, 96, 55);
-INSERT INTO `list_song` VALUES (199, 98, 33);
-INSERT INTO `list_song` VALUES (200, 63, 33);
-INSERT INTO `list_song` VALUES (201, 105, 83);
-INSERT INTO `list_song` VALUES (202, 106, 83);
-INSERT INTO `list_song` VALUES (203, 107, 53);
-INSERT INTO `list_song` VALUES (204, 107, 60);
-INSERT INTO `list_song` VALUES (205, 108, 8);
-INSERT INTO `list_song` VALUES (206, 112, 24);
-INSERT INTO `list_song` VALUES (207, 113, 40);
-INSERT INTO `list_song` VALUES (208, 109, 8);
-INSERT INTO `list_song` VALUES (209, 107, 23);
+INSERT INTO `list_song` VALUES ('10', '22', '12', NULL);
+INSERT INTO `list_song` VALUES ('100', '24', '69', NULL);
+INSERT INTO `list_song` VALUES ('102', '26', '69', NULL);
+INSERT INTO `list_song` VALUES ('103', '48', '69', NULL);
+INSERT INTO `list_song` VALUES ('107', '67', '66', NULL);
+INSERT INTO `list_song` VALUES ('108', '64', '66', NULL);
+INSERT INTO `list_song` VALUES ('109', '80', '66', NULL);
+INSERT INTO `list_song` VALUES ('11', '38', '5', NULL);
+INSERT INTO `list_song` VALUES ('110', '102', '23', NULL);
+INSERT INTO `list_song` VALUES ('112', '101', '25', NULL);
+INSERT INTO `list_song` VALUES ('113', '102', '30', NULL);
+INSERT INTO `list_song` VALUES ('114', '102', '32', NULL);
+INSERT INTO `list_song` VALUES ('115', '101', '34', NULL);
+INSERT INTO `list_song` VALUES ('116', '42', '36', NULL);
+INSERT INTO `list_song` VALUES ('117', '43', '36', NULL);
+INSERT INTO `list_song` VALUES ('118', '41', '36', NULL);
+INSERT INTO `list_song` VALUES ('12', '39', '5', NULL);
+INSERT INTO `list_song` VALUES ('120', '37', '38', NULL);
+INSERT INTO `list_song` VALUES ('121', '101', '38', NULL);
+INSERT INTO `list_song` VALUES ('122', '101', '37', NULL);
+INSERT INTO `list_song` VALUES ('123', '102', '39', NULL);
+INSERT INTO `list_song` VALUES ('124', '37', '40', NULL);
+INSERT INTO `list_song` VALUES ('125', '108', '40', NULL);
+INSERT INTO `list_song` VALUES ('126', '102', '40', NULL);
+INSERT INTO `list_song` VALUES ('127', '112', '41', NULL);
+INSERT INTO `list_song` VALUES ('128', '102', '41', NULL);
+INSERT INTO `list_song` VALUES ('129', '102', '42', NULL);
+INSERT INTO `list_song` VALUES ('13', '38', '5', NULL);
+INSERT INTO `list_song` VALUES ('130', '41', '24', NULL);
+INSERT INTO `list_song` VALUES ('131', '100', '23', NULL);
+INSERT INTO `list_song` VALUES ('132', '98', '47', NULL);
+INSERT INTO `list_song` VALUES ('133', '61', '47', NULL);
+INSERT INTO `list_song` VALUES ('134', '62', '47', NULL);
+INSERT INTO `list_song` VALUES ('1342386685338939393', '1342385980620369922', '68', NULL);
+INSERT INTO `list_song` VALUES ('1342388687708057601', '1342388687208935426', '68', NULL);
+INSERT INTO `list_song` VALUES ('135', '33', '49', NULL);
+INSERT INTO `list_song` VALUES ('136', '68', '49', NULL);
+INSERT INTO `list_song` VALUES ('137', '33', '49', NULL);
+INSERT INTO `list_song` VALUES ('138', '23', '49', NULL);
+INSERT INTO `list_song` VALUES ('139', '33', '50', NULL);
+INSERT INTO `list_song` VALUES ('14', '39', '5', NULL);
+INSERT INTO `list_song` VALUES ('140', '21', '50', NULL);
+INSERT INTO `list_song` VALUES ('141', '61', '52', NULL);
+INSERT INTO `list_song` VALUES ('142', '62', '52', NULL);
+INSERT INTO `list_song` VALUES ('143', '21', '60', NULL);
+INSERT INTO `list_song` VALUES ('144', '22', '60', NULL);
+INSERT INTO `list_song` VALUES ('145', '23', '60', NULL);
+INSERT INTO `list_song` VALUES ('146', '63', '58', NULL);
+INSERT INTO `list_song` VALUES ('147', '98', '58', NULL);
+INSERT INTO `list_song` VALUES ('148', '63', '53', NULL);
+INSERT INTO `list_song` VALUES ('149', '30', '54', NULL);
+INSERT INTO `list_song` VALUES ('15', '45', '4', NULL);
+INSERT INTO `list_song` VALUES ('150', '61', '56', NULL);
+INSERT INTO `list_song` VALUES ('151', '63', '56', NULL);
+INSERT INTO `list_song` VALUES ('152', '98', '57', NULL);
+INSERT INTO `list_song` VALUES ('153', '32', '54', NULL);
+INSERT INTO `list_song` VALUES ('154', '22', '57', NULL);
+INSERT INTO `list_song` VALUES ('155', '98', '59', NULL);
+INSERT INTO `list_song` VALUES ('156', '63', '59', NULL);
+INSERT INTO `list_song` VALUES ('157', '62', '61', NULL);
+INSERT INTO `list_song` VALUES ('158', '22', '61', NULL);
+INSERT INTO `list_song` VALUES ('159', '68', '51', NULL);
+INSERT INTO `list_song` VALUES ('16', '45', '12', NULL);
+INSERT INTO `list_song` VALUES ('160', '35', '51', NULL);
+INSERT INTO `list_song` VALUES ('161', '32', '51', NULL);
+INSERT INTO `list_song` VALUES ('162', '33', '61', NULL);
+INSERT INTO `list_song` VALUES ('163', '86', '43', NULL);
+INSERT INTO `list_song` VALUES ('164', '100', '44', NULL);
+INSERT INTO `list_song` VALUES ('165', '87', '45', NULL);
+INSERT INTO `list_song` VALUES ('166', '86', '45', NULL);
+INSERT INTO `list_song` VALUES ('167', '100', '44', NULL);
+INSERT INTO `list_song` VALUES ('168', '88', '46', NULL);
+INSERT INTO `list_song` VALUES ('169', '99', '73', NULL);
+INSERT INTO `list_song` VALUES ('17', '10', '13', NULL);
+INSERT INTO `list_song` VALUES ('170', '88', '74', NULL);
+INSERT INTO `list_song` VALUES ('171', '99', '74', NULL);
+INSERT INTO `list_song` VALUES ('172', '88', '73', NULL);
+INSERT INTO `list_song` VALUES ('173', '103', '78', NULL);
+INSERT INTO `list_song` VALUES ('174', '103', '84', NULL);
+INSERT INTO `list_song` VALUES ('175', '103', '75', NULL);
+INSERT INTO `list_song` VALUES ('176', '103', '76', NULL);
+INSERT INTO `list_song` VALUES ('177', '103', '77', NULL);
+INSERT INTO `list_song` VALUES ('178', '103', '79', NULL);
+INSERT INTO `list_song` VALUES ('179', '88', '80', NULL);
+INSERT INTO `list_song` VALUES ('18', '10', '2', NULL);
+INSERT INTO `list_song` VALUES ('180', '99', '80', NULL);
+INSERT INTO `list_song` VALUES ('181', '103', '80', NULL);
+INSERT INTO `list_song` VALUES ('182', '104', '80', NULL);
+INSERT INTO `list_song` VALUES ('183', '104', '81', NULL);
+INSERT INTO `list_song` VALUES ('184', '88', '82', NULL);
+INSERT INTO `list_song` VALUES ('185', '99', '82', NULL);
+INSERT INTO `list_song` VALUES ('186', '105', '83', NULL);
+INSERT INTO `list_song` VALUES ('187', '99', '48', NULL);
+INSERT INTO `list_song` VALUES ('188', '95', '26', NULL);
+INSERT INTO `list_song` VALUES ('189', '96', '27', NULL);
+INSERT INTO `list_song` VALUES ('190', '97', '26', NULL);
+INSERT INTO `list_song` VALUES ('191', '95', '28', NULL);
+INSERT INTO `list_song` VALUES ('192', '98', '29', NULL);
+INSERT INTO `list_song` VALUES ('193', '62', '29', NULL);
+INSERT INTO `list_song` VALUES ('194', '87', '31', NULL);
+INSERT INTO `list_song` VALUES ('195', '61', '31', NULL);
+INSERT INTO `list_song` VALUES ('196', '63', '31', NULL);
+INSERT INTO `list_song` VALUES ('197', '87', '55', NULL);
+INSERT INTO `list_song` VALUES ('198', '96', '55', NULL);
+INSERT INTO `list_song` VALUES ('199', '98', '33', NULL);
+INSERT INTO `list_song` VALUES ('20', '10', '3', NULL);
+INSERT INTO `list_song` VALUES ('200', '63', '33', NULL);
+INSERT INTO `list_song` VALUES ('201', '105', '83', NULL);
+INSERT INTO `list_song` VALUES ('202', '106', '83', NULL);
+INSERT INTO `list_song` VALUES ('203', '107', '53', NULL);
+INSERT INTO `list_song` VALUES ('204', '107', '60', NULL);
+INSERT INTO `list_song` VALUES ('205', '108', '8', NULL);
+INSERT INTO `list_song` VALUES ('206', '112', '24', NULL);
+INSERT INTO `list_song` VALUES ('207', '113', '40', NULL);
+INSERT INTO `list_song` VALUES ('208', '109', '8', NULL);
+INSERT INTO `list_song` VALUES ('209', '107', '23', NULL);
+INSERT INTO `list_song` VALUES ('21', '30', '10', NULL);
+INSERT INTO `list_song` VALUES ('22', '31', '10', NULL);
+INSERT INTO `list_song` VALUES ('23', '82', '6', NULL);
+INSERT INTO `list_song` VALUES ('24', '83', '6', NULL);
+INSERT INTO `list_song` VALUES ('25', '84', '6', NULL);
+INSERT INTO `list_song` VALUES ('26', '85', '6', NULL);
+INSERT INTO `list_song` VALUES ('27', '99', '7', NULL);
+INSERT INTO `list_song` VALUES ('28', '100', '8', NULL);
+INSERT INTO `list_song` VALUES ('29', '78', '9', NULL);
+INSERT INTO `list_song` VALUES ('3', '5', '2', NULL);
+INSERT INTO `list_song` VALUES ('30', '79', '9', NULL);
+INSERT INTO `list_song` VALUES ('31', '80', '9', NULL);
+INSERT INTO `list_song` VALUES ('32', '86', '7', NULL);
+INSERT INTO `list_song` VALUES ('33', '87', '7', NULL);
+INSERT INTO `list_song` VALUES ('34', '88', '8', NULL);
+INSERT INTO `list_song` VALUES ('35', '100', '7', NULL);
+INSERT INTO `list_song` VALUES ('36', '82', '11', NULL);
+INSERT INTO `list_song` VALUES ('37', '65', '11', NULL);
+INSERT INTO `list_song` VALUES ('38', '50', '11', NULL);
+INSERT INTO `list_song` VALUES ('39', '67', '14', NULL);
+INSERT INTO `list_song` VALUES ('4', '7', '2', NULL);
+INSERT INTO `list_song` VALUES ('40', '78', '14', NULL);
+INSERT INTO `list_song` VALUES ('41', '26', '14', NULL);
+INSERT INTO `list_song` VALUES ('42', '4', '15', NULL);
+INSERT INTO `list_song` VALUES ('43', '7', '15', NULL);
+INSERT INTO `list_song` VALUES ('44', '21', '15', NULL);
+INSERT INTO `list_song` VALUES ('45', '24', '16', NULL);
+INSERT INTO `list_song` VALUES ('46', '40', '16', NULL);
+INSERT INTO `list_song` VALUES ('47', '50', '16', NULL);
+INSERT INTO `list_song` VALUES ('48', '70', '16', NULL);
+INSERT INTO `list_song` VALUES ('49', '72', '17', NULL);
+INSERT INTO `list_song` VALUES ('5', '11', '2', NULL);
+INSERT INTO `list_song` VALUES ('50', '73', '17', NULL);
+INSERT INTO `list_song` VALUES ('51', '51', '18', NULL);
+INSERT INTO `list_song` VALUES ('52', '52', '18', NULL);
+INSERT INTO `list_song` VALUES ('53', '65', '18', NULL);
+INSERT INTO `list_song` VALUES ('54', '67', '18', NULL);
+INSERT INTO `list_song` VALUES ('55', '2', '19', NULL);
+INSERT INTO `list_song` VALUES ('56', '7', '19', NULL);
+INSERT INTO `list_song` VALUES ('57', '55', '19', NULL);
+INSERT INTO `list_song` VALUES ('58', '53', '19', NULL);
+INSERT INTO `list_song` VALUES ('59', '54', '19', NULL);
+INSERT INTO `list_song` VALUES ('6', '38', '6', NULL);
+INSERT INTO `list_song` VALUES ('60', '4', '20', NULL);
+INSERT INTO `list_song` VALUES ('61', '7', '20', NULL);
+INSERT INTO `list_song` VALUES ('62', '11', '20', NULL);
+INSERT INTO `list_song` VALUES ('63', '26', '20', NULL);
+INSERT INTO `list_song` VALUES ('64', '99', '21', NULL);
+INSERT INTO `list_song` VALUES ('65', '100', '21', NULL);
+INSERT INTO `list_song` VALUES ('66', '86', '21', NULL);
+INSERT INTO `list_song` VALUES ('67', '91', '22', NULL);
+INSERT INTO `list_song` VALUES ('68', '94', '22', NULL);
+INSERT INTO `list_song` VALUES ('69', '77', '22', NULL);
+INSERT INTO `list_song` VALUES ('7', '39', '6', NULL);
+INSERT INTO `list_song` VALUES ('70', '68', '22', NULL);
+INSERT INTO `list_song` VALUES ('71', '50', '22', NULL);
+INSERT INTO `list_song` VALUES ('72', '76', '17', NULL);
+INSERT INTO `list_song` VALUES ('73', '93', '15', NULL);
+INSERT INTO `list_song` VALUES ('74', '92', '15', NULL);
+INSERT INTO `list_song` VALUES ('75', '78', '72', NULL);
+INSERT INTO `list_song` VALUES ('76', '79', '72', NULL);
+INSERT INTO `list_song` VALUES ('77', '80', '72', NULL);
+INSERT INTO `list_song` VALUES ('78', '64', '71', NULL);
+INSERT INTO `list_song` VALUES ('79', '65', '71', NULL);
+INSERT INTO `list_song` VALUES ('80', '50', '71', NULL);
+INSERT INTO `list_song` VALUES ('81', '51', '71', NULL);
+INSERT INTO `list_song` VALUES ('82', '51', '70', NULL);
+INSERT INTO `list_song` VALUES ('83', '50', '70', NULL);
+INSERT INTO `list_song` VALUES ('84', '64', '62', NULL);
+INSERT INTO `list_song` VALUES ('85', '65', '62', NULL);
+INSERT INTO `list_song` VALUES ('86', '66', '62', NULL);
+INSERT INTO `list_song` VALUES ('87', '67', '62', NULL);
+INSERT INTO `list_song` VALUES ('88', '25', '63', NULL);
+INSERT INTO `list_song` VALUES ('89', '26', '63', NULL);
+INSERT INTO `list_song` VALUES ('9', '22', '2', NULL);
+INSERT INTO `list_song` VALUES ('90', '79', '63', NULL);
+INSERT INTO `list_song` VALUES ('91', '65', '64', NULL);
+INSERT INTO `list_song` VALUES ('92', '64', '64', NULL);
+INSERT INTO `list_song` VALUES ('93', '80', '64', NULL);
+INSERT INTO `list_song` VALUES ('94', '25', '65', NULL);
+INSERT INTO `list_song` VALUES ('95', '64', '65', NULL);
+INSERT INTO `list_song` VALUES ('96', '67', '67', NULL);
+INSERT INTO `list_song` VALUES ('97', '64', '67', NULL);
+INSERT INTO `list_song` VALUES ('98', '25', '67', NULL);
+INSERT INTO `list_song` VALUES ('99', '25', '69', NULL);
 
 -- ----------------------------
 -- Table structure for rank
@@ -445,7 +468,7 @@ CREATE TABLE `singer`  (
   `location` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '地区',
   `introduction` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '简介',
   `create_time` date DEFAULT NULL COMMENT '创建时间',
-  `updateTime` date DEFAULT NULL COMMENT '修改时间',
+  `update_time` date DEFAULT NULL COMMENT '修改时间',
   `is_delete` tinyint(4) DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '歌手' ROW_FORMAT = Dynamic;
@@ -453,44 +476,47 @@ CREATE TABLE `singer`  (
 -- ----------------------------
 -- Records of singer
 -- ----------------------------
-INSERT INTO `singer` VALUES ('10', '王力宏', 1, '/img/singerPic/wanglihong.jpg', '1976-05-17 14:00:30', '美国', '中国著名流行歌手、词曲创作音乐人；亚洲华语流行乐坛最具代表性的创作、偶像、实力派音乐偶像巨星。1995年发行首张专辑《情敌贝多芬》在台湾出道，亦是金曲奖中最年轻的封王者，其唱片总销量在全亚洲已超过2500万张。从改编歌曲《龙的传人》融合西方电子节奏和东方旋律的华人中式嘻哈风，再到为华语流行乐注入新元素，进一步将其推向全世界。超高唱片销量便可以证明力宏的影响力毋庸置疑的强。况且身为金曲奖常客，3次接受CNN电视台访问。首创Chinked-out曲风，将中国风推向世界。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('11', 'Eminem', 1, '/img/singerPic/Eminem.jpg', '1972-10-17 15:35:23', '美国', '埃米纳姆（Eminem）是美国的一名说唱歌手。其风格类型为：Hardcore Rap（硬核说唱）。埃米纳姆最大的突破就是证明白人也能介入到黑人一统天下的说唱（RAP）界中，而且获得巨大的成功。同时他的叛逆不仅长期以来深受美国青少年喜爱，也让他在舆论中始终遭到抨击。Eminem获得的奖杯总数窜至历史第三位，居麦当娜和皮特-加布里埃尔之后。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('12', '李荣浩', 1, '/img/singerPic/lironghao.jpg', '1985-07-11 21:52:23', '中国安徽', '李荣浩，1985年7月11日生于蚌埠，中国流行音乐制作人、歌手、吉他手。曾为众多艺人创作歌曲以及担任制作人，也曾为多部电影与多款电子游戏制作音乐。2013年9月17日发行个人首张原创专辑《模特》，凭借这张专辑入围第25届金曲奖最佳国语男歌手奖、最佳新人奖、最佳专辑制作人、最佳国语专辑、最佳作词奖等五项大奖提名，成为最大黑马，实现了从制作人到歌手的华丽转身。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('13', '田馥甄', 0, '/img/singerPic/tianfuzhen.jpg', '1983-03-30 21:55:44', '中国台湾', '艺名Hebe，台湾知名女艺人，女子演唱团体S.H.E组合成员，出生于台湾新竹县新丰乡，于2000年参加“宇宙2000实力美少女争霸战”选秀活动，并于同年与宇宙唱片（华研唱片前身）签约培训，接着在隔年与Selina、Ella组成S.H.E，并于2001年9月11日发行S.H.E首张专辑《女生宿舍》正式出道。2010年下半年，S.H.E正式迈向“单飞不解散”阶段，接着同年9月3日，使用本名“田馥甄”推出首张个人专辑《To Hebe》', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('14', '许嵩', 1, '/img/singerPic/xusong.jpg', '1986-05-14 21:58:45', '中国安徽', '著名作词人、作曲人、唱片制作人、歌手。内地独立音乐之标杆人物，有音乐鬼才之称。2009年独立出版首张词曲全创作专辑《自定义》，2010年独立出版第二张词曲全创作专辑《寻雾启示》，两度掀起讨论热潮，一跃成为内地互联网讨论度最高的独立音乐人。2011年加盟海蝶音乐，推出第三张词曲全创作专辑《苏格拉没有底》，发行首月即在大陆地区摘下唱片销量榜冠军，轰动全国媒体，并拉开全国巡回签售及歌迷见面会。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('15', '张国荣', 1, '/img/singerPic/zhangguorong.jpg', '1956-09-12 22:02:38', '中国香港', '张国荣是一位在全球华人社会和亚洲地区具有影响力的著名歌手、演员和音乐人；大中华区乐坛和影坛巨星；演艺圈多栖发展最成功的代表之一。张国荣是香港乐坛的殿堂级歌手之一，曾获得香港乐坛最高荣誉金针奖；他是第一位享誉韩国乐坛的华人歌手，亦是华语唱片在韩国销量纪录保持者。他通晓词曲创作，曾担任过MTV导演、唱片监制、电影编剧、电影监制。他于1991年当选香港电影金像奖影帝。。。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('16', '杨宗纬', 1, '/img/singerPic/yangzongwei.jpg', '1978-04-04 22:04:47', '中国台湾', '大学时期参加台湾歌唱选秀节目《超级星光大道》获选为第一届“人气王”。比赛的时候，杨宗纬歌声阳刚而细腻，富含感情，辨识度高，感染力强，以演唱抒情歌曲见长，选曲跨越性别界线，无论是男女歌手的抒情歌曲，经过他重新诠释之后，常常都可以得到不输原唱或甚至超越原唱的评价。出道后屡创多项记录，包括发行首张专辑，便以新人之姿登上台北小巨蛋举办个人演唱会。。。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('17', '朴树', 1, '/img/singerPic/pushu.jpg', '1973-11-08 22:07:08', '中国江苏', '中国大陆歌手，音乐人。1996年10月正式成为“麦田音乐”签约歌手，为简略笔划而定艺名朴树。首支单曲《火车开往冬天》，96年底推出后成绩斐然。99年1月，推出首张个人专辑《我去两千年》。99年12月与华纳唱片正式签订唱片合约，成为其亚太区旗下的第一位内地歌手，其首张专辑《我去两千年》将由华纳重新混录和拍摄最新单曲录影带后，于2000年上半年在海外隆重上市。代表作品：《那些花儿》，《白桦林》，《生如夏花》。主要成就：中歌榜最佳新人奖，最受欢迎男歌手，年度最佳制作人奖。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('18', '李克勤', 1, '/img/singerPic/likeqin.jpg', '1967-12-06 22:10:04', '中国香港', '中国香港很有影响力的粤语流行曲歌手与演员。1985年凭《雾之恋》夺得“十九区业余歌唱大赛”冠军而晋身乐坛。曾于2002、2003和2005年度《十大劲歌金曲颁奖典礼》中三度夺得「最受欢迎男歌手」，于2003年度《叱吒乐坛流行榜颁奖典礼》上获得「叱吒乐坛我最喜爱的男歌手」，并于《第二十七届十大中文金曲颁奖典礼》(2004年度)上夺得「最优秀流行男歌手大奖」，2010年度音乐先锋榜颁奖礼 ── 20家电台联颁亚太歌手奖。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('19', '张碧晨', 0, '/img/singerPic/zhangbichen.jpg', '1989-09-10 22:15:16', '中国天津', '1989年9月10日出生于中国天津，中国女歌手。 2013年，张碧晨以韩国女子组合“Sunny days ”出道，并获得“K-POP ”世界庆典“最优秀奖”。2014年7月，张碧晨参加第三季《中国好声音》，以一首《她说》进入那英组，并于10月7日以一首《时间去哪儿了》荣获第三季《中国好声音》全国总冠军，成为《中国好声音》首位女冠军。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('20', 'IU', 0, '/img/singerPic/IU.jpg', '1993-05-16 22:22:00', '韩国', '李知恩 (IU)，1993年5月16日出生于韩国首尔特别市，韩国女歌手、演员、主持人。2008年以一首《迷儿》正式出道，历经一年的练习生生涯。2011年以一首《好日子》在韩国走红，随后于2011年末推出正规二辑《Last Fantasy》 PK记录74次，AK约90次。2013年IU发行正规三辑《MODERN TIMES》再次获得关注。2012年~2015年分别位列韩国福布斯名人榜第三、第八、第十和第十四位。2015年，发行迷你专辑《CHAT-SHIRE》', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('21', '金泰妍', 0, '/img/singerPic/taiyan.jpg', '1989-03-09 00:33:15', '韩国', '金泰妍(김태연/ Kim Tae-yeon/金泰耎)，艺名太妍(태연/TaeYeon)，1989年3月9日出生于韩国全罗北道全州市，韩国女歌手、主持人，女子演唱团体少女时代成员之一。2004年在第八届SM青少年选拔大赛歌王中夺得第一名，进入韩国SM娱乐有限公司开始练习生生涯。2007年8月以演唱团体少女时代成员身份正式出道。2008年为韩国KBS电视台电视剧《快刀洪吉童》演唱主题曲《如果》；同年12月凭借歌曲《听得见吗》获得第23届韩国金唱片大奖人气奖 。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('23', '毛不易', 1, '/img/singerPic/maobuyi.jpg', '1994-10-01 18:59:43', '中国黑龙江', '原名王维家，1994年10月1日出生于黑龙江省齐齐哈尔市泰来县，中国内地流行乐男歌手，毕业于杭州师范大学护理专业。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('24', '胡歌', 1, '/img/singerPic/huge.jpg', '1982-09-02 17:52:02', '中国上海', '中国著名男演员、歌手，有“古装王子”的美称。2005年毕业于上海戏剧学院01级表演系本科，在电视连续剧《仙剑奇侠传》中成功塑造了豪爽深情的“李逍遥”而成名，他还为此剧唱插曲《六月的雨》《逍遥叹》等。胡歌主演过多部广为人知的影视剧，多部电视剧打破电视台收视记录。其人擅长摄影，文采飞扬，志做导演，频唱影视剧歌曲。2013年，主演的话剧《如梦之梦》和《永远的尹雪艳》登上舞台。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('25', '陈势安', 1, '/img/singerPic/chengshian.jpg', '1984-06-04 17:57:54', '马来西亚', '陈势安（1984年6月4日－）为马来西亚籍的西马男歌手，出生于槟城州威省大山脚，出道前是个化妆师。2011年发行个人第三张专辑《再爱一遍，天后陈势安》。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('26', '王菲', 0, '/img/singerPic/wangfei.jpg', '1969-08-08 17:58:31', '中国北京', '中国著名女歌手、演员。是继邓丽君后大中华地区成就最高、影响力最大的华语女歌手。以其极具辨识度的天籁空灵般嗓音，在华语歌坛创造了属于她自己的时代。她是首位登上美国《时代周刊》封面并接受CNN专访的华语歌手。她是身价最高，演唱会上座率最高，演唱会票房累计最高的华语女歌手。王菲北京出生。1987年放弃厦门大学生物系的录取跟随父母移居香港，并拜师戴思聪学习声乐，1989年签约新艺宝唱片公司并发行了第一张个人专辑，从此正式步入乐坛，曾使用艺名王靖雯。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('27', 'Álvaro Soler', 1, '/img/singerPic/soler.jpg', '1991-01-01 23:43:19', '西班牙', '全名是Álvaro Tauchert Soler，是一位新晋西班牙歌手，流行音乐作曲家。出生于1991年，西班牙巴塞罗纳。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('28', 'Celine Dion', 0, '/img/singerPic/1586075898639Celine Dion.png', '1968-03-30 00:00:00', '加拿大', '1980年，12岁的席琳·迪翁步入歌坛，15岁时推出首支法文单曲，1990年，推出首张英文专辑《UNISON》。1996年为美国亚特兰大奥运会演唱了主题曲《The Power of The Dream》。1997年为电影《泰坦尼克号》献唱片尾曲《My Heart Will Go On》，并获得第70届奥斯卡最佳电影歌曲奖。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('29', '胡伟立', 1, '/img/singerPic/1586076393834胡伟立.png', '1937-01-01 00:00:00', '中国江苏', '中国音乐家协会会员、中国电影家协会会员、中国电影音乐学会特约理事、香港作曲家作词家协会（CASH）会员、香港弦乐教师协会理事、香港艺术家联盟会员、香港电影戏剧总会会员。主要作品有《神州行组曲》、《北国风云》、《C大调中胡协奏曲》等大型合奏曲。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('30', '五月天', 2, '/img/singerPic/1586076633782五月天.jpg', '1997-03-29 00:00:00', '中国台湾', '五月天（Mayday），中国台湾摇滚乐团，由温尚翊（怪兽）、陈信宏（阿信）、石锦航（石头）、蔡升晏（玛莎）、刘谚明（冠佑）五位成员组成。\n乐团前身为“So Band”乐团，在1997年3月29日更名为“五月天”。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('31', 'Beyond', 2, '/img/singerPic/1586078551461Beyond.jpg', '1983-01-01 00:00:00', '中国香港', '中国香港摇滚乐队，由黄家驹、黄贯中、黄家强、叶世荣组成。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('32', 'Ramin Djawadi', 1, '/img/singerPic/1586078732611Ramin Djawadi.jpg', '1974-06-05 00:00:00', '德国', '德籍伊朗作曲家，为电影和电视剧担任管弦配乐作曲家，因曾获得格莱美奖提名而逐渐为人所熟知。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('33', '小林未郁', 0, '/img/singerPic/1586078973463小林未郁.jpeg', '1978-01-01 00:00:00', '日本', '日本女钢琴家、歌手。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('34', 'Various Artists', 3, '/img/singerPic/1586079436284Various Artists.jpg', '2020-04-05 00:00:00', '', '暂无介绍', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('35', '少女时代', 2, '/img/singerPic/1586090215632少女时代.jpg', '2007-08-05 00:00:00', '韩国', '少女时代（Girls\' Generation）是韩国SM娱乐有限公司于2007年推出的女子流行演唱团体，由金泰妍、郑秀妍、李顺圭、黄美英、金孝渊、权俞利、崔秀英、林允儿和徐珠贤9人组成，现以5人形式进行演艺活动。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('36', 'The Piano Guys', 2, '/img/singerPic/1586089570101the piano guys.jpg', '2012-07-01 00:00:00', '美国', 'The Piano Guys直译为“钢琴男孩儿”，台湾翻译成“酷音乐团”。apple music在中国区上架后，有译“钢琴达人”。作为Neo-classical目前的代表性乐团之一，初衷是创造出能够激励人们的音乐和视频，想将自己的音乐带给这个世界。The Piano Guys改编的古典音乐融合自然、过渡流畅，MV拍摄优美大气、富于想象力。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('37', 'Peter Broderick', 1, '/img/singerPic/1586081310686Peter Broderick.jpeg', '1987-01-20 00:00:00', '美国', '是美国音乐家和作曲家，来自俄勒冈州的卡尔顿。他以自己的名义发布的独奏材料，成为了Efterklang的成员之一，并与多个乐团合作创作，作为一个自由音乐家演奏。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('38', 'Shayne Ward', 1, '/img/singerPic/1586090400493Shayne Ward.jpg', '1984-10-16 00:00:00', '英国', '2005年，肖恩·沃德因获得英国歌唱选秀节目《The X Factor》年度总冠军而成名 [1]  。赛后，签约索尼旗下公司Syco Music，并发行单曲《That\'s my goal》，以超过31.3万张的销售成绩创下英国唱片单曲首日畅销纪录第三名和英国单日付费下载次数最多的单曲吉尼斯纪录。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('39', 'Yiruma', 1, '/img/singerPic/1586090648269Yiruma.jpg', '1978-02-15 00:00:00', '韩国', '李闰珉出生于韩国首尔，在英国长大，曾就学于英国伦敦\'The Purcell School\' 特别音乐学校，后来毕业于 \'King\'s College London\' ，主修作曲。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('40', 'Josh Ritter', 1, '/img/singerPic/1586090939016Josh Ritter.jpg', '1976-11-21 00:00:00', '美国', 'Josh Ritter (born October 21, 1976) is an American singer-songwriter, guitarist and author who performs and records with The Royal City Band.', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('41', 'Tone Damli Aaberge', 0, '/img/singerPic/1586091104616Tone Damli Aaberge.jpg', '1988-04-12 00:00:00', '挪威', 'Tone Damli Aaberge/Tone Damli，是位来自挪威的年轻女歌手。当她才17岁的时候，曾参加了2005年那届挪威偶像。可惜她在比赛中获得亚军，屈居于Jorun Stiansen之后。她是2009年欧洲电视网歌唱大赛里的总决赛选手，她演唱了一首\"Butterflies\"，可惜最后也只得到亚军，屈居于Alexander Rybak之后', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('42', 'Sanna Nielsen', 0, '/img/singerPic/1586091210109Sanna Nielsen.jpg', '1984-11-27 00:00:00', '瑞典', 'Sanna Nielsen（仙娜·尼利森）出生于1984年11月27日，瑞典音乐才女，早在她12岁时就发行了其个人的第一张专辑，并且取得了相当不错的成绩，之前她一直是发行瑞典语的专辑和单曲，《Stronger》是她08年的新专，也是她第一张英文专辑，整张专的旋律给人很美很大气的感觉。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('43', 'Jessica', 0, '/img/singerPic/1586091653843郑秀妍.jpg', '1989-04-18 00:00:00', '韩国', '郑秀妍（Jessica Jung），1989年4月18日出生于美国加利福尼亚州旧金山市，歌手、演员、设计师。2000年，郑秀妍回国探亲时被韩国SM娱乐有限公司发掘，成为其旗下练习生。2007年8月，以演唱团体少女时代成员身份正式出道，是组合里训练时间最长的成员。2009年，首次在音乐剧《金发尤物》中担任主角“艾莉·伍兹”。2012年，首次以演员身份参演《暴力罗曼史》。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('45', '3', 0, '/img/singerPic/hhh.jpg', '2020-08-04 00:00:00', '3', '', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('5', 'G.E.M.邓紫棋', 0, '/img/singerPic/dengziqi.jpg', '1974-07-27 00:00:00', '中国上海', '成长于一个音乐世家，其母亲为上海音乐学院声乐系毕业生，外婆教唱歌，舅父拉小提琴，外公在乐团吹色士风。在家人的熏陶下，自小便热爱音乐，喜爱唱歌，与音乐结下不解之缘。G.E.M.在5岁的时候已经开始尝试作曲及填词，13岁完成了8级钢琴。G.E.M.在小学时期就读位于太子道西的中华基督教会协和小学上午校，为2003年的毕业生，同时亦为校内诗歌班成员。其英文名G.E.M.是Get Everybody Moving的缩写，象徵著她希望透过音乐让大家动起来的梦想。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('7', '艺声', 1, '/img/singerPic/yisheng.jpg', '1984-08-24 00:00:00', '韩国', '韩国著名男子团体Super Junior成员之一。2001年参加Starlight Casting System Casting，获得SM BEST选拔大赛歌唱赛第一名。经过长达5年的练习生训练，于2005年11月6日以Super Junior的身份正式出道。有着“艺术般声音”的他，被冠以“艺声”这个名号，是队中公认唱功最好的成员之一，因深沉、富有磁性且感情丰富的嗓音而在队里担当主唱。曾表演音乐剧、为多部电视剧演唱OST。值得一提的是，他也是朱一丹女士的疯狂追求者之一。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('8', 'Ennio Morricone', 1, '/img/singerPic/Morricone.jpg', '1928-11-10 00:00:00', '意大利', '埃尼欧·莫里科内，意大利作曲家，生于罗马，曾为超过500部的电影电视写过配乐。2007年他获得奥斯卡终身成就奖，成为第二位获此殊荣的作曲家。他获得两次格莱美奖，两次金球奖，五次英国电影和电视艺术学院奖等多项音乐奖项。', '2020-12-16', '2020-12-16', 0);
-INSERT INTO `singer` VALUES ('9', '林俊杰', 1, '/img/singerPic/linjunjie.jpg', '1981-03-27 00:00:00', '新加坡', '著名男歌手，作曲人、作词人、音乐制作人，偶像与实力兼具。林俊杰出生于新加坡的一个音乐世家。在父母的引导下，4岁就开始学习古典钢琴，不善言辞的他由此发现了另一种与人沟通的语言。小时候的林俊杰把哥哥林俊峰当作偶像，跟随哥哥的步伐做任何事，直到接触流行音乐后，便爱上创作这一条路。2003年以专辑《乐行者》出道，2004年一曲《江南》红遍两岸三地，凭借其健康的形象，迷人的声线，出众的唱功，卓越的才华，迅速成为华语流行乐坛的领军人物之一，迄今为止共创作数百首音乐作品，唱片销量在全亚洲逾1000万张。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('10', '王力宏', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1976-05-17 14:00:30', '美国', '中国著名流行歌手、词曲创作音乐人；亚洲华语流行乐坛最具代表性的创作、偶像、实力派音乐偶像巨星。1995年发行首张专辑《情敌贝多芬》在台湾出道，亦是金曲奖中最年轻的封王者，其唱片总销量在全亚洲已超过2500万张。从改编歌曲《龙的传人》融合西方电子节奏和东方旋律的华人中式嘻哈风，再到为华语流行乐注入新元素，进一步将其推向全世界。超高唱片销量便可以证明力宏的影响力毋庸置疑的强。况且身为金曲奖常客，3次接受CNN电视台访问。首创Chinked-out曲风，将中国风推向世界。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('11', 'Eminem', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1972-10-17 15:35:23', '美国', '埃米纳姆（Eminem）是美国的一名说唱歌手。其风格类型为：Hardcore Rap（硬核说唱）。埃米纳姆最大的突破就是证明白人也能介入到黑人一统天下的说唱（RAP）界中，而且获得巨大的成功。同时他的叛逆不仅长期以来深受美国青少年喜爱，也让他在舆论中始终遭到抨击。Eminem获得的奖杯总数窜至历史第三位，居麦当娜和皮特-加布里埃尔之后。', '2020-12-16', '2020-12-19', 0);
+INSERT INTO `singer` VALUES ('12', '李荣浩', 1, '\\uploads\\singers\\2020-12-19\\202012195a801e77-ecbc-48a1-9af7-56c1e08fb34c.png', '1985-07-11 21:52:23', '中国安徽', '李荣浩，1985年7月11日生于蚌埠，中国流行音乐制作人、歌手、吉他手。曾为众多艺人创作歌曲以及担任制作人，也曾为多部电影与多款电子游戏制作音乐。2013年9月17日发行个人首张原创专辑《模特》，凭借这张专辑入围第25届金曲奖最佳国语男歌手奖、最佳新人奖、最佳专辑制作人、最佳国语专辑、最佳作词奖等五项大奖提名，成为最大黑马，实现了从制作人到歌手的华丽转身。', '2020-12-16', '2020-12-19', 0);
+INSERT INTO `singer` VALUES ('13', '田馥甄', 0, '\\uploads\\singers\\2020-12-19\\20201219089d3000-3d06-4a65-86e4-c309366390ce.png', '1983-03-30 21:55:44', '中国台湾', '艺名Hebe，台湾知名女艺人，女子演唱团体S.H.E组合成员，出生于台湾新竹县新丰乡，于2000年参加“宇宙2000实力美少女争霸战”选秀活动，并于同年与宇宙唱片（华研唱片前身）签约培训，接着在隔年与Selina、Ella组成S.H.E，并于2001年9月11日发行S.H.E首张专辑《女生宿舍》正式出道。2010年下半年，S.H.E正式迈向“单飞不解散”阶段，接着同年9月3日，使用本名“田馥甄”推出首张个人专辑《To Hebe》', '2020-12-16', '2020-12-19', 0);
+INSERT INTO `singer` VALUES ('1339493499652800513', '测试333', 1, '\\uploads\\singers\\2020-12-19\\20201219547c74ad-ac5c-4537-93be-6701953e1365.png', '2020-12-01 00:00:00', '中国', '年份的假发快递费', '2020-12-17', '2020-12-19', 0);
+INSERT INTO `singer` VALUES ('1340114051245613058', '等方式', 1, '\\uploads\\singers\\2020-12-19\\202012192186327a-561c-45cf-a91c-961a9f9d2326.png', '2020-12-04 00:00:00', '梵蒂冈', '搭嘎十大歌手', '2020-12-19', '2020-12-19', 1);
+INSERT INTO `singer` VALUES ('1340169226039668737', '会发送到', 1, '\\uploads\\singers\\2020-12-19\\202012194a0551dd-1c5a-4f86-b327-bf8fdaa20532.png', '2020-12-04 00:00:00', '瑞士', '供电公司个', '2020-12-19', '2020-12-19', 1);
+INSERT INTO `singer` VALUES ('14', '许嵩', 1, '\\uploads\\singers\\2020-12-19\\202012199cc3b855-632a-444b-93ac-fc8c33b4485e.png', '1986-05-14 21:58:45', '中国安徽', '著名作词人、作曲人、唱片制作人、歌手。内地独立音乐之标杆人物，有音乐鬼才之称。2009年独立出版首张词曲全创作专辑《自定义》，2010年独立出版第二张词曲全创作专辑《寻雾启示》，两度掀起讨论热潮，一跃成为内地互联网讨论度最高的独立音乐人。2011年加盟海蝶音乐，推出第三张词曲全创作专辑《苏格拉没有底》，发行首月即在大陆地区摘下唱片销量榜冠军，轰动全国媒体，并拉开全国巡回签售及歌迷见面会。', '2020-12-16', '2020-12-19', 0);
+INSERT INTO `singer` VALUES ('15', '张国荣', 1, '\\uploads\\singers\\2020-12-19\\202012191a048aaf-4be1-4cbc-8dfd-ec9767e10d52.png', '1956-09-12 22:02:38', '中国香港', '张国荣是一位在全球华人社会和亚洲地区具有影响力的著名歌手、演员和音乐人；大中华区乐坛和影坛巨星；演艺圈多栖发展最成功的代表之一。张国荣是香港乐坛的殿堂级歌手之一，曾获得香港乐坛最高荣誉金针奖；他是第一位享誉韩国乐坛的华人歌手，亦是华语唱片在韩国销量纪录保持者。他通晓词曲创作，曾担任过MTV导演、唱片监制、电影编剧、电影监制。他于1991年当选香港电影金像奖影帝。。。', '2020-12-16', '2020-12-19', 0);
+INSERT INTO `singer` VALUES ('16', '杨宗纬', 1, '\\uploads\\singers\\2020-12-19\\20201219e1f2b01a-544c-4463-9515-7daed8392a0a.png', '1978-04-04 22:04:47', '中国台湾', '大学时期参加台湾歌唱选秀节目《超级星光大道》获选为第一届“人气王”。比赛的时候，杨宗纬歌声阳刚而细腻，富含感情，辨识度高，感染力强，以演唱抒情歌曲见长，选曲跨越性别界线，无论是男女歌手的抒情歌曲，经过他重新诠释之后，常常都可以得到不输原唱或甚至超越原唱的评价。出道后屡创多项记录，包括发行首张专辑，便以新人之姿登上台北小巨蛋举办个人演唱会。。。', '2020-12-16', '2020-12-19', 0);
+INSERT INTO `singer` VALUES ('17', '朴树', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1973-11-08 22:07:08', '中国江苏', '中国大陆歌手，音乐人。1996年10月正式成为“麦田音乐”签约歌手，为简略笔划而定艺名朴树。首支单曲《火车开往冬天》，96年底推出后成绩斐然。99年1月，推出首张个人专辑《我去两千年》。99年12月与华纳唱片正式签订唱片合约，成为其亚太区旗下的第一位内地歌手，其首张专辑《我去两千年》将由华纳重新混录和拍摄最新单曲录影带后，于2000年上半年在海外隆重上市。代表作品：《那些花儿》，《白桦林》，《生如夏花》。主要成就：中歌榜最佳新人奖，最受欢迎男歌手，年度最佳制作人奖。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('18', '李克勤', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1967-12-06 22:10:04', '中国香港', '中国香港很有影响力的粤语流行曲歌手与演员。1985年凭《雾之恋》夺得“十九区业余歌唱大赛”冠军而晋身乐坛。曾于2002、2003和2005年度《十大劲歌金曲颁奖典礼》中三度夺得「最受欢迎男歌手」，于2003年度《叱吒乐坛流行榜颁奖典礼》上获得「叱吒乐坛我最喜爱的男歌手」，并于《第二十七届十大中文金曲颁奖典礼》(2004年度)上夺得「最优秀流行男歌手大奖」，2010年度音乐先锋榜颁奖礼 ── 20家电台联颁亚太歌手奖。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('19', '张碧晨', 0, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1989-09-10 22:15:16', '中国天津', '1989年9月10日出生于中国天津，中国女歌手。 2013年，张碧晨以韩国女子组合“Sunny days ”出道，并获得“K-POP ”世界庆典“最优秀奖”。2014年7月，张碧晨参加第三季《中国好声音》，以一首《她说》进入那英组，并于10月7日以一首《时间去哪儿了》荣获第三季《中国好声音》全国总冠军，成为《中国好声音》首位女冠军。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('20', 'IU', 0, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1993-05-16 22:22:00', '韩国', '李知恩 (IU)，1993年5月16日出生于韩国首尔特别市，韩国女歌手、演员、主持人。2008年以一首《迷儿》正式出道，历经一年的练习生生涯。2011年以一首《好日子》在韩国走红，随后于2011年末推出正规二辑《Last Fantasy》 PK记录74次，AK约90次。2013年IU发行正规三辑《MODERN TIMES》再次获得关注。2012年~2015年分别位列韩国福布斯名人榜第三、第八、第十和第十四位。2015年，发行迷你专辑《CHAT-SHIRE》', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('21', '金泰妍', 0, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1989-03-09 00:33:15', '韩国', '金泰妍(김태연/ Kim Tae-yeon/金泰耎)，艺名太妍(태연/TaeYeon)，1989年3月9日出生于韩国全罗北道全州市，韩国女歌手、主持人，女子演唱团体少女时代成员之一。2004年在第八届SM青少年选拔大赛歌王中夺得第一名，进入韩国SM娱乐有限公司开始练习生生涯。2007年8月以演唱团体少女时代成员身份正式出道。2008年为韩国KBS电视台电视剧《快刀洪吉童》演唱主题曲《如果》；同年12月凭借歌曲《听得见吗》获得第23届韩国金唱片大奖人气奖 。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('23', '毛不易', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1994-10-01 18:59:43', '中国黑龙江', '原名王维家，1994年10月1日出生于黑龙江省齐齐哈尔市泰来县，中国内地流行乐男歌手，毕业于杭州师范大学护理专业。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('24', '胡歌', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1982-09-02 17:52:02', '中国上海', '中国著名男演员、歌手，有“古装王子”的美称。2005年毕业于上海戏剧学院01级表演系本科，在电视连续剧《仙剑奇侠传》中成功塑造了豪爽深情的“李逍遥”而成名，他还为此剧唱插曲《六月的雨》《逍遥叹》等。胡歌主演过多部广为人知的影视剧，多部电视剧打破电视台收视记录。其人擅长摄影，文采飞扬，志做导演，频唱影视剧歌曲。2013年，主演的话剧《如梦之梦》和《永远的尹雪艳》登上舞台。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('25', '陈势安', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1984-06-04 17:57:54', '马来西亚', '陈势安（1984年6月4日－）为马来西亚籍的西马男歌手，出生于槟城州威省大山脚，出道前是个化妆师。2011年发行个人第三张专辑《再爱一遍，天后陈势安》。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('26', '王菲', 0, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1969-08-08 17:58:31', '中国北京', '中国著名女歌手、演员。是继邓丽君后大中华地区成就最高、影响力最大的华语女歌手。以其极具辨识度的天籁空灵般嗓音，在华语歌坛创造了属于她自己的时代。她是首位登上美国《时代周刊》封面并接受CNN专访的华语歌手。她是身价最高，演唱会上座率最高，演唱会票房累计最高的华语女歌手。王菲北京出生。1987年放弃厦门大学生物系的录取跟随父母移居香港，并拜师戴思聪学习声乐，1989年签约新艺宝唱片公司并发行了第一张个人专辑，从此正式步入乐坛，曾使用艺名王靖雯。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('27', 'Álvaro Soler', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1991-01-01 23:43:19', '西班牙', '全名是Álvaro Tauchert Soler，是一位新晋西班牙歌手，流行音乐作曲家。出生于1991年，西班牙巴塞罗纳。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('28', 'Celine Dion', 0, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1968-03-30 00:00:00', '加拿大', '1980年，12岁的席琳·迪翁步入歌坛，15岁时推出首支法文单曲，1990年，推出首张英文专辑《UNISON》。1996年为美国亚特兰大奥运会演唱了主题曲《The Power of The Dream》。1997年为电影《泰坦尼克号》献唱片尾曲《My Heart Will Go On》，并获得第70届奥斯卡最佳电影歌曲奖。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('29', '胡伟立', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1937-01-01 00:00:00', '中国江苏', '中国音乐家协会会员、中国电影家协会会员、中国电影音乐学会特约理事、香港作曲家作词家协会（CASH）会员、香港弦乐教师协会理事、香港艺术家联盟会员、香港电影戏剧总会会员。主要作品有《神州行组曲》、《北国风云》、《C大调中胡协奏曲》等大型合奏曲。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('30', '五月天', 2, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1997-03-29 00:00:00', '中国台湾', '五月天（Mayday），中国台湾摇滚乐团，由温尚翊（怪兽）、陈信宏（阿信）、石锦航（石头）、蔡升晏（玛莎）、刘谚明（冠佑）五位成员组成。\n乐团前身为“So Band”乐团，在1997年3月29日更名为“五月天”。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('31', 'Beyond', 2, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1983-01-01 00:00:00', '中国香港', '中国香港摇滚乐队，由黄家驹、黄贯中、黄家强、叶世荣组成。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('32', 'Ramin Djawadi', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1974-06-05 00:00:00', '德国', '德籍伊朗作曲家，为电影和电视剧担任管弦配乐作曲家，因曾获得格莱美奖提名而逐渐为人所熟知。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('33', '小林未郁', 0, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1978-01-01 00:00:00', '日本', '日本女钢琴家、歌手。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('34', 'Various Artists', 3, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '2020-04-05 00:00:00', '韩国', '暂无介绍', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('35', '少女时代', 2, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '2007-08-05 00:00:00', '韩国', '少女时代（Girls\' Generation）是韩国SM娱乐有限公司于2007年推出的女子流行演唱团体，由金泰妍、郑秀妍、李顺圭、黄美英、金孝渊、权俞利、崔秀英、林允儿和徐珠贤9人组成，现以5人形式进行演艺活动。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('36', 'The Piano Guys', 2, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '2012-07-01 00:00:00', '美国', 'The Piano Guys直译为“钢琴男孩儿”，台湾翻译成“酷音乐团”。apple music在中国区上架后，有译“钢琴达人”。作为Neo-classical目前的代表性乐团之一，初衷是创造出能够激励人们的音乐和视频，想将自己的音乐带给这个世界。The Piano Guys改编的古典音乐融合自然、过渡流畅，MV拍摄优美大气、富于想象力。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('37', 'Peter Broderick', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1987-01-20 00:00:00', '美国', '是美国音乐家和作曲家，来自俄勒冈州的卡尔顿。他以自己的名义发布的独奏材料，成为了Efterklang的成员之一，并与多个乐团合作创作，作为一个自由音乐家演奏。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('38', 'Shayne Ward', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1984-10-16 00:00:00', '英国', '2005年，肖恩·沃德因获得英国歌唱选秀节目《The X Factor》年度总冠军而成名 [1]  。赛后，签约索尼旗下公司Syco Music，并发行单曲《That\'s my goal》，以超过31.3万张的销售成绩创下英国唱片单曲首日畅销纪录第三名和英国单日付费下载次数最多的单曲吉尼斯纪录。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('39', 'Yiruma', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1978-02-15 00:00:00', '韩国', '李闰珉出生于韩国首尔，在英国长大，曾就学于英国伦敦\'The Purcell School\' 特别音乐学校，后来毕业于 \'King\'s College London\' ，主修作曲。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('40', 'Josh Ritter', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1976-11-21 00:00:00', '美国', 'Josh Ritter (born October 21, 1976) is an American singer-songwriter, guitarist and author who performs and records with The Royal City Band.', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('41', 'Tone Damli Aaberge', 0, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1988-04-12 00:00:00', '挪威', 'Tone Damli Aaberge/Tone Damli，是位来自挪威的年轻女歌手。当她才17岁的时候，曾参加了2005年那届挪威偶像。可惜她在比赛中获得亚军，屈居于Jorun Stiansen之后。她是2009年欧洲电视网歌唱大赛里的总决赛选手，她演唱了一首\"Butterflies\"，可惜最后也只得到亚军，屈居于Alexander Rybak之后', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('42', 'Sanna Nielsen', 0, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1984-11-27 00:00:00', '瑞典', 'Sanna Nielsen（仙娜·尼利森）出生于1984年11月27日，瑞典音乐才女，早在她12岁时就发行了其个人的第一张专辑，并且取得了相当不错的成绩，之前她一直是发行瑞典语的专辑和单曲，《Stronger》是她08年的新专，也是她第一张英文专辑，整张专的旋律给人很美很大气的感觉。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('43', 'Jessica', 0, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1989-04-18 00:00:00', '韩国', '郑秀妍（Jessica Jung），1989年4月18日出生于美国加利福尼亚州旧金山市，歌手、演员、设计师。2000年，郑秀妍回国探亲时被韩国SM娱乐有限公司发掘，成为其旗下练习生。2007年8月，以演唱团体少女时代成员身份正式出道，是组合里训练时间最长的成员。2009年，首次在音乐剧《金发尤物》中担任主角“艾莉·伍兹”。2012年，首次以演员身份参演《暴力罗曼史》。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('45', '3', 0, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '2020-08-04 00:00:00', '日本', '', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('5', 'G.E.M.邓紫棋', 0, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1974-07-27 00:00:00', '中国上海', '成长于一个音乐世家，其母亲为上海音乐学院声乐系毕业生，外婆教唱歌，舅父拉小提琴，外公在乐团吹色士风。在家人的熏陶下，自小便热爱音乐，喜爱唱歌，与音乐结下不解之缘。G.E.M.在5岁的时候已经开始尝试作曲及填词，13岁完成了8级钢琴。G.E.M.在小学时期就读位于太子道西的中华基督教会协和小学上午校，为2003年的毕业生，同时亦为校内诗歌班成员。其英文名G.E.M.是Get Everybody Moving的缩写，象徵著她希望透过音乐让大家动起来的梦想。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('7', '艺声', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1984-08-24 00:00:00', '韩国', '韩国著名男子团体Super Junior成员之一。2001年参加Starlight Casting System Casting，获得SM BEST选拔大赛歌唱赛第一名。经过长达5年的练习生训练，于2005年11月6日以Super Junior的身份正式出道。有着“艺术般声音”的他，被冠以“艺声”这个名号，是队中公认唱功最好的成员之一，因深沉、富有磁性且感情丰富的嗓音而在队里担当主唱。曾表演音乐剧、为多部电视剧演唱OST。值得一提的是，他也是朱一丹女士的疯狂追求者之一。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('8', 'Ennio Morricone', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1928-11-10 00:00:00', '意大利', '埃尼欧·莫里科内，意大利作曲家，生于罗马，曾为超过500部的电影电视写过配乐。2007年他获得奥斯卡终身成就奖，成为第二位获此殊荣的作曲家。他获得两次格莱美奖，两次金球奖，五次英国电影和电视艺术学院奖等多项音乐奖项。', '2020-12-16', '2020-12-16', 0);
+INSERT INTO `singer` VALUES ('9', '林俊杰', 1, '\\uploads\\singers\\2020-12-19\\20201219d41913e1-2d46-46ac-9bd5-63f00dfc009e.png', '1981-03-27 00:00:00', '新加坡', '著名男歌手，作曲人、作词人、音乐制作人，偶像与实力兼具。林俊杰出生于新加坡的一个音乐世家。在父母的引导下，4岁就开始学习古典钢琴，不善言辞的他由此发现了另一种与人沟通的语言。小时候的林俊杰把哥哥林俊峰当作偶像，跟随哥哥的步伐做任何事，直到接触流行音乐后，便爱上创作这一条路。2003年以专辑《乐行者》出道，2004年一曲《江南》红遍两岸三地，凭借其健康的形象，迷人的声线，出众的唱功，卓越的才华，迅速成为华语流行乐坛的领军人物之一，迄今为止共创作数百首音乐作品，唱片销量在全亚洲逾1000万张。', '2020-12-16', '2020-12-16', 0);
 
 -- ----------------------------
 -- Table structure for song
@@ -531,6 +557,15 @@ INSERT INTO `song` VALUES ('112', '41', 'Tone Damli Aaberge - Stupid', 'Stupid',
 INSERT INTO `song` VALUES ('113', '42', 'Sanna Nielsen-Undo', 'Undo', '2019-06-03 01:39:09', '2019-06-03 01:39:09', '/img/songPic/1775711278864263.jpg', '[00:00:00]暂无歌词', '/song/Sanna Nielsen-Undo.mp3', 0);
 INSERT INTO `song` VALUES ('12', '2', '周杰伦-夜曲', '床边故事', '2018-12-30 02:11:23', '2018-12-30 02:11:23', '/img/songPic/gaobaiqiqui.jpg', '[00:23.310]一群嗜血的蚂蚁 被腐肉所吸引\n[00:27.490]我面无表情 看孤独的风景\n[00:30.540]失去你 爱恨开始分明\n[00:33.030]失去你 还有什N事好关心\n[00:35.770]当鸽子不再象徵和平\n[00:37.550]我终于被提醒\n[00:38.910]广场上喂食的是秃鹰\n[00:41.580]我用漂亮的押韵\n[00:43.030]形容被掠夺一空的爱情\n[00:46.720]啊 乌云开始遮蔽 夜色不干净\n[00:49.520]公园里 葬礼的回音 在漫天飞行\n[00:52.380]送你的 白色玫瑰\n[00:53.820]在纯黑的环境凋零\n[00:55.520]乌鸦在树枝上诡异的很安静\n[00:57.880]静静听 我黑色的大衣\n[00:59.870]想温暖你 日渐冰冷的回忆\n[01:02.220]走过的 走过的 生命\n[01:03.650]啊 四周弥漫雾气\n[01:05.070]我在空旷的墓地\n[01:06.340]老去后还爱你\n[01:07.430]为你弹奏萧邦的夜曲\n[01:11.550]纪念我死去的爱情\n[01:14.300]跟夜风一样的声音\n[01:17.030]心碎的很好听\n[01:19.830]手在键盘敲很轻\n[01:22.570]我给的思念很小心\n[01:25.300]你埋葬的地方叫幽冥\n[01:29.990]为你弹奏萧邦的夜曲\n[01:33.570]纪念我死去的爱情\n[01:36.340]而我为你隐姓埋名\n[01:39.150]在月光下弹琴\n[01:41.900]对你心跳的感应\n[01:44.670]还是如此温热亲近\n[01:47.410]怀念你那鲜红的唇印\n[01:53.270]\n[02:14.540]那些断翅的蜻蜓 散落在这森林\n[02:17.600]而我的眼睛 没有丝毫同情\n[02:20.450]失去你 泪水混浊不清\n[02:22.950]失去你 我连笑容都有阴影\n[02:25.680]风在长满青苔的屋顶\n[02:27.310]嘲笑我的伤心\n[02:29.170]像一口没有水的枯井\n[02:31.510]我用凄美的字型\n[02:33.030]描绘后悔莫及的那爱情\n[02:36.590]为你弹奏萧邦的夜曲\n[02:39.380]纪念我死去的爱情\n[02:42.100]跟夜风一样的声音\n[02:44.890]心碎的很好听\n[02:47.640]手在键盘敲很轻\n[02:50.370]我给的思念很小心\n[02:53.150]你埋葬的地方叫幽冥\n[02:57.700]为你弹奏萧邦的夜曲\n[03:01.360]纪念我死去的爱情\n[03:04.220]而我为你隐姓埋名 在月光下弹琴\n[03:09.620]对你心跳的感应 还是如此温热亲近\n[03:15.170]怀念你那鲜红的唇印\n[03:20.810]一群嗜血的蚂蚁 被腐肉所吸引\n[03:23.630]我面无表情 看孤独的风景\n[03:26.660]失去你 爱恨开始分明\n[03:29.070]失去你 还有什N事好关心\n[03:31.860]当鸽子不再象徵和平\n[03:33.560]我终于被提醒\n[03:35.320]广场上喂食的是秃鹰\n[03:37.670]我用漂亮的押韵\n[03:38.970]形容被掠夺一空的爱情', '/song/周杰伦-夜曲.mp3', 0);
 INSERT INTO `song` VALUES ('13', '2', '周杰伦-红尘客栈', '十二新作', '2018-12-30 02:23:53', '2018-12-30 02:23:53', '/img/songPic/hongchengkezhan.jpg', '[by:青蒿素]\n[00:00.00] 作曲 : 周杰伦\n[00:01.00] 作词 : 方文山\n[00:04.803] 编曲：黄雨勋\n[00:07.032]\n[00:22.628] 天涯的尽头是风沙\n[00:28.000] 红尘的故事叫牵挂\n[00:33.282] 封刀隐没在寻常人家 东篱下\n[00:38.902] 闲云野鹤古刹\n[00:44.099] 快马在江湖里厮杀\n[00:49.339] 无非是名跟利放不下\n[00:54.603] 心中有江山的人岂能快意潇洒\n[01:00.090] 我只求与你共华发\n[01:07.466] 剑出鞘恩怨了 谁笑\n[01:12.296] 我只求今朝拥你入怀抱\n[01:17.706] 红尘客栈风似刀\n[01:21.615] 骤雨落宿命敲\n[01:26.716] 任武林谁领风骚\n[01:29.107] 我却只为你折腰\n[01:33.619] 过荒村野桥寻世外古道\n[01:38.999] 远离人间尘嚣\n[01:41.553] 柳絮飘 执子之手逍遥\n[01:51.203]\n[02:06.759] 檐下窗棂斜映枝桠\n[02:11.979] 与你席地对座饮茶\n[02:17.305] 我以工笔画将你牢牢地记下\n[02:23.039] 提笔不为风雅\n[02:27.989] 灯下叹红颜近晚霞\n[02:32.946] 我说缘份一如参禅不说话\n[02:38.756] 你泪如梨花洒满了纸上的天下\n[02:44.245] 爱恨如写意山水画\n[02:51.637] 剑出鞘恩怨了 谁笑\n[02:56.249] 我只求今朝拥你入怀抱\n[03:01.516] 红尘客栈风似刀\n[03:05.653] 骤雨落宿命敲\n[03:10.799] 任武林谁领风骚\n[03:13.186] 我却只为你折腰\n[03:17.523] 过荒村野桥寻世外古道\n[03:22.758] 远离人间尘嚣\n[03:25.467] 柳絮飘 执子之手逍遥\n[03:30.838]\n[03:48.576] 任武林谁领风骚\n[03:50.734] 我却只为你折腰\n[03:54.926] 你回眸多娇我泪中带笑\n[04:00.316] 酒招旗风中萧萧\n[04:04.376] 剑出鞘恩怨了', '/song/周杰伦-红尘客栈.mp3', 0);
+INSERT INTO `song` VALUES ('1340926237278826498', NULL, '王力宏-新鸳鸯', '新鸳鸯', '2020-12-21 15:45:03', '2020-12-21 15:45:03', '\\uploads\\songs\\cover\\2020-12-21\\202012212dff9b6e-5392-4584-a29a-5fe68aea66fa.png', '第三方第三方士大夫', '\\uploads\\songs\\music\\2020-12-21\\2020122159197947-3cf1-4ecb-bba2-ed2335bbf4e2.mp3', 0);
+INSERT INTO `song` VALUES ('1340926509375909889', NULL, '王力宏-新鸳鸯', '新鸳鸯', '2020-12-21 15:46:08', '2020-12-21 15:46:08', '\\uploads\\songs\\cover\\2020-12-21\\202012212dff9b6e-5392-4584-a29a-5fe68aea66fa.png', '第三方第三方士大夫', '\\uploads\\songs\\music\\2020-12-21\\2020122159197947-3cf1-4ecb-bba2-ed2335bbf4e2.mp3', 0);
+INSERT INTO `song` VALUES ('1340929615119609856', '10', '王力宏-新鸳鸯', '新鸳鸯33', '2020-12-21 15:58:28', '2020-12-21 17:05:28', '\\uploads\\songs\\cover\\2020-12-21\\20201221f51abe3a-f572-4503-804b-bebf7f9e8118.png', '[00:00.000] 作曲 : 王力宏\r\n[00:01.000] 作词 : 王力宏\r\n[00:12.330]打开窗户让孤单透气\r\n[00:17.130]这一间屋子 如此密闭\r\n[00:23.970]欢呼声仍飘在空气里\r\n[00:28.950]像空无一人一样华丽\r\n[00:33.780]\r\n[00:35.190]我 渐渐失去知觉\r\n[00:40.860]就当做是种自我逃避\r\n[00:47.170]你 飞到天的边缘\r\n[00:52.540]我也不猜落在何地\r\n[00:57.230]\r\n[00:58.020]一个我 需要梦想 需要方向 需要眼泪\r\n[01:03.850]更需要 一个人来 点亮天的黑\r\n[01:09.830]我已经 无能为力 无法抗拒 无路可退\r\n[01:16.000]这无声的夜 现在的我 需要人陪\r\n[01:25.300]\r\n[01:34.990]闭上眼睛 就看不清\r\n[01:39.909]这双人床 欠缺的 温馨\r\n[01:46.960]谁能 陪我 直到天明\r\n[01:52.080]穿透这片 迷蒙寂静\r\n[01:56.830]\r\n[01:57.909]我 渐渐失去知觉\r\n[02:03.640]就当做是种自我逃避\r\n[02:09.909]你 飞到天的边缘\r\n[02:15.740]我已不猜落在何地\r\n[02:20.200]\r\n[02:20.840]一个我 需要梦想 需要方向 需要眼泪\r\n[02:26.800]更需要 一个人来 点亮天的黑\r\n[02:32.600]我已经 无能为力 无法抗拒 无路可退\r\n[02:38.970]这无声的夜 现在的我 需要人陪\r\n[02:47.890]\r\n[03:08.230]一个我 需要梦想 需要方向 需要眼泪\r\n[03:14.000]更需要 一个人来 点亮天的黑\r\n[03:20.010]我已经 无能为力 无法抗拒 无路可退\r\n[03:26.360]这无声的夜 现在的我 需要人陪\r\n[03:36.240]', '\\uploads\\songs\\music\\2020-12-21\\20201221df7d5b5f-2217-40db-965b-8b9722170508.mp3', 1);
+INSERT INTO `song` VALUES ('1340929615119609857', '10', '王力宏-新鸳鸯1', '新鸳鸯', '2020-12-21 15:58:28', '2020-12-21 17:34:09', '\\uploads\\songs\\cover\\2020-12-21\\202012218e38e460-f76f-4e3f-bd47-3721498b1ef5.png', '[00:00.000] 作曲 : 王力宏\r\n[00:01.000] 作词 : 王力宏\r\n[00:12.330]打开窗户让孤单透气\r\n[00:17.130]这一间屋子 如此密闭\r\n[00:23.970]欢呼声仍飘在空气里\r\n[00:28.950]像空无一人一样华丽\r\n[00:33.780]\r\n[00:35.190]我 渐渐失去知觉\r\n[00:40.860]就当做是种自我逃避\r\n[00:47.170]你 飞到天的边缘\r\n[00:52.540]我也不猜落在何地\r\n[00:57.230]\r\n[00:58.020]一个我 需要梦想 需要方向 需要眼泪\r\n[01:03.850]更需要 一个人来 点亮天的黑\r\n[01:09.830]我已经 无能为力 无法抗拒 无路可退\r\n[01:16.000]这无声的夜 现在的我 需要人陪\r\n[01:25.300]\r\n[01:34.990]闭上眼睛 就看不清\r\n[01:39.909]这双人床 欠缺的 温馨\r\n[01:46.960]谁能 陪我 直到天明\r\n[01:52.080]穿透这片 迷蒙寂静\r\n[01:56.830]\r\n[01:57.909]我 渐渐失去知觉\r\n[02:03.640]就当做是种自我逃避\r\n[02:09.909]你 飞到天的边缘\r\n[02:15.740]我已不猜落在何地\r\n[02:20.200]\r\n[02:20.840]一个我 需要梦想 需要方向 需要眼泪\r\n[02:26.800]更需要 一个人来 点亮天的黑\r\n[02:32.600]我已经 无能为力 无法抗拒 无路可退\r\n[02:38.970]这无声的夜 现在的我 需要人陪\r\n[02:47.890]\r\n[03:08.230]一个我 需要梦想 需要方向 需要眼泪\r\n[03:14.000]更需要 一个人来 点亮天的黑\r\n[03:20.010]我已经 无能为力 无法抗拒 无路可退\r\n[03:26.360]这无声的夜 现在的我 需要人陪\r\n[03:36.240]', '\\uploads\\songs\\music\\2020-12-21\\20201221753d9ef9-a8c2-4e2a-9aef-0522fe4e61e1.mp3', 0);
+INSERT INTO `song` VALUES ('1342382341659025409', NULL, '陈奕迅-测试', '测试专辑', '2020-12-25 16:11:05', '2020-12-25 16:11:05', '\\uploads\\songs\\cover\\2020-12-25\\20201225e4108200-2df0-4bbf-8105-3e0e397ae70b.png', '测试转机测试转机测试转机', '\\uploads\\songs\\music\\2020-12-25\\20201225eaa16664-1238-40e3-8d15-29718ec8a91a.mp3', 0);
+INSERT INTO `song` VALUES ('1342382357719015426', NULL, '陈奕迅-测试', '测试专辑', '2020-12-25 16:11:09', '2020-12-25 16:11:09', '\\uploads\\songs\\cover\\2020-12-25\\20201225e4108200-2df0-4bbf-8105-3e0e397ae70b.png', '测试转机测试转机测试转机', '\\uploads\\songs\\music\\2020-12-25\\20201225eaa16664-1238-40e3-8d15-29718ec8a91a.mp3', 0);
+INSERT INTO `song` VALUES ('1342382362869620738', NULL, '陈奕迅-测试', '测试专辑', '2020-12-25 16:11:10', '2020-12-25 16:11:10', '\\uploads\\songs\\cover\\2020-12-25\\20201225e4108200-2df0-4bbf-8105-3e0e397ae70b.png', '测试转机测试转机测试转机', '\\uploads\\songs\\music\\2020-12-25\\20201225eaa16664-1238-40e3-8d15-29718ec8a91a.mp3', 0);
+INSERT INTO `song` VALUES ('1342385980620369922', NULL, '子娆-醒来折花', '醒来折花', '2020-12-25 16:25:33', '2020-12-25 16:25:33', '\\uploads\\songs\\cover\\2020-12-25\\202012250e0d1b95-a74a-44e2-8331-b1dd6aa61613.png', '醒来折花', '\\uploads\\songs\\music\\2020-12-25\\20201225cd9a93c1-15fd-44b3-8801-5cdbb7404392.mp3', 0);
+INSERT INTO `song` VALUES ('1342388687208935426', NULL, '艾尼-字正腔圆1', '字正腔圆', '2020-12-25 16:36:18', '2020-12-25 16:41:15', '\\uploads\\songs\\cover\\2020-12-25\\20201225afecb375-2516-4316-8899-49a483cb8e4c.png', '字正腔圆', '\\uploads\\songs\\music\\2020-12-25\\20201225641fe9bd-d7b0-4a81-a884-e0156ab6489a.mp3', 0);
 INSERT INTO `song` VALUES ('14', '2', '周杰伦-开不了口', '范特西', '2018-12-30 02:36:08', '2018-12-30 02:36:08', '/img/songPic/kaibulkou.jpg', '[00:00.00] 作曲 : 周杰伦\n[00:01.00] 作词 : 徐若瑄\n[00:27.330]才离开没多久就开始  担心今天的你过得好不好\n[00:34.140]整个画面是你  想你想的睡不着\n[00:39.040]\n[00:40.920]嘴嘟嘟那可爱的模样  还有在你身上香香的味道\n[00:47.600]我的快乐是你  想你想的都会笑\n[00:53.790]\n[00:56.820]没有你在我有多难熬（没有你在我有多难熬多烦恼）\n[01:04.260]没有你烦我有多烦恼（没有你烦我有多烦恼多难熬）\n[01:07.850]\n[01:08.580]穿过云层  我试着努力向你奔跑\n[01:14.580]爱才送到  你却已在别人怀抱\n[01:20.190]\n[01:21.640]就是开不了口  让她知道\n[01:26.780]我一定会呵护着你  也逗你笑\n[01:34.180]你对我有多重要  我后悔没  让你知道\n[01:41.140]安静的听你撒娇  看你睡着  一直到老\n[01:47.270]\n[01:48.600]就是开不了口  让她知道\n[01:54.360]就是那么简单几句  我办不到\n[02:01.640]整颗心悬在半空  我只能够  远远看着\n[02:08.580]这些我都做得到  但那个人已经不是我\n[02:15.910]\n[02:44.140]没有你在我有多难熬（没有你在我有多难熬多烦恼）\n[02:50.940]没有你烦我有多烦恼（没有你烦我有多烦恼多难熬）\n[02:57.350]\n[02:57.930]穿过云层  我试着努力向你奔跑\n[03:04.270]爱才送到  你却已在别人怀抱\n[03:10.060]\n[03:11.460]就是开不了口  让她知道\n[03:16.800]我一定会呵护着你  也逗你笑\n[03:23.910]你对我有多重要  我后悔没  让你知道\n[03:30.980]安静的听你撒娇  看你睡着  一直到老\n[03:37.480]\n[03:39.700]就是开不了口  让她知道\n[03:44.380]就是那么简单几句  我办不到\n[03:51.450]整颗心悬在半空  我只能够  远远看着\n[03:58.410]这些我都做得到  但那个人已经不是我\n[04:20.750]\n[04:21.340]我总是开不了口 我总是开不了口\n[04:27.390]我只能够远远地看着你 开不了口', '/song/周杰伦-开不了口.mp3', 0);
 INSERT INTO `song` VALUES ('15', '2', '周杰伦-菊花台', '依然范特西', '2018-12-30 02:42:47', '2018-12-30 02:42:47', '/img/songPic/juhuatai.jpg', '[by:立酱]\n[00:00.00] 作曲 : 周杰伦\n[00:00.200] 作词 : 方文山\n[00:00.600]编曲：钟兴民\n[00:01.600]制作人：周杰伦\n[00:02.600]吉他：蔡科俊Again\n[00:03.600]弦乐编写：钟兴民\n[00:04.600]Programmer：魏百谦\n[00:05.600]弦乐团：中国爱乐\n[00:06.600]录音工程：杨瑞代\n[00:07.600]录音室：ALFA STUDIO\n[00:08.600]混音工程：杨大纬\n[00:09.600]混音录音室：杨大纬录音工作室\n[00:10.600]弦乐录音师：李岳松(北京)/魏百谦(台北)\n[00:11.600]弦乐录音室：计划生育录音室(北京)/Room19 Studio (台北)\n[00:35.900]你的泪光\n[00:39.400]柔弱中带伤\n[00:42.850]惨白的月弯弯\n[00:46.350]勾住过往\n[00:49.860]夜 太漫长\n[00:53.360]凝结成了霜\n[00:56.720]是谁在阁楼上冰冷地绝望\n[01:03.820]雨 轻轻弹\n[01:07.370]朱红色的窗\n[01:10.780]我一生在纸上被风吹乱\n[01:17.730]梦 在远方\n[01:21.290]化成一缕香\n[01:24.690]随风飘散\n[01:27.250]你的模样\n[01:34.510]菊花残 满地伤\n[01:37.770]你的笑容已泛黄\n[01:42.190]花落人断肠\n[01:44.640]我心事静静淌\n[01:48.200]北风乱 夜未央\n[01:51.550]你的影子剪不断\n[01:56.000]徒留我孤单在湖面成双\n[02:30.900]花 已向晚\n[02:34.360]飘落了灿烂\n[02:37.810]凋谢的世道上\n[02:41.270]命运不堪\n[02:44.820]愁 莫渡江\n[02:48.440]秋心拆两半\n[02:51.640]怕你上不了岸\n[02:55.000]一辈子摇晃\n[02:58.850]谁 的江山\n[03:02.310]马蹄声狂乱\n[03:05.760]我一身的戎装\n[03:09.220]呼啸沧桑\n[03:12.720]天 微微亮\n[03:16.170]你轻声地叹\n[03:19.730]一夜惆怅 如此委婉\n[03:29.430]菊花残 满地伤\n[03:32.640]你的笑容已泛黄\n[03:37.160]花落人断肠\n[03:39.610]我心事静静淌\n[03:43.110]北风乱 夜未央\n[03:46.520]你的影子剪不断\n[03:50.970]徒留我孤单在湖面成双\n[04:00.700]菊花残 满地伤\n[04:03.950]你的笑容已泛黄\n[04:08.400]花落人断肠\n[04:10.900]我心事静静淌\n[04:14.410]北风乱 夜未央\n[04:17.910]你的影子剪不断\n[04:25.100]徒留我孤单在湖面成双', '/song/周杰伦-菊花台.mp3', 0);
 INSERT INTO `song` VALUES ('16', '2', '周杰伦-牛仔很忙', '我很忙', '2018-12-30 02:48:47', '2018-12-30 02:48:47', '/img/songPic/nuizaihenmang.jpg', '[by:立酱]\n[00:00.00] 作曲 : 周杰伦\n[00:01.00] 作词 : 黄俊郎\n[00:03.00]编曲：钟兴民\n[00:04.00]制作人：周杰伦\n[00:05.00]吉他：蔡科俊Again\n[00:06.00]弦乐编写：周杰伦\n[00:07.00]小提琴：王宜桢\n[00:08.00]合声编写：周杰伦\n[00:09.00]合声：周杰伦\n[00:10.00]录音师：杨瑞代\n[00:11.00]录音室：JVR STUDIO\n[00:12.00]混音师：杨大纬\n[00:13.00]混音录音室：杨大纬录音工作室\n[00:16.35]呜啦啦啦火车笛\n[00:18.16]随着奔腾的马蹄\n[00:20.26]小妹妹吹着口琴\n[00:22.20]夕阳下美了剪影\n[00:24.05]我用子弹写日记\n[00:25.95]介绍完了风景\n[00:27.75]接下来换介绍我自己\n[00:31.91]我虽然是个牛仔\n[00:33.71]在酒吧只点牛奶\n[00:35.72]为什么不喝啤酒\n[00:37.57]因为啤酒伤身体\n[00:39.52]很多人不长眼睛\n[00:41.47]嚣张都靠武器\n[00:43.42]赤手空拳就缩成蚂蚁\n[00:47.60]不用麻烦了 不用麻烦了\n[00:48.95]不用麻烦 不用麻烦了\n[00:50.35]不用麻烦了\n[00:51.45]你们一起上 我在赶时间\n[00:52.80]每天决斗 观众都累了\n[00:53.96]英雄也累了\n[00:55.10]不用麻烦了 不用麻烦了\n[00:56.66]副歌不长 你们有几个\n[00:57.96]一起上好了\n[00:59.11]正义呼唤我 美女需要我\n[01:00.52]牛仔很忙的\n[01:26.24]我啦啦啦骑毛驴\n[01:27.94]因为马跨不上去\n[01:29.86]洗澡都洗泡泡浴\n[01:31.72]因为可以玩玩具\n[01:33.62]我有颗善良的心\n[01:35.53]都只穿假牛皮\n[01:37.68]喔跌倒时尽量不压草皮\n[01:41.64]枪口它没长眼睛\n[01:43.39]我曾经答应上帝\n[01:45.34]除非是万不得已\n[01:47.19]我尽量射橡皮筋\n[01:49.29]老板先来杯奶昔\n[01:50.99]要逃命前请你\n[01:53.15]顺便喂喂我那只小毛驴\n[01:57.41]不用麻烦了 不用麻烦了\n[01:58.73]不用麻烦 不用麻烦了\n[01:59.98]不用麻烦了\n[02:00.68]你们一起上 我在赶时间\n[02:02.53]每天决斗 观众都累了\n[02:03.93]英雄也累了\n[02:04.63]不用麻烦了 不用麻烦了\n[02:06.14]副歌不长 你们有几个\n[02:07.44]一起上好了\n[02:08.67]正义呼唤我 美女需要我\n[02:10.28]牛仔很忙的\n[02:28.18]不用麻烦了 不用麻烦了\n[02:29.58]不用麻烦 不用麻烦了\n[02:30.78]不用麻烦了\n[02:32.07]你们一起上 我在赶时间\n[02:33.62]每天决斗 观众都累了\n[02:34.88]英雄也累了\n[02:35.58]不用麻烦了 不用麻烦了\n[02:37.18]副歌不长 你们有几个\n[02:38.43]一起上好了\n[02:39.87]正义呼唤我 美女需要我\n[02:41.37]牛仔很忙的', '/song/周杰伦-牛仔很忙.mp3', 0);
@@ -560,14 +595,19 @@ INSERT INTO `song` VALUES ('37', '8', 'Ennio Morricone-Titoli', 'Per un Pugno di
 INSERT INTO `song` VALUES ('38', '9', '林俊杰-关键词', '和自己对话 From M.E. To Myself', '2019-03-19 13:38:54', '2019-03-19 13:38:54', '/img/songPic/guanjianci.jpg', '[00:00.000] 作曲 : 林俊杰\n[00:01.000] 作词 : 林怡凤\n[00:14.12]好好爱自己 就有人会爱你\n[00:17.43]这乐观的说词\n[00:21.05]幸福的样子 我感觉好真实\n[00:24.31]找不到形容词\n[00:27.72]沉默在掩饰 快泛滥的激情\n[00:31.43]只剩下语助词\n[00:35.05]有一种踏实 当你口中喊我名字\n[00:40.49]落叶的位置 谱出一首诗\n[00:47.67]时间在消逝 我们的故事开始\n[00:54.34]这是第一次\n[00:58.13]让我见识爱情 可以慷慨又自私\n[01:04.67]你是我的关键词\n[01:10.22]\n[01:21.26]我不太确定 爱最好的方式\n[01:24.45]是动词或名词\n[01:28.09]很想告诉你 最赤裸的感情\n[01:31.46]却又忘词\n[01:35.35]聚散总有时 而哭笑也有时\n[01:38.49]我不怕潜台词\n[01:41.55]有一种踏实 是你心中有我名字\n[01:47.63]落叶的位置 谱出一首诗\n[01:54.41]时间在消逝 我们的故事开始\n[02:01.62]这是第一次\n[02:05.35]让我见识爱情 可以慷慨又自私\n[02:11.86]你是我的关键词\n[02:17.66]你藏在歌词\n[02:20.94]代表的意思\n[02:24.50]是专有名词\n[02:30.18]落叶的位置\n[02:33.55]谱出一首诗\n[02:37.05]我们的故事\n[02:40.51]才正要开始\n[02:44.35]这是第一次\n[02:47.33]爱一个人爱得如此慷慨又自私\n[02:54.33]你是我的关键词', '/song/林俊杰-关键词.mp3', 0);
 INSERT INTO `song` VALUES ('39', '9', '林俊杰-期待爱', 'JJ陆', '2019-03-19 13:44:19', '2019-04-24 22:35:28', '/img/songPic/guanjianci.jpg', '[00:33.790]My Life 一直在等待\n[00:38.790]空荡的口袋\n[00:41.490]想在里面放 一份爱\n[00:45.860]Why 总是被打败\n[00:49.850]真的好无奈\n[00:53.760]其实我 实实在在\n[00:55.750]不管帅不帅\n[01:00.030]想要找回来 自己的节拍\n[01:05.380]所以这一次\n[01:08.130]我要勇敢 大声说出来\n[01:13.220]\n[01:13.680]期待 期待你发现我的爱\n[01:18.790]无所不在 我自然而然的关怀\n[01:24.230]你的存在 心灵感应的方向\n[01:29.570]我一眼就看出来\n[01:33.780]是因为爱\n[01:36.160]我猜 你早已发现我的爱\n[01:41.080]绕几个弯 越靠近越明白\n[01:46.850]不要走开\n[01:49.580]幸福的开始 就是放手去爱\n[02:22.620]想要找回来 自己的节拍\n[02:27.790]所以这一次\n[02:30.700]我要勇敢 大声说出来\n[02:36.420]\n[02:37.030]期待 期待你发现我的爱\n[02:41.920]无所不在 我自然而然的关怀\n[02:47.510]你的存在 心灵感应的方向\n[02:52.870]我一眼就看出来\n[02:57.080]是因为爱\n[02:59.520]我猜 你早已发现我的爱\n[03:04.380]绕几个弯 越靠近越明白\n[03:09.930]不要走开\n[03:12.580]幸福的开始 就是放手去爱\n[03:21.140]\n[03:22.020]幸福的开始 就是放手去爱', '/song/林俊杰-期待爱.mp3', 0);
 INSERT INTO `song` VALUES ('4', '1', '张杰-如果爱', '再爱我一回', '2018-12-26 11:47:15', '2019-04-24 21:13:52', '/img/songPic/haikuotiankong.jpg', '[00:00.00] 作曲 : 黎沸辉\n [00:01.00] 作词 : 黎沸辉\n[00:04.16]如果爱\n[00:16.77]ah~~~ah~~\n[00:34.50]我的心从没有搬到另一个地址\n[00:40.57]还是和你用同样一室的钥匙\n[00:48.19]你的眼泪一滴一滴将回忆淋湿\n[00:54.64]你的拥抱却让呼吸变得真实\n[01:02.40]相爱的人 我能如何选择\n[01:09.29]伤痛和快乐全都是重复的规则\n[01:16.22]如果爱只是拉拉扯扯\n[01:19.65]两个人都动弹不得\n[01:23.10]如果爱已经少了快乐\n[01:26.68]为何心痛不能割舍\n[01:30.25]如果爱已经慢慢褪色\n[01:33.83]两颗心都失去颜色\n[01:37.25]如果爱已是非爱不可\n[01:40.79]又何必问他是否值得\n[01:44.54]可爱情在猜疑下渐渐冰冷\n[02:01.08]我的心从没有搬到另一个地址\n[02:12.48]还是和你用同样一室的钥匙\n[02:20.14]你的眼泪一滴一滴将回忆淋湿\n[02:26.32]你的拥抱却让呼吸变得真实\n[02:34.11]相爱的人 我能如何选择\n[02:41.14]伤痛和快乐全都是重复的规则\n[02:45.35]如果爱只是拉拉扯扯\n[02:51.65]两个人都动弹不得\n[02:54.99]如果爱已经少了快乐\n[02:58.80]为何心痛不能割舍\n[03:02.11]如果爱已经慢慢褪色\n[03:05.67]两颗心都失去颜色\n[03:09.14]如果爱已是非爱不可\n[03:12.70]又何必问他是否值得\n[03:16.50]看爱情在猜疑下～\n[03:20.04]如果爱只是拉拉扯扯\n[03:23.02]两个人都动弹不得\n[03:25.41]如果爱已经少了快乐\n[03:30.42]为何心痛不能割舍\n[03:33.76]如果爱已经慢慢褪色\n[03:37.30]两颗心都失去颜色\n[03:40.74]如果爱已是非爱不可\n[03:44.17]又何必问他是否值得\n[03:48.39]看爱情在猜疑下渐渐冰冷\n[03:52.17]又何必问他是否值得\n[03:55.76]如果爱已是非爱 非爱不可～\n[03:59.28]两颗心都失去了颜色\n[04:03.00]看爱情在猜疑下渐渐冰冷\n[04:06.58]又何必问他是否值得\n[04:09.79]如果爱已是非爱 非爱不可～\n[04:13.49]两颗心都失去了颜色', '/song/张杰-如果爱.mp3', 0);
-INSERT INTO `song` VALUES ('40', '10', '王力宏-需要人陪', '十八般武艺', '2019-03-19 13:52:02', '2019-03-19 13:52:02', '/img/songPic/xuyaorenpei.jpg', '[00:00.000] 作曲 : 王力宏\n[00:01.000] 作词 : 王力宏\n[00:12.330]打开窗户让孤单透气\n[00:17.130]这一间屋子 如此密闭\n[00:23.970]欢呼声仍飘在空气里\n[00:28.950]像空无一人一样华丽\n[00:33.780]\n[00:35.190]我 渐渐失去知觉\n[00:40.860]就当做是种自我逃避\n[00:47.170]你 飞到天的边缘\n[00:52.540]我也不猜落在何地\n[00:57.230]\n[00:58.020]一个我 需要梦想 需要方向 需要眼泪\n[01:03.850]更需要 一个人来 点亮天的黑\n[01:09.830]我已经 无能为力 无法抗拒 无路可退\n[01:16.000]这无声的夜 现在的我 需要人陪\n[01:25.300]\n[01:34.990]闭上眼睛 就看不清\n[01:39.909]这双人床 欠缺的 温馨\n[01:46.960]谁能 陪我 直到天明\n[01:52.080]穿透这片 迷蒙寂静\n[01:56.830]\n[01:57.909]我 渐渐失去知觉\n[02:03.640]就当做是种自我逃避\n[02:09.909]你 飞到天的边缘\n[02:15.740]我已不猜落在何地\n[02:20.200]\n[02:20.840]一个我 需要梦想 需要方向 需要眼泪\n[02:26.800]更需要 一个人来 点亮天的黑\n[02:32.600]我已经 无能为力 无法抗拒 无路可退\n[02:38.970]这无声的夜 现在的我 需要人陪\n[02:47.890]\n[03:08.230]一个我 需要梦想 需要方向 需要眼泪\n[03:14.000]更需要 一个人来 点亮天的黑\n[03:20.010]我已经 无能为力 无法抗拒 无路可退\n[03:26.360]这无声的夜 现在的我 需要人陪\n[03:36.240]', '/song/王力宏-需要人陪.mp3', 0);
+INSERT INTO `song` VALUES ('40', '10', '王力宏-需要人陪', '十八般武艺', '2019-03-19 13:52:02', '2019-03-19 13:52:02', '\\uploads\\songs\\cover\\2020-12-21\\202012218e38e460-f76f-4e3f-bd47-3721498b1ef5.png', '[00:00.000] 作曲 : 王力宏\n[00:01.000] 作词 : 王力宏\n[00:12.330]打开窗户让孤单透气\n[00:17.130]这一间屋子 如此密闭\n[00:23.970]欢呼声仍飘在空气里\n[00:28.950]像空无一人一样华丽\n[00:33.780]\n[00:35.190]我 渐渐失去知觉\n[00:40.860]就当做是种自我逃避\n[00:47.170]你 飞到天的边缘\n[00:52.540]我也不猜落在何地\n[00:57.230]\n[00:58.020]一个我 需要梦想 需要方向 需要眼泪\n[01:03.850]更需要 一个人来 点亮天的黑\n[01:09.830]我已经 无能为力 无法抗拒 无路可退\n[01:16.000]这无声的夜 现在的我 需要人陪\n[01:25.300]\n[01:34.990]闭上眼睛 就看不清\n[01:39.909]这双人床 欠缺的 温馨\n[01:46.960]谁能 陪我 直到天明\n[01:52.080]穿透这片 迷蒙寂静\n[01:56.830]\n[01:57.909]我 渐渐失去知觉\n[02:03.640]就当做是种自我逃避\n[02:09.909]你 飞到天的边缘\n[02:15.740]我已不猜落在何地\n[02:20.200]\n[02:20.840]一个我 需要梦想 需要方向 需要眼泪\n[02:26.800]更需要 一个人来 点亮天的黑\n[02:32.600]我已经 无能为力 无法抗拒 无路可退\n[02:38.970]这无声的夜 现在的我 需要人陪\n[02:47.890]\n[03:08.230]一个我 需要梦想 需要方向 需要眼泪\n[03:14.000]更需要 一个人来 点亮天的黑\n[03:20.010]我已经 无能为力 无法抗拒 无路可退\n[03:26.360]这无声的夜 现在的我 需要人陪\n[03:36.240]', '\\uploads\\songs\\music\\2020-12-21\\20201221753d9ef9-a8c2-4e2a-9aef-0522fe4e61e1.mp3', 0);
+INSERT INTO `song` VALUES ('402', '10', '王力宏-需要人陪', '十八般武艺', '2019-03-19 13:52:02', '2019-03-19 13:52:02', '\\uploads\\songs\\cover\\2020-12-21\\202012218e38e460-f76f-4e3f-bd47-3721498b1ef5.png', '[00:00.000] 作曲 : 王力宏\n[00:01.000] 作词 : 王力宏\n[00:12.330]打开窗户让孤单透气\n[00:17.130]这一间屋子 如此密闭\n[00:23.970]欢呼声仍飘在空气里\n[00:28.950]像空无一人一样华丽\n[00:33.780]\n[00:35.190]我 渐渐失去知觉\n[00:40.860]就当做是种自我逃避\n[00:47.170]你 飞到天的边缘\n[00:52.540]我也不猜落在何地\n[00:57.230]\n[00:58.020]一个我 需要梦想 需要方向 需要眼泪\n[01:03.850]更需要 一个人来 点亮天的黑\n[01:09.830]我已经 无能为力 无法抗拒 无路可退\n[01:16.000]这无声的夜 现在的我 需要人陪\n[01:25.300]\n[01:34.990]闭上眼睛 就看不清\n[01:39.909]这双人床 欠缺的 温馨\n[01:46.960]谁能 陪我 直到天明\n[01:52.080]穿透这片 迷蒙寂静\n[01:56.830]\n[01:57.909]我 渐渐失去知觉\n[02:03.640]就当做是种自我逃避\n[02:09.909]你 飞到天的边缘\n[02:15.740]我已不猜落在何地\n[02:20.200]\n[02:20.840]一个我 需要梦想 需要方向 需要眼泪\n[02:26.800]更需要 一个人来 点亮天的黑\n[02:32.600]我已经 无能为力 无法抗拒 无路可退\n[02:38.970]这无声的夜 现在的我 需要人陪\n[02:47.890]\n[03:08.230]一个我 需要梦想 需要方向 需要眼泪\n[03:14.000]更需要 一个人来 点亮天的黑\n[03:20.010]我已经 无能为力 无法抗拒 无路可退\n[03:26.360]这无声的夜 现在的我 需要人陪\n[03:36.240]', '\\uploads\\songs\\music\\2020-12-21\\20201221753d9ef9-a8c2-4e2a-9aef-0522fe4e61e1.mp3', 0);
+INSERT INTO `song` VALUES ('403', '10', '王力宏-需要人陪', '十八般武艺', '2019-03-19 13:52:02', '2019-03-19 13:52:02', '\\uploads\\songs\\cover\\2020-12-21\\202012218e38e460-f76f-4e3f-bd47-3721498b1ef5.png', '[00:00.000] 作曲 : 王力宏\n[00:01.000] 作词 : 王力宏\n[00:12.330]打开窗户让孤单透气\n[00:17.130]这一间屋子 如此密闭\n[00:23.970]欢呼声仍飘在空气里\n[00:28.950]像空无一人一样华丽\n[00:33.780]\n[00:35.190]我 渐渐失去知觉\n[00:40.860]就当做是种自我逃避\n[00:47.170]你 飞到天的边缘\n[00:52.540]我也不猜落在何地\n[00:57.230]\n[00:58.020]一个我 需要梦想 需要方向 需要眼泪\n[01:03.850]更需要 一个人来 点亮天的黑\n[01:09.830]我已经 无能为力 无法抗拒 无路可退\n[01:16.000]这无声的夜 现在的我 需要人陪\n[01:25.300]\n[01:34.990]闭上眼睛 就看不清\n[01:39.909]这双人床 欠缺的 温馨\n[01:46.960]谁能 陪我 直到天明\n[01:52.080]穿透这片 迷蒙寂静\n[01:56.830]\n[01:57.909]我 渐渐失去知觉\n[02:03.640]就当做是种自我逃避\n[02:09.909]你 飞到天的边缘\n[02:15.740]我已不猜落在何地\n[02:20.200]\n[02:20.840]一个我 需要梦想 需要方向 需要眼泪\n[02:26.800]更需要 一个人来 点亮天的黑\n[02:32.600]我已经 无能为力 无法抗拒 无路可退\n[02:38.970]这无声的夜 现在的我 需要人陪\n[02:47.890]\n[03:08.230]一个我 需要梦想 需要方向 需要眼泪\n[03:14.000]更需要 一个人来 点亮天的黑\n[03:20.010]我已经 无能为力 无法抗拒 无路可退\n[03:26.360]这无声的夜 现在的我 需要人陪\n[03:36.240]', '\\uploads\\songs\\music\\2020-12-21\\20201221753d9ef9-a8c2-4e2a-9aef-0522fe4e61e1.mp3', 0);
+INSERT INTO `song` VALUES ('404', '10', '王力宏-需要人陪', '十八般武艺', '2019-03-19 13:52:02', '2019-03-19 13:52:02', '\\uploads\\songs\\cover\\2020-12-21\\202012218e38e460-f76f-4e3f-bd47-3721498b1ef5.png', '[00:00.000] 作曲 : 王力宏\n[00:01.000] 作词 : 王力宏\n[00:12.330]打开窗户让孤单透气\n[00:17.130]这一间屋子 如此密闭\n[00:23.970]欢呼声仍飘在空气里\n[00:28.950]像空无一人一样华丽\n[00:33.780]\n[00:35.190]我 渐渐失去知觉\n[00:40.860]就当做是种自我逃避\n[00:47.170]你 飞到天的边缘\n[00:52.540]我也不猜落在何地\n[00:57.230]\n[00:58.020]一个我 需要梦想 需要方向 需要眼泪\n[01:03.850]更需要 一个人来 点亮天的黑\n[01:09.830]我已经 无能为力 无法抗拒 无路可退\n[01:16.000]这无声的夜 现在的我 需要人陪\n[01:25.300]\n[01:34.990]闭上眼睛 就看不清\n[01:39.909]这双人床 欠缺的 温馨\n[01:46.960]谁能 陪我 直到天明\n[01:52.080]穿透这片 迷蒙寂静\n[01:56.830]\n[01:57.909]我 渐渐失去知觉\n[02:03.640]就当做是种自我逃避\n[02:09.909]你 飞到天的边缘\n[02:15.740]我已不猜落在何地\n[02:20.200]\n[02:20.840]一个我 需要梦想 需要方向 需要眼泪\n[02:26.800]更需要 一个人来 点亮天的黑\n[02:32.600]我已经 无能为力 无法抗拒 无路可退\n[02:38.970]这无声的夜 现在的我 需要人陪\n[02:47.890]\n[03:08.230]一个我 需要梦想 需要方向 需要眼泪\n[03:14.000]更需要 一个人来 点亮天的黑\n[03:20.010]我已经 无能为力 无法抗拒 无路可退\n[03:26.360]这无声的夜 现在的我 需要人陪\n[03:36.240]', '\\uploads\\songs\\music\\2020-12-21\\20201221753d9ef9-a8c2-4e2a-9aef-0522fe4e61e1.mp3', 0);
+INSERT INTO `song` VALUES ('406', '10', '王力宏-需要人陪', '十八般武艺', '2019-03-19 13:52:02', '2019-03-19 13:52:02', '\\uploads\\songs\\cover\\2020-12-21\\202012218e38e460-f76f-4e3f-bd47-3721498b1ef5.png', '[00:00.000] 作曲 : 王力宏\n[00:01.000] 作词 : 王力宏\n[00:12.330]打开窗户让孤单透气\n[00:17.130]这一间屋子 如此密闭\n[00:23.970]欢呼声仍飘在空气里\n[00:28.950]像空无一人一样华丽\n[00:33.780]\n[00:35.190]我 渐渐失去知觉\n[00:40.860]就当做是种自我逃避\n[00:47.170]你 飞到天的边缘\n[00:52.540]我也不猜落在何地\n[00:57.230]\n[00:58.020]一个我 需要梦想 需要方向 需要眼泪\n[01:03.850]更需要 一个人来 点亮天的黑\n[01:09.830]我已经 无能为力 无法抗拒 无路可退\n[01:16.000]这无声的夜 现在的我 需要人陪\n[01:25.300]\n[01:34.990]闭上眼睛 就看不清\n[01:39.909]这双人床 欠缺的 温馨\n[01:46.960]谁能 陪我 直到天明\n[01:52.080]穿透这片 迷蒙寂静\n[01:56.830]\n[01:57.909]我 渐渐失去知觉\n[02:03.640]就当做是种自我逃避\n[02:09.909]你 飞到天的边缘\n[02:15.740]我已不猜落在何地\n[02:20.200]\n[02:20.840]一个我 需要梦想 需要方向 需要眼泪\n[02:26.800]更需要 一个人来 点亮天的黑\n[02:32.600]我已经 无能为力 无法抗拒 无路可退\n[02:38.970]这无声的夜 现在的我 需要人陪\n[02:47.890]\n[03:08.230]一个我 需要梦想 需要方向 需要眼泪\n[03:14.000]更需要 一个人来 点亮天的黑\n[03:20.010]我已经 无能为力 无法抗拒 无路可退\n[03:26.360]这无声的夜 现在的我 需要人陪\n[03:36.240]', '\\uploads\\songs\\music\\2020-12-21\\20201221753d9ef9-a8c2-4e2a-9aef-0522fe4e61e1.mp3', 0);
 INSERT INTO `song` VALUES ('41', '11', 'Eminem-Love The Way You Lie', 'Life After Recovery', '2019-03-19 15:30:21', '2019-03-19 15:30:21', '/img/songPic/LoveTheWayYouLie.jpg', '[00:00.000] 作曲 : Marshall Mathers/Alexander Grant/Holly Hafermann\n[00:00.100] 作词 : Marshall Mathers/Alexander Grant/Holly Hafermann\n[00:00.300]Just gonna stand there and watch me burn\n[00:05.350]But that\'s alright because I like the way it hurts\n[00:11.230]Just gonna stand there and hear me cry\n[00:16.260]But that\'s alright because I love the way you lie, I love the way you lie\n[00:25.130]I can\'t tell you what it really is\n[00:26.890]I can only tell you what it feels like\n[00:28.930]And right now there\'s a steel knife in my windpipe\n[00:31.550]I can\'t breathe but I still fight while I can fight\n[00:34.440]As long as the wrong feels right it\'s like I\'m in flight\n[00:37.440]High off the love, drunk from my hate,\n[00:39.220]It\'s like I\'m huffing paint and I love her the more i suffer, I suffocate\n[00:42.770]And right before I\'m about to drown, she resuscitates me\n[00:46.000]She ****ing hates me and I love it.\n[00:47.850]Wait! Where you going? I\'m leaving you\n[00:50.260]No you ain\'t. Come back we\'re running right back.\n[00:52.850]Here we go again\n[00:53.790]It\'s so insane cus when its going good its going great.\n[00:56.530]I\'m superman with the wind at his back\n[00:58.490]Shes Louis Lane but when its bad its awful, I feel so ashamed I snap\n[01:02.640]Whos that dude? I don\'t even know his name\n[01:04.800]I laid hands on him, I\'ll never stoop so low again\n[01:07.500]I guess I don\'t know my own strength\n[01:09.490]Just gonna stand there and watch me burn\n[01:14.200]But that\'s alright because I like the way it hurts\n[01:20.500]Just gonna stand there and hear me cry\n[01:25.290]But that\'s alright because I love the way you lie, I love the way you lie\n[01:42.800]You ever love somebody so much you can barely breathe\n[01:45.320]When you\'re with \'em\n[01:46.050]You meet and neither one of you even know what hit \'em\n[01:48.540]Got that warm fuzzy feeling\n[01:50.090]Yeah, them those chills you used to get \'em\n[01:51.360]Now you\'re getting ****ing sick of looking at him\n[01:53.730]You swore you\'d never hit him; never do nothing to hurt him\n[01:56.370]Now you\'re in each other\'s face spewing venom in your words when you spit them\n[02:00.000]You push pull each other\'s hair, scratch claw hit him\n[02:02.440]Throw him down pin him\n[02:03.370]So lost in the moments when you\'re in them\n[02:05.260]It\'s a race that\'s the culprit controls your boat\n[02:07.580]So they say you\'re best to go your separate ways\n[02:09.730]Guess if they don\'t know you cus today that was yesterday\n[02:12.320]Yesterday is over it\'s a different day\n[02:14.430]Sound like broken records playing over but you promised her\n[02:17.180]Next time you show restraint\n[02:18.740]You don\'t get another chance\n[02:19.920]Life is no Nintendo game\n[02:21.450]But you lied again\n[02:22.430]Now you get to watch her leave out the window\n[02:24.500]I guess that\'s why they call it window pain\n[02:26.650]Just gonna stand there and watch me burn\n[02:31.440]But that\'s alright because I like the way it hurts\n[02:37.690]Just gonna stand there and hear me cry\n[02:42.520]But that\'s alright because I love the way you lie, I love the way you lie\n[03:00.130]Now I know he said things hit things that we didn\'t mean\n[03:03.150]And we fall back into the same patterns same routine\n[03:06.420]But your temper\'s just as bad as mine is\n[03:07.940]You\'re the same as me\n[03:09.000]But when it comes to love you\'re just as blinded\n[03:11.020]Baby, please come back\n[03:12.270]It wasn\'t you, baby it was me\n[03:14.110]Maybe our relationship wasn\'t as crazy as it seemed\n[03:16.820]Maybe that\'s what happens when a tornado meets a volcano\n[03:19.910]All I know is I love you too much to walk away though\n[03:22.910]Come inside, pick up your bags off the sidewalk\n[03:25.500]Don\'t you hear sincerity in my voice when I talk\n[03:28.180]I told you this is my fault\n[03:29.470]Look me in the eye ball\n[03:30.880]Next time I\'m pissed, I lay my fist at the drywall\n[03:33.780]Next time. There won\'t be no next time\n[03:35.850]I apologize even though I know its lies\n[03:38.580]I\'m tired of the games I just want her back\n[03:40.710]I know I\'m a liar\n[03:41.830]If she ever tries to ****ing leave again\n[03:43.780]Im\'a tie her to the bed and set this house on fire\n[03:46.510]Just gonna stand there and watch me burn\n[03:51.600]But that\'s alright because I like the way it hurts\n[03:57.520]Just gonna stand there and hear me cry\n[04:02.690]But that\'s alright because I love the way you lie, I love the way you lie\n[04:13.670]I love the way you lie', '/song/Eminem-Love The Way You Lie.mp3', 0);
 INSERT INTO `song` VALUES ('42', '27', 'Álvaro Soler-Sofía', 'Sofía', '2019-06-02 23:32:39', '2019-06-02 23:32:39', '/img/songPic/1382086122014772.jpg', '[00:00:00]暂无歌词', '/song/Álvaro Soler-Sofía.mp3', 0);
 INSERT INTO `song` VALUES ('43', '27', 'Álvaro Soler-El Mismo Sol', 'El Mismo Sol', '2019-06-02 23:34:12', '2019-06-02 23:34:12', '/img/songPic/1382086122014772.jpg', '[00:00:00]暂无歌词', '/song/Álvaro Soler-El Mismo Sol.mp3', 0);
 INSERT INTO `song` VALUES ('44', '8', 'Ennio Morricone-Il Buono Il Cattivo Il Brutto', 'The Good, the Bad and the Ugly', '2019-03-19 16:04:25', '2019-03-19 16:04:25', '/img/songPic/IlBuonoIlCattivoIlBrutto.jpg', '[00:00:00]纯音乐', '/song/Ennio Morricone-Il Buono, Il Cattivo, Il Brutto.mp3', 0);
 INSERT INTO `song` VALUES ('45', '13', '田馥甄-魔鬼中的天使', 'My Love', '2019-04-25 20:13:09', '2019-06-02 18:07:49', '/img/songPic/moguizhongdetianshi.jpg', '[00:00.00] 暂无歌词', '/song/田馥甄-魔鬼中的天使.mp3', 0);
 INSERT INTO `song` VALUES ('46', '12', '李荣浩 - 年少有为', '耳朵', '2019-06-02 18:39:02', '2019-06-02 18:39:02', '/img/songPic/lironghao.jpg', '[00:00.65]李荣浩 - 年少有为\n[00:02.38]作词：李荣浩\n[00:03.69]作曲：李荣浩\n[00:30.08]电视一直闪\n[00:33.74]联络方式都还没删\n[00:37.23]你待我的好\n[00:40.62]我却错手毁掉\n[00:44.63]也曾一起想\n[00:47.93]有个地方睡觉吃饭\n[00:51.78]可怎么去熬日夜颠倒\n[00:55.45]连头款也凑不到\n[00:59.29]墙板 被我砸烂\n[01:02.77]到现在还没修\n[01:06.07]一碗热的粥 你怕我没够\n[01:10.03]都留一半带走\n[01:12.85]给你形容美好\n[01:16.14]今后你常常眼睛会红\n[01:20.66]原来心疼我 我那时候不懂\n[01:27.39]假如我年少有为不自卑\n[01:31.93]懂得什么是珍贵\n[01:34.31]那些美梦\n[01:37.85]没给你 我一生有愧\n[01:41.90]假如我年少有为 知进退\n[01:46.33]才不会让你替我受罪\n[01:50.17]婚礼上 多喝几杯\n[01:53.47]和你现在那位\n[02:26.42]也曾一起想\n[02:30.07]有个地方睡觉吃饭\n[02:33.56]可怎么去熬日夜颠倒\n[02:37.06]连头款也凑不到\n[02:41.07]墙板 被我砸烂\n[02:44.61]到现在还没修\n[02:47.80]一碗热的粥 你怕我没够\n[02:51.79]都留一半带走\n[02:54.78]给你形容美好\n[02:57.87]今后你常常眼睛会红\n[03:02.37]原来心疼我 我那时候不懂\n[03:09.34]假如我年少有为不自卑\n[03:13.64]懂得什么是珍贵\n[03:16.13]那些美梦\n[03:19.68]没给你 我一生有愧\n[03:23.79]假如我年少有为 知进退\n[03:28.19]才不会让你替我受罪\n[03:31.95]婚礼上 多喝几杯\n[03:35.20]和你现在那位\n[03:42.09]假如我年少有为不自卑\n[03:46.31]尝过后悔的滋味\n[03:48.93]金钱地位\n[03:52.47]搏到了却好想退回\n[03:56.38]假如我年少有为 知进退\n[04:00.89]才不会让你替我受罪\n[04:04.74]婚礼上 多喝几杯\n[04:08.03]和你现在那位\n[04:15.52]在婚礼上 多喝几杯\n[04:18.81]祝我年少有为\n[04:26.36]制作人：李荣浩\n[04:27.08]编曲：李荣浩\n[04:27.28]吉他：李荣浩\n[04:27.48]贝斯：李荣浩\n[04:27.63]鼓：Alex\n[04:27.74]和声编写：李荣浩\n[04:28.04]和声：李荣浩\n[04:28.24]弦乐编写：李荣浩\n[04:28.50]弦乐：国际首席爱乐乐团\n[04:28.85]录音师：李荣浩\n[04:29.06]混音师：李荣浩\n[04:29.31]录音室：北京一样音乐录音室\n[04:29.77]混音室：北京一样音乐录音室\n[04:30.17]母带后期制作人：李荣浩\n[04:30.53]母带后期处理工程师：周天澈TC Z.\n[04:31.03]母带后期处理录音室：TC Faders', '/song/李荣浩-年少有为.mp3', 0);
-INSERT INTO `song` VALUES ('47', '10', '王力宏-大城小爱', '盖世英雄', '2019-06-02 18:41:59', '2019-06-02 18:41:59', '/img/songPic/dachengxiaoai.jpg', '[00:00.60]王力宏 - 大城小爱\n[00:01.60]词：王力宏/陈镇川/K. Tee\n[00:02.60]曲：王力宏\n[00:14.46]乌黑的发尾 盘成一个圈\n[00:17.71]缠绕所有对你的眷恋\n[00:21.56]隔着半透明门帘\n[00:23.16]嘴里说的语言\n[00:25.71]完全没有欺骗\n[00:28.44]屋顶灰色瓦片 安静的画面\n[00:32.29]灯火是你美丽那张脸\n[00:36.00]终于找到所有流浪的终点\n[00:40.10]你的微笑结束了疲倦\n[00:45.26]千万不要说天长地久\n[00:48.91]免的你觉得我不切实际\n[00:52.65]想多么简单就多么简单\n[00:56.45]是妈妈告诉我的哲理\n[00:59.41]脑袋都是你 心里都是你\n[01:03.11]小小的爱在大城里好甜蜜\n[01:06.67]念的都是你 全部都是你\n[01:10.38]小小的爱在大城里\n[01:12.18]只为你倾心\n[01:16.46]乌黑的发尾 盘成一个圈\n[01:19.72]缠绕所有对你的眷恋\n[01:23.58]终于找到所有流浪的终点\n[01:27.54]你的微笑结束了疲倦\n[01:30.97]千万不要说天长地久\n[01:34.51]免的你觉得我不切实际\n[01:38.13]想多么简单就多么简单\n[01:42.09]让我大声的对你说\n[01:44.57]I\'m thinking of you\n[01:48.69]脑袋都是你 心里都是你\n[01:52.39]小小的爱在大城里好甜蜜\n[01:56.00]念的都是你 全部都是你\n[01:59.65]小小的爱在大城里\n[02:01.50]只为你倾心\n[02:04.25]那回城的票根 你留做纪念\n[02:07.75]不必害怕面对离别\n[02:11.53]剪掉一丝头发\n[02:13.18]让我放在胸前\n[02:15.08]走到那里都有你陪\n[02:18.34]相随 yah\n[02:21.54]脑袋都是你 心里都是你\n[02:25.25]小小的爱在大城里好甜蜜\n[02:28.80]念的都是你 全部都是你\n[02:32.51]小小的爱在大城里\n[02:34.36]只为你倾心\n[02:36.11]脑袋都是你 心里都是你\n[02:39.82]小小的爱在大城里好甜蜜\n[02:43.42]念的都是你 全部都是你\n[02:47.08]小小的爱在大城里\n[02:48.98]只为你倾心\n[02:51.01]啦啦啦啦啦 啦啦啦啦啦\n[02:54.39]啦啦啦啦啦啦啦啦啦啦啦\n[02:58.03]啦啦啦啦啦 啦啦啦啦啦\n[03:01.79]啦啦啦啦啦啦啦啦啦啦\n[03:04.00]啦啦啦\n[03:05.53]啦啦啦啦啦 啦啦啦啦啦\n[03:09.03]啦啦啦啦啦啦啦啦啦啦啦\n[03:12.74]啦啦啦啦啦 啦啦啦啦啦\n[03:16.34]啦啦啦啦啦啦啦啦啦啦啦啦\n[03:22.31]乌黑的发尾盘成一个圈\n[03:25.72]缠绕所有对你的眷恋\n[03:29.35]那一种寸步不离的感觉\n[03:33.46]我知道就叫做永远', '/song/王力宏-大城小爱.mp3', 0);
+INSERT INTO `song` VALUES ('471', '10', '王力宏-大城小爱', '盖世英雄', '2019-06-02 18:41:59', '2019-06-02 18:41:59', '\\uploads\\songs\\cover\\2020-12-21\\202012218e38e460-f76f-4e3f-bd47-3721498b1ef5.png', '[00:00.60]王力宏 - 大城小爱\n[00:01.60]词：王力宏/陈镇川/K. Tee\n[00:02.60]曲：王力宏\n[00:14.46]乌黑的发尾 盘成一个圈\n[00:17.71]缠绕所有对你的眷恋\n[00:21.56]隔着半透明门帘\n[00:23.16]嘴里说的语言\n[00:25.71]完全没有欺骗\n[00:28.44]屋顶灰色瓦片 安静的画面\n[00:32.29]灯火是你美丽那张脸\n[00:36.00]终于找到所有流浪的终点\n[00:40.10]你的微笑结束了疲倦\n[00:45.26]千万不要说天长地久\n[00:48.91]免的你觉得我不切实际\n[00:52.65]想多么简单就多么简单\n[00:56.45]是妈妈告诉我的哲理\n[00:59.41]脑袋都是你 心里都是你\n[01:03.11]小小的爱在大城里好甜蜜\n[01:06.67]念的都是你 全部都是你\n[01:10.38]小小的爱在大城里\n[01:12.18]只为你倾心\n[01:16.46]乌黑的发尾 盘成一个圈\n[01:19.72]缠绕所有对你的眷恋\n[01:23.58]终于找到所有流浪的终点\n[01:27.54]你的微笑结束了疲倦\n[01:30.97]千万不要说天长地久\n[01:34.51]免的你觉得我不切实际\n[01:38.13]想多么简单就多么简单\n[01:42.09]让我大声的对你说\n[01:44.57]I\'m thinking of you\n[01:48.69]脑袋都是你 心里都是你\n[01:52.39]小小的爱在大城里好甜蜜\n[01:56.00]念的都是你 全部都是你\n[01:59.65]小小的爱在大城里\n[02:01.50]只为你倾心\n[02:04.25]那回城的票根 你留做纪念\n[02:07.75]不必害怕面对离别\n[02:11.53]剪掉一丝头发\n[02:13.18]让我放在胸前\n[02:15.08]走到那里都有你陪\n[02:18.34]相随 yah\n[02:21.54]脑袋都是你 心里都是你\n[02:25.25]小小的爱在大城里好甜蜜\n[02:28.80]念的都是你 全部都是你\n[02:32.51]小小的爱在大城里\n[02:34.36]只为你倾心\n[02:36.11]脑袋都是你 心里都是你\n[02:39.82]小小的爱在大城里好甜蜜\n[02:43.42]念的都是你 全部都是你\n[02:47.08]小小的爱在大城里\n[02:48.98]只为你倾心\n[02:51.01]啦啦啦啦啦 啦啦啦啦啦\n[02:54.39]啦啦啦啦啦啦啦啦啦啦啦\n[02:58.03]啦啦啦啦啦 啦啦啦啦啦\n[03:01.79]啦啦啦啦啦啦啦啦啦啦\n[03:04.00]啦啦啦\n[03:05.53]啦啦啦啦啦 啦啦啦啦啦\n[03:09.03]啦啦啦啦啦啦啦啦啦啦啦\n[03:12.74]啦啦啦啦啦 啦啦啦啦啦\n[03:16.34]啦啦啦啦啦啦啦啦啦啦啦啦\n[03:22.31]乌黑的发尾盘成一个圈\n[03:25.72]缠绕所有对你的眷恋\n[03:29.35]那一种寸步不离的感觉\n[03:33.46]我知道就叫做永远', '\\uploads\\songs\\music\\2020-12-21\\20201221753d9ef9-a8c2-4e2a-9aef-0522fe4e61e1.mp3', 0);
+INSERT INTO `song` VALUES ('478', '10', '王力宏-大城小爱', '盖世英雄', '2019-06-02 18:41:59', '2019-06-02 18:41:59', '\\uploads\\songs\\cover\\2020-12-21\\202012218e38e460-f76f-4e3f-bd47-3721498b1ef5.png', '[00:00.60]王力宏 - 大城小爱\n[00:01.60]词：王力宏/陈镇川/K. Tee\n[00:02.60]曲：王力宏\n[00:14.46]乌黑的发尾 盘成一个圈\n[00:17.71]缠绕所有对你的眷恋\n[00:21.56]隔着半透明门帘\n[00:23.16]嘴里说的语言\n[00:25.71]完全没有欺骗\n[00:28.44]屋顶灰色瓦片 安静的画面\n[00:32.29]灯火是你美丽那张脸\n[00:36.00]终于找到所有流浪的终点\n[00:40.10]你的微笑结束了疲倦\n[00:45.26]千万不要说天长地久\n[00:48.91]免的你觉得我不切实际\n[00:52.65]想多么简单就多么简单\n[00:56.45]是妈妈告诉我的哲理\n[00:59.41]脑袋都是你 心里都是你\n[01:03.11]小小的爱在大城里好甜蜜\n[01:06.67]念的都是你 全部都是你\n[01:10.38]小小的爱在大城里\n[01:12.18]只为你倾心\n[01:16.46]乌黑的发尾 盘成一个圈\n[01:19.72]缠绕所有对你的眷恋\n[01:23.58]终于找到所有流浪的终点\n[01:27.54]你的微笑结束了疲倦\n[01:30.97]千万不要说天长地久\n[01:34.51]免的你觉得我不切实际\n[01:38.13]想多么简单就多么简单\n[01:42.09]让我大声的对你说\n[01:44.57]I\'m thinking of you\n[01:48.69]脑袋都是你 心里都是你\n[01:52.39]小小的爱在大城里好甜蜜\n[01:56.00]念的都是你 全部都是你\n[01:59.65]小小的爱在大城里\n[02:01.50]只为你倾心\n[02:04.25]那回城的票根 你留做纪念\n[02:07.75]不必害怕面对离别\n[02:11.53]剪掉一丝头发\n[02:13.18]让我放在胸前\n[02:15.08]走到那里都有你陪\n[02:18.34]相随 yah\n[02:21.54]脑袋都是你 心里都是你\n[02:25.25]小小的爱在大城里好甜蜜\n[02:28.80]念的都是你 全部都是你\n[02:32.51]小小的爱在大城里\n[02:34.36]只为你倾心\n[02:36.11]脑袋都是你 心里都是你\n[02:39.82]小小的爱在大城里好甜蜜\n[02:43.42]念的都是你 全部都是你\n[02:47.08]小小的爱在大城里\n[02:48.98]只为你倾心\n[02:51.01]啦啦啦啦啦 啦啦啦啦啦\n[02:54.39]啦啦啦啦啦啦啦啦啦啦啦\n[02:58.03]啦啦啦啦啦 啦啦啦啦啦\n[03:01.79]啦啦啦啦啦啦啦啦啦啦\n[03:04.00]啦啦啦\n[03:05.53]啦啦啦啦啦 啦啦啦啦啦\n[03:09.03]啦啦啦啦啦啦啦啦啦啦啦\n[03:12.74]啦啦啦啦啦 啦啦啦啦啦\n[03:16.34]啦啦啦啦啦啦啦啦啦啦啦啦\n[03:22.31]乌黑的发尾盘成一个圈\n[03:25.72]缠绕所有对你的眷恋\n[03:29.35]那一种寸步不离的感觉\n[03:33.46]我知道就叫做永远', '\\uploads\\songs\\music\\2020-12-21\\20201221753d9ef9-a8c2-4e2a-9aef-0522fe4e61e1.mp3', 0);
 INSERT INTO `song` VALUES ('48', '4', '陈奕迅-陪你度过漫长岁月', '陪你度过漫长岁月', '2019-06-02 18:48:29', '2019-06-02 18:48:29', '/img/songPic/qW4N08_Q8PSePV7iewwvHg==_34381728607582.jpg', '[00:00.01]陈奕迅 - 陪你度过漫长岁月(电影《陪安东尼度过漫长岁月》主题曲)\n[00:04.89]作词：葛大为\n[00:05.79]作曲：黎晓阳、谢国维\n[00:07.34]编曲：C. Y. Kong\n[00:08.36]监制：思歪江、C. Y. Kong\n[00:10.68]走过了人来人往\n[00:15.53]不喜欢也得欣赏\n[00:20.29]我是沉默的存在\n[00:25.19]不当你的世界\n[00:27.39]只作你肩膀\n[00:30.05]拒绝成长到成长\n[00:34.62]变成想要的模样\n[00:39.53]在举手投降以前\n[00:42.98]让我再陪你一段\n[00:49.06]陪你把沿路感想 活出了答案\n[00:54.00]陪你把独自孤单 变成了勇敢\n[00:59.23]一次次失去又重来 我没离开\n[01:04.18]陪伴是 最长情的告白\n[01:08.49]陪你把想念的酸 拥抱成温暖\n[01:13.09]陪你把彷徨 写出情节来\n[01:18.34]未来多漫长 再漫长 还有期待\n[01:23.29]陪伴你 一直到 故事给说完\n[01:46.92]让我们静静分享\n[01:51.52]此刻难得的坦白\n[01:56.33]只是无声地交谈\n[01:59.73]都感觉幸福 感觉不孤单\n[02:05.88]陪你把沿路感想 活出了答案\n[02:10.79]陪你把独自孤单 变成了勇敢\n[02:16.05]一次次失去 又重来 我没离开\n[02:20.71]陪伴是 最长情的告白\n[02:25.16]陪你把想念的酸 拥抱成温暖\n[02:29.87]陪你把彷徨 写出情节来\n[02:35.18]未来多漫长 再漫长 还有期待\n[02:39.93]陪伴你 一直到 故事给说完\n[03:03.64]陪你把沿路感想 活出了答案\n[03:08.29]陪你把独自孤单 变成了勇敢\n[03:13.53]一次次失去 又重来 我没离开\n[03:18.45]陪伴是 最长情的告白\n[03:22.75]陪你把想念的酸 拥抱成温暖\n[03:27.77]陪你把彷徨 写出情节来\n[03:32.75]未来多漫长 再漫长 还有期待\n[03:37.51]陪伴你 一直到 这故事说完', '/song/陈奕迅-陪你度过漫长岁月.mp3', 0);
 INSERT INTO `song` VALUES ('49', '16', '华晨宇 + 杨宗纬-国王与乞丐', '国王与乞丐', '2019-06-02 18:49:50', '2019-06-02 18:49:50', '/img/songPic/109951163077613693.jpg', '[00:00.93]华晨宇 - 国王与乞丐\n[00:02.63]词：代岳东\n[00:03.53]曲：Mike Chan、Faizal Tahir\n[00:12.66]怎么了 怎么了\n[00:15.82]一份爱失去了光泽\n[00:18.97]面对面 背对背\n[00:22.38]反复挣扎怎么都痛\n[00:25.80]以为爱坚固像石头\n[00:28.85]谁知一秒钟就碎落\n[00:32.16]难道心痛都要不断打磨\n[00:38.06]抱紧你的我比国王富有\n[00:45.33]曾多么快乐\n[00:50.99]失去你的我比乞丐落魄\n[00:58.39]痛多么深刻\n[01:05.17]当一切 结束了 安静了 过去了\n[01:11.62]为什么 还拥有 一万个 舍不得\n[01:20.33]喔 喔\n[01:30.81]谁又能感受\n[01:36.37]回忆里的我比国王富有\n[01:43.82]奢侈的快乐\n[01:49.49]失去你以后比乞丐落魄\n[01:59.95]心痛如刀割\n[02:07.26]怀念那时你安静陪着我\n[02:13.67]柔软时光里最美的挥霍\n[02:22.89]爱有多快乐\n[02:34.04]痛有多深刻', '/song/华晨宇 + 杨宗纬-国王与乞丐.mp3', 0);
 INSERT INTO `song` VALUES ('5', '1', '张杰-逆战', '中国新声代第二季 第十三期', '2018-12-26 11:57:04', '2019-04-24 23:09:55', '/img/songPic/nizhan.jpg', '[ti:逆战]\n[ar:张杰]\n[00:00.00] 作曲 : 曲世聪\n[00:00.141] 作词 : 裴育\n[00:00.424]\n[00:06.649]\n[00:16.473]在这个风起云涌的战场上\n[00:20.402]暴风少年登场\n[00:24.506]在战胜烈火重重的咆哮声\n[00:28.459]喧闹整个世界\n[00:32.464]硝烟狂飞的讯号\n[00:34.475]机甲时代正来到\n[00:36.579]热血逆流而上\n[00:40.531]战车在发烫\n[00:41.935]勇士也势不可挡\n[00:46.756]Come On!逆战逆战来也\n[00:49.458]王牌要狂野\n[00:51.470]闯荡宇宙摆平世界\n[00:54.924]Oooh!逆战逆战狂野\n[00:57.431]王牌要发泄\n[00:59.432]战斗是我们倔强起点\n[01:03.737]我要操控我的权势\n[01:06.43]张扬我的声势\n[01:08.253]看这场龙战在野\n[01:10.908]这战场千百热血战士\n[01:14.61]一路向前飞驰\n[01:16.266]捍卫世界的勇士\n[01:18.772]Fighting!再一决\n[01:24.227]\n[01:28.489]在这个风起云涌的战场上\n[01:32.498]暴风少年登场\n[01:36.463]在战胜烈火重重的咆哮声\n[01:40.520]喧闹整个世界\n[01:44.527]硝烟狂飞的讯号\n[01:46.529]机甲时代正来到\n[01:48.531]热血逆流而上\n[01:52.447]战车在发烫\n[01:54.11]勇士也势不可挡\n[01:58.718]Come On!逆战逆战来也\n[02:01.428]王牌要狂野\n[02:03.491]闯荡宇宙摆平世界\n[02:06.945]Oooh!逆战逆战狂野\n[02:09.498]王牌要发泄\n[02:11.707]战斗是我们倔强起点\n[02:15.723]我要操控我的权势\n[02:18.90]张扬我的声势\n[02:20.292]看这场龙战在野\n[02:22.962]这战场千百热血战士\n[02:26.165]一路向前飞驰\n[02:28.220]捍卫世界的勇士\n[02:30.878]Fighting!再一决\n[02:35.832]\n[02:40.754]兄弟一场\n[02:42.56]未来继续顽强\n[02:44.558]看着战火飘摇\n[02:48.369]瓦解对手力量\n[02:52.239]熊熊气势再出发\n[02:55.245]逆战逆战来也\n[02:57.446]王牌要狂野\n[02:59.498]闯荡宇宙摆平世界\n[03:02.973]Oooh!逆战逆战狂野\n[03:05.478]王牌要发泄\n[03:07.436]战斗是我们倔强起点\n[03:11.692]我要操控我的权势\n[03:14.49]张扬我的声势\n[03:16.251]看这场龙战在野\n[03:19.03]这战场千百热血战士\n[03:22.58]一路向前飞驰\n[03:24.309]捍卫世界的勇士\n[03:26.814]Fighting!再一决\n[03:33.578]', '/song/张杰-逆战.mp3', 0);
@@ -604,7 +644,8 @@ INSERT INTO `song` VALUES ('78', '31', 'Beyond-光辉岁月', '光辉岁月', '2
 INSERT INTO `song` VALUES ('79', '31', 'Beyond-无悔这一生', '无悔这一生', '2019-06-02 20:01:05', '2019-06-02 20:01:05', '/img/songPic/29686813951246.jpg', '[00:00.60]Beyond - 无悔这一生\n[00:02.98]词：卢国宏\n[00:02.60]曲：黄家驹\n[00:16.52]阳光历次消散别去\n[00:23.97]无理冲击我心绪\n[00:30.76]前景没法打算怎么\n[00:38.32]谁会偷生远方里\n[00:46.86]每次记忆哭笑\n[00:51.26]将心意再变改\n[00:53.99]一分一秒\n[01:00.37]无意对一切话别\n[01:03.97]无意却远走他方\n[01:08.68]没有泪光风里劲闯\n[01:12.71]怀着心中新希望\n[01:16.68]能冲一次\n[01:18.48]多一次\n[01:20.01]不息自强\n[01:23.19]没有泪光风里劲闯\n[01:27.32]重植根于小岛岸\n[01:30.82]如天可变风可转\n[01:34.57]不息自强\n[01:37.52]这方向\n[01:52.81]无奈静听不舍心声\n[02:00.27]和我偏偏正呼应\n[02:07.18]前方或会一生奔波\n[02:14.51]无悔这一生经过\n[02:23.03]纵有冷风飘过\n[02:27.48]将心绪再痛逼\n[02:30.48]紧守不变\n[02:36.63]无意对一切话别\n[02:40.44]无意再远走他方\n[02:45.02]没有泪光风里劲闯\n[02:48.91]怀着心中新希望\n[02:53.01]能冲一次\n[02:54.47]多一次\n[02:56.43]不息自强\n[02:59.21]没有泪光风里劲闯\n[03:03.52]重植根于小岛岸\n[03:07.27]如天可变风可转\n[03:10.88]不息自强\n[03:14.12]没有泪光风里劲闯\n[03:17.97]怀着心中新希望\n[03:21.72]能冲一次\n[03:23.92]多一次\n[03:25.52]不息自强\n[03:28.57]没有泪光风里劲闯\n[03:32.58]重植根于小岛岸\n[03:36.70]如天可变风可转\n[03:39.95]不息自强\n[03:42.95]这方向', '/song/Beyond-无悔这一生.mp3', 0);
 INSERT INTO `song` VALUES ('8', '1', '张杰-剑心', '拾', '2018-12-27 08:04:42', '2018-12-27 08:04:42', '/img/songPic/jianxin.jpg', '[00:00.00] 作曲 : 谭旋\n[00:01.00] 作词 : 段思思\n[00:20.120]编曲：王文颖\n[00:22.120]录混：马涛（上海谭旋音乐工作室）\n[00:26.120]尘封在星蕴重明的魂魄\n[00:32.130]叫醒了恍惚梦魇的无措\n[00:38.320]揭开这宿命的脉络\n[00:42.410]\n[00:44.220]逃不开 这一世的寂寞\n[00:50.000]往后是阴霾\n[00:51.300]往前是山隘\n[00:52.870]想逃也逃不开\n[00:55.890]命运再主宰\n[00:57.380]执着的心也不会更改\n[01:01.650]哪管桑田\n[01:04.340]哪管沧海\n[01:11.370]听琴声潇潇\n[01:14.290]该忘的忘不掉\n[01:17.380]红尘 困住我年少\n[01:23.500]原谅我藏在心里燎燎的狂傲\n[01:29.610]去战 面对天地荡浩\n[01:35.820]人生也潇潇 魂牵梦绕\n[01:39.070]像烈焰燃烧\n[01:41.840]前尘 看浮沉走一遭\n[01:48.020]用冷的锋刃琴的寂寥\n[01:51.270]写往事今朝\n[01:54.430]孤剑 指尖 谈笑\n[02:13.640]人心间有没有一种解药\n[02:19.670]能覆盖是非恩仇的喧嚣\n[02:25.830]屠俘了焚寂的剑鞘\n[02:31.870]斩不断 这一生的桀骜\n[02:38.140]往后是阴霾\n[02:39.720]往前是山隘\n[02:42.070]想逃也逃不开\n[02:44.780]命运再主宰\n[02:46.350]执着的心也不会更改\n[02:50.950]哪管桑田\n[02:53.250]哪管沧海\n[03:00.230]听琴声潇潇\n[03:03.200]该忘的忘不掉\n[03:06.390]红尘 困住我年少\n[03:12.390]原谅我藏在心里燎燎的狂傲\n[03:18.490]去战 面对天地荡浩\n[03:24.710]人生也潇潇 魂牵梦绕\n[03:28.090]像烈焰燃烧\n[03:30.890]前尘 看浮沉走一遭\n[03:36.930]用冷的锋刃琴的寂寥\n[03:40.580]写往事今朝\n[03:44.590]孤剑 指尖 谈笑\n[03:48.150]', '/song/张杰-剑心.mp3', 0);
 INSERT INTO `song` VALUES ('80', '31', 'Beyond-真的爱你', '真的爱你', '2019-06-02 20:02:11', '2019-06-02 20:02:11', '/img/songPic/29686813951246.jpg', '[00:00.60]Beyond - 真的爱你\n[00:01.60]词：梁美薇\n[00:02.60]曲：黄家驹\n[00:27.10]无法可修饰的一对手\n[00:30.97]带出温暖永远在背后\n[00:34.07]纵使啰嗦始终关注\n[00:36.00]不懂珍惜太内疚\n[00:39.50]沉醉于音阶她不赞赏\n[00:43.36]母亲的爱却永未退让\n[00:46.52]决心冲开心中挣扎\n[00:48.45]亲恩终可报答\n[00:52.36]春风化雨暖透我的心\n[00:55.51]一生眷顾无言地送赠\n[01:00.18]是你多么温馨的目光\n[01:03.68]教我坚毅望着前路\n[01:06.78]叮嘱我跌倒不应放弃\n[01:12.62]没法解释怎可报尽亲恩\n[01:16.09]爱意宽大是无限\n[01:19.20]请准我说声真的爱你\n[01:37.13]无法可修饰的一对手\n[01:41.04]带出温暖永远在背后\n[01:44.14]纵使啰嗦始终关注\n[01:46.08]不懂珍惜太内疚\n[01:49.59]仍记起温馨的一对手\n[01:53.45]始终给我照顾未变样\n[01:56.59]理想今天终于等到\n[01:58.52]分享光辉盼做到\n[02:02.43]春风化雨暖透我的心\n[02:05.53]一生眷顾无言地送赠\n[02:10.21]是你多么温馨的目光\n[02:13.71]教我坚毅望着前路\n[02:16.87]叮嘱我跌倒不应放弃\n[02:22.66]没法解释怎可报尽亲恩\n[02:26.17]爱意宽大是无限\n[02:29.22]请准我说声真的爱你\n[03:00.06]春风化雨暖透我的心\n[03:03.21]一生眷顾无言地送赠\n[03:07.73]是你多么温馨的目光\n[03:11.34]教我坚毅望着前路\n[03:14.43]叮嘱我跌倒不应放弃\n[03:20.33]没法解释怎可报尽亲恩\n[03:23.79]爱意宽大是无限\n[03:26.83]请准我说声真的爱你\n[03:32.72]是你多么温馨的目光\n[03:36.23]教我坚毅望着前路\n[03:39.38]叮嘱我跌倒不应放弃\n[03:45.22]没法解释怎可报尽亲恩\n[03:48.68]爱意宽大是无限\n[03:51.77]请准我说声真的爱你', '/song/Beyond-真的爱你.mp3', 0);
-INSERT INTO `song` VALUES ('81', '10', '王力宏-唯一', '唯一', '2019-06-02 20:04:32', '2019-06-02 20:04:32', '/img/songPic/4460718673904110.jpg', '[00:00.25]萌萌哒天团 - 唯一\n[00:01.01]作词：芊芊\n[00:01.77]作曲：芊芊\n[00:18.29]说好生生世世在一起\n[00:22.24]但不知为何每一世都找不到你\n[00:26.23]如果不小心找到了你\n[00:30.17]老天任何考验也不要与我别离\n[00:34.22]当初在天庭相遇情景清晰\n[00:38.16]不切实际的寻寻觅觅\n[00:42.15]却换来满心的悲与凄\n[00:46.20]不再相信两情总依依\n[00:49.78]万杞梁和孟姜女\n[00:53.01]万里长城也只是绝壁\n[00:57.21]而那梁山伯与祝英台\n[01:00.95]生死相随竟是蝴蝶意\n[01:05.13]明明白白的愿力加业力\n[01:09.02]看不见的世界都在天上\n[01:13.12]看得见的世界在身旁\n[01:17.01]真心都叫做唯一\n[01:38.14]时空的差距眼神交集\n[01:42.13]只为你那短暂的笑颜舍命不惜\n[01:46.18]爱在错的时机泪着地\n[01:50.15]坚持着无悔的决定我依然孤寂\n[01:54.15]是目眩神迷从来不忘自己\n[01:58.14]深情的胸襟有过泪滴\n[02:02.09]无畏惧痛在心隐于底\n[02:06.18]捍卫你是使命别问起\n[02:09.71]万杞梁和孟姜女\n[02:12.95]万里长城也只是绝壁\n[02:17.15]而那梁山伯与祝英台\n[02:20.95]生死相随竟是蝴蝶意\n[02:25.09]明明白白的愿力加业力\n[02:28.93]看不见的世界都在天上\n[02:33.13]看得见的世界在身旁\n[02:36.91]真心都叫做唯一\n[02:41.76]万杞梁和孟姜女\n[02:45.00]万里长城也只是绝壁\n[02:49.09]而那梁山伯与祝英台\n[02:52.98]生死相随竟是蝴蝶意\n[02:57.12]明明白白的愿力加业力\n[03:00.96]看不见的世界都在天上\n[03:05.10]看得见的世界在身旁\n[03:08.94]真心都叫做唯一\n[03:14.30]真心都叫做唯一', '/song/王力宏-唯一.mp3', 0);
+INSERT INTO `song` VALUES ('812', '10', '王力宏-唯一', '唯一', '2019-06-02 20:04:32', '2019-06-02 20:04:32', '\\uploads\\songs\\cover\\2020-12-21\\202012218e38e460-f76f-4e3f-bd47-3721498b1ef5.png', '[00:00.25]萌萌哒天团 - 唯一\n[00:01.01]作词：芊芊\n[00:01.77]作曲：芊芊\n[00:18.29]说好生生世世在一起\n[00:22.24]但不知为何每一世都找不到你\n[00:26.23]如果不小心找到了你\n[00:30.17]老天任何考验也不要与我别离\n[00:34.22]当初在天庭相遇情景清晰\n[00:38.16]不切实际的寻寻觅觅\n[00:42.15]却换来满心的悲与凄\n[00:46.20]不再相信两情总依依\n[00:49.78]万杞梁和孟姜女\n[00:53.01]万里长城也只是绝壁\n[00:57.21]而那梁山伯与祝英台\n[01:00.95]生死相随竟是蝴蝶意\n[01:05.13]明明白白的愿力加业力\n[01:09.02]看不见的世界都在天上\n[01:13.12]看得见的世界在身旁\n[01:17.01]真心都叫做唯一\n[01:38.14]时空的差距眼神交集\n[01:42.13]只为你那短暂的笑颜舍命不惜\n[01:46.18]爱在错的时机泪着地\n[01:50.15]坚持着无悔的决定我依然孤寂\n[01:54.15]是目眩神迷从来不忘自己\n[01:58.14]深情的胸襟有过泪滴\n[02:02.09]无畏惧痛在心隐于底\n[02:06.18]捍卫你是使命别问起\n[02:09.71]万杞梁和孟姜女\n[02:12.95]万里长城也只是绝壁\n[02:17.15]而那梁山伯与祝英台\n[02:20.95]生死相随竟是蝴蝶意\n[02:25.09]明明白白的愿力加业力\n[02:28.93]看不见的世界都在天上\n[02:33.13]看得见的世界在身旁\n[02:36.91]真心都叫做唯一\n[02:41.76]万杞梁和孟姜女\n[02:45.00]万里长城也只是绝壁\n[02:49.09]而那梁山伯与祝英台\n[02:52.98]生死相随竟是蝴蝶意\n[02:57.12]明明白白的愿力加业力\n[03:00.96]看不见的世界都在天上\n[03:05.10]看得见的世界在身旁\n[03:08.94]真心都叫做唯一\n[03:14.30]真心都叫做唯一', '\\uploads\\songs\\music\\2020-12-21\\20201221753d9ef9-a8c2-4e2a-9aef-0522fe4e61e1.mp3', 0);
+INSERT INTO `song` VALUES ('813', '10', '王力宏-唯一', '唯一', '2019-06-02 20:04:32', '2019-06-02 20:04:32', '\\uploads\\songs\\cover\\2020-12-21\\202012218e38e460-f76f-4e3f-bd47-3721498b1ef5.png', '[00:00.25]萌萌哒天团 - 唯一\n[00:01.01]作词：芊芊\n[00:01.77]作曲：芊芊\n[00:18.29]说好生生世世在一起\n[00:22.24]但不知为何每一世都找不到你\n[00:26.23]如果不小心找到了你\n[00:30.17]老天任何考验也不要与我别离\n[00:34.22]当初在天庭相遇情景清晰\n[00:38.16]不切实际的寻寻觅觅\n[00:42.15]却换来满心的悲与凄\n[00:46.20]不再相信两情总依依\n[00:49.78]万杞梁和孟姜女\n[00:53.01]万里长城也只是绝壁\n[00:57.21]而那梁山伯与祝英台\n[01:00.95]生死相随竟是蝴蝶意\n[01:05.13]明明白白的愿力加业力\n[01:09.02]看不见的世界都在天上\n[01:13.12]看得见的世界在身旁\n[01:17.01]真心都叫做唯一\n[01:38.14]时空的差距眼神交集\n[01:42.13]只为你那短暂的笑颜舍命不惜\n[01:46.18]爱在错的时机泪着地\n[01:50.15]坚持着无悔的决定我依然孤寂\n[01:54.15]是目眩神迷从来不忘自己\n[01:58.14]深情的胸襟有过泪滴\n[02:02.09]无畏惧痛在心隐于底\n[02:06.18]捍卫你是使命别问起\n[02:09.71]万杞梁和孟姜女\n[02:12.95]万里长城也只是绝壁\n[02:17.15]而那梁山伯与祝英台\n[02:20.95]生死相随竟是蝴蝶意\n[02:25.09]明明白白的愿力加业力\n[02:28.93]看不见的世界都在天上\n[02:33.13]看得见的世界在身旁\n[02:36.91]真心都叫做唯一\n[02:41.76]万杞梁和孟姜女\n[02:45.00]万里长城也只是绝壁\n[02:49.09]而那梁山伯与祝英台\n[02:52.98]生死相随竟是蝴蝶意\n[02:57.12]明明白白的愿力加业力\n[03:00.96]看不见的世界都在天上\n[03:05.10]看得见的世界在身旁\n[03:08.94]真心都叫做唯一\n[03:14.30]真心都叫做唯一', '\\uploads\\songs\\music\\2020-12-21\\20201221753d9ef9-a8c2-4e2a-9aef-0522fe4e61e1.mp3', 0);
 INSERT INTO `song` VALUES ('82', '9', '林俊杰-一千年以后', '一千年以后', '2019-06-02 20:05:35', '2019-06-02 20:05:35', '/img/songPic/109951163187405670.jpg', '[00:00.10]林俊杰 - 一千年以后\n[00:00.50]作词：李瑞洵\n[00:00.71]作曲：林俊杰\n[00:00.91]编曲：蔡政勋、陈建玮、许环良、David Koon\n[00:15.96]心跳乱了节奏\n[00:20.01]梦也不自由\n[00:23.76]爱是个绝对承诺\n[00:27.28]不说撑到一千年以后\n[00:31.70]放任无奈 淹没尘埃\n[00:35.65]我在废墟之中守着你走来\n[00:38.89]喔\n[00:39.60]我的泪光承载不了喔\n[00:45.37]所有一切你要的爱\n[00:49.90]因为在 一千年以后\n[00:54.76]世界早已没有我\n[00:58.76]无法深情挽着你的手\n[01:02.91]浅吻着你额头\n[01:05.90]别等到 一千年以后\n[01:10.25]所有人都遗忘了我\n[01:14.50]那时红色黄昏的沙漠\n[01:18.38]能有谁\n[01:20.41]解开缠绕千年的寂寞\n[01:41.41]呜呜\n[01:42.48]放任无奈 淹没尘埃\n[01:46.43]我在废墟之中守着你走来\n[01:49.67]喔\n[01:50.47]我的泪光\n[01:52.25]承载不了喔\n[01:55.74]所有一切你需要的爱\n[02:00.76]因为在 一千年以后\n[02:05.55]世界早已没有我\n[02:09.55]无法深情挽着你的手\n[02:13.60]浅吻着你额头\n[02:16.69]别等到 一千年以后\n[02:21.15]所有人都遗忘了我\n[02:25.20]那时红色黄昏的沙漠\n[02:29.02]能有谁\n[02:31.17]解开缠绕千年的寂寞\n[02:42.43]Oh yeah\n[02:47.28]oh\n[02:48.95]无法深情挽着你的手\n[02:52.96]浅吻着你额头\n[02:55.99]别等到 一千年以后\n[03:00.39]所有人都遗忘了我\n[03:04.59]那时红色黄昏的沙漠\n[03:08.39]能有谁\n[03:10.57]解开缠绕千年的寂寞\n[03:16.30]oh\n[03:18.98]缠绕千年的寂寞', '/song/林俊杰-一千年以后.mp3', 0);
 INSERT INTO `song` VALUES ('83', '9', '林俊杰-江南', '江南', '2019-06-02 20:07:10', '2019-06-02 20:07:10', '/img/songPic/109951163187405670.jpg', '[00:00.60]林俊杰 - 江南\n[00:01.60]词：李瑞洵\n[00:02.60]曲：林俊杰\n[00:36.02]风到这里就是粘\n[00:39.55]粘住过客的思念\n[00:43.97]雨到了这里缠成线\n[00:47.52]缠着我们留恋人世间\n[00:52.09]你在身边就是缘\n[00:55.36]缘分写在三生石上面\n[01:00.07]爱有万分之一甜\n[01:03.63]宁愿我就葬在这一点\n[01:08.02]圈圈圆 圆圈圈\n[01:09.89]天天年 年天天 的我\n[01:12.45]深深看你的脸\n[01:15.02]生气的温柔\n[01:17.04]埋怨的温柔 的脸\n[01:23.10]不懂爱恨情愁煎熬的我们\n[01:26.84]都以为相爱就像风云的善变\n[01:31.13]相信爱一天 抵过永远\n[01:35.31]在这一刹那冻结了时间\n[01:39.11]不懂怎么表现温柔的我们\n[01:42.92]还以为殉情只是古老的传言\n[01:46.72]离愁能有多痛 痛有多浓\n[01:51.26]当梦被埋在江南烟雨中\n[01:54.58]心碎了才懂\n[02:19.99]圈圈圆 圆圈圈\n[02:21.87]天天年 年天天 的我\n[02:24.55]深深看你的脸\n[02:27.00]生气的温柔\n[02:29.05]埋怨的温柔 的脸\n[02:35.11]不懂爱恨情愁煎熬的我们\n[02:38.88]都以为相爱就像风云的善变\n[02:42.85]相信爱一天 抵过永远\n[02:47.31]在这一刹那冻结了时间\n[02:51.01]不懂怎么表现温柔的我们\n[02:54.87]还以为殉情只是古老的传言\n[02:58.82]离愁能有多痛 痛有多浓\n[03:03.30]当梦被埋在江南烟雨中\n[03:06.54]心碎了才懂\n[03:18.99]相信爱一天 抵过永远\n[03:23.34]在这一刹那冻结了时间\n[03:27.05]不懂怎么表现温柔的我们\n[03:30.81]还以为殉情只是古老的传言\n[03:34.72]离愁能有多痛 痛有多浓\n[03:39.31]当梦被埋在江南烟雨中\n[03:44.66]心碎了才懂', '/song/林俊杰-江南.mp3', 0);
 INSERT INTO `song` VALUES ('84', '9', '林俊杰-学不会', '学不会', '2019-06-02 20:08:12', '2019-06-02 20:08:12', '/img/songPic/109951163187405670.jpg', '[00:00.90]原唱：林俊杰\n[00:01.10]作词：姚若龙\n[00:01.30]作曲：林俊杰\n[00:01.50]编曲：闫天午\n[00:01.71]制作人：黄怡\n[00:01.96]音乐总监：刘卓\n[00:02.16]音响总监：金少刚\n[00:02.46]吉他：金天、崔万平、高恭鹏\n[00:02.92]键盘：孙梦迪、李海郡、尹岳洋\n[00:03.43]Program：尹岳洋\n[00:03.58]贝斯：李九君\n[00:03.83]鼓手：卢炜、陈志龙\n[00:04.13]打击乐：刘效松\n[00:04.38]和音：朱江、张炜、樊竹青、关冰效\n[00:04.94]弦乐：靳海音®弦乐团\n[00:05.29]音乐混音：周天澈混音团队\n[00:16.73]你的痛苦我都心疼\n[00:18.65]想为你解决\n[00:24.39]挡开流言紧握你手\n[00:26.46]想飞奔往前\n[00:31.01]我相信爱能证明一切\n[00:35.06]够真心会超越时间\n[00:38.86]多付出也多了喜悦\n[00:42.60]让幸福蔓延\n[00:48.72]总是学不会\n[00:52.46]再聪明一点\n[00:56.25]记得自我保护\n[00:58.13]必要时候讲些\n[01:01.06]善意谎言\n[01:04.03]总是学不会\n[01:08.03]真爱也有现实面\n[01:13.69]不是谁情愿\n[01:17.53]就能够解决\n[01:28.48]一次争吵一个心结\n[01:30.24]累积着改变\n[01:35.96]内心疏远足够秒杀\n[01:37.99]外表多浓烈\n[01:42.52]才发现爱不代表一切\n[01:46.51]再真心也会被阻绝\n[01:50.45]这世界天天有诡雷\n[01:54.17]随时会爆裂\n[01:58.17]还是学不会\n[02:02.04]少浪漫一点\n[02:05.94]拼命着想的事\n[02:07.78]未必带来感动\n[02:10.75]或被感谢\n[02:13.63]还是学不会\n[02:17.47]解释我最伤最累\n[02:25.21]痛死都不愿怪谁\n[02:33.55]把每段痴情苦恋\n[02:37.36]在此刻排列面前\n[02:41.21]也感觉不埋怨只怀念\n[02:52.32]总是学不会\n[02:56.18]再聪明一点\n[03:00.03]记得自我保护\n[03:01.86]必要时候讲些\n[03:04.89]善意谎言\n[03:07.87]不是学不会\n[03:11.61]只是觉得爱太美\n[03:19.30]值得去沉醉流泪', '/song/林俊杰-学不会.mp3', 0);
@@ -635,98 +676,101 @@ CREATE TABLE `song_list`  (
   `pic` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '歌单图片',
   `introduction` text CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT '简介',
   `style` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '风格',
-  `create_time` date DEFAULT NULL COMMENT '创建时间',
-  `update_time` date DEFAULT NULL COMMENT '修改时间',
-  `is_delete` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '0未删除1已删除',
+  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) DEFAULT NULL COMMENT '修改时间',
+  `is_delete` tinyint(4) DEFAULT 0 COMMENT '0未删除1已删除',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '歌单' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of song_list
 -- ----------------------------
-INSERT INTO `song_list` VALUES ('1', 'The Good, the Bad and the Ugly', '/img/songListPic/a32415ca9a21f6f9a1d99b2731f224b5d319c424.jpg', 'he Good, the Bad and the Ugly: Original Motion Picture Soundtrack was released in 1966 alongside the Western film, The Good, the Bad and the Ugly, directed by Sergio Leone. The score is composed by frequent Leone collaborator Ennio Morricone, whose distinctive original compositions, containing gunfire, whistling, and yodeling permeate the film. The main theme, resembling the howling of a coyote, is a two-note melody that is a frequent motif, and is used for the three main characters, with a different instrument used for each one: flute for Blondie (Man With No Name), Arghilofono (Ocarina) for Angel Eyes, and human voices for Tuco.', '欧美-轻音乐', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('10', '韩剧OST｜祝你走过半生，仍有颗少女心', '/img/songListPic/zhunizouguobansheng.jpg', '歌单', '日韩', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('11', '我喜欢你，喜欢没用，没用也喜欢', '/img/songListPic/109951163919069037.jpg', '情不知所起，一往而情深。\n伤不知所因，痛彻心扉\n\n从前你是我心上的一束光，倾世温暖。\n现在你是我心里的一根刺，刻骨铭心。\n以后你是我心底的一粒尘，无关痛痒。\n\n我喜欢你，喜欢没用，没用也喜欢', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('12', '生活感到疲惫的话就听这些歌吧', '/img/songListPic/109951163936991203.jpg', '当你感到疲惫的时候\n睡一个沉稳的觉醒来\n和陌生人对视互笑\n买一杯刚好温度的奶茶\n吃到合口味的菜\n遇见喜欢人的时候自己是最美的状态\n下雨 清晨 初雪 深夜 亲吻 拥抱 牵手 大笑\n快乐总被说很难\n但我希望你顶...', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('13', '熬夜和想你，我都该戒掉了', '/img/songListPic/109951163216834301.jpg', '命运似乎是一个轮回，在一次次的偶然下，平行线交叉，再平行，故事始终有\"然后\"，可后来的我们，都学会如何去爱了吗？\n\n如果当时你没走，后来的我们会不会不一样。或许，我们每个人都想回到故事最开始的地方。', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('14', '怀旧向||时光流转从前，人生如寄', '/img/songListPic/109951163443093546.jpg', '岁月悠扬，娓娓动听\n在流失了的记忆之中\n听到属于我们这一代人的歌\n想起属于我们这一代人的路\n愿\n星辰大海\n春暖花开', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('15', '不曾刻骨铭心，为何念念不忘？', '/img/songListPic/109951163887710551.jpg', '“所爱隔山海 山海皆可平”\n你拒绝的 不珍惜的 不代表别人也不喜欢\n人生都是向前走的 我们都一样\n\n谁先认真谁先输，我只能说我输了\n再忙碌还是会想你 真的不明白\n都说未曾刻骨铭心，又为何总是念念不忘', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('16', '社会语录！土嗨', '/img/songListPic/109951163858422257.jpg', '社会！', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('17', '听青春ost，心悸的时光里有你', '/img/songListPic/109951163826485303.jpg', '我们青春就像是被大雨淋湿的自己，即使是感冒了，也愿意再淋一次。只有爱过了，伤过了，痛过了，这才叫青春。', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('18', '【经典】聼一首老歌，想念一段时光', '/img/songListPic/109951163311246502.jpg', '寂静的黄昏，总让人怀念，总是深深沦陷...\n那些个细数光阴在手中沉淀的日子，一去不复返...\n偶尔，我一个人站在黄昏的角落，代替你主持夕阳的葬礼...\n想着想着，痛凝重了时间，曳落了容颜...\n青春的羽翼...', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('19', '华语百首｜好听的才是耳朵最想要的', '/img/songListPic/109951163597665130.jpg', '好听的音乐才是耳朵最想要的', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('2', '年轻之歌 有关爱与挑衅', '/img/songListPic/wv2NdfZrUnLDSwk_kQoSZg==_109951163751040922.jpg', '那些喜欢到会循环播放的歌', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('20', '【华语抒情-林俊杰】—孤独，是我的享受', '/img/songListPic/109951163826685601.jpg', '我喜欢孤独，不与任何人说话，在一份静谧中安然地做自己喜欢的事。任身心徜徉，暂时忘却“柴米油盐酱醋茶”的烦琐，去体验“琴棋书画诗酒花”的高雅；暂时抛开追名逐利的忙碌奔波，去感受心无杂念的宁静淡泊；暂时摆脱困扰你的喜怒哀乐，去体味生活中的充实祥和。', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('21', '睡觉必备心灵鸡汤', '/img/songListPic/109951163879964479.jpg', '缓缓的声音，流进心里的枯井', '轻音乐', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('22', '愿山野浓雾都有路灯 风雨漂泊都有归舟', '/img/songListPic/109951163594594622.jpg', '你慢慢走\n回忆暗涌\n悲喜翻滚', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('23', '「女声控」音色沁人心 旋律美如画', '/img/songListPic/109951163098238240.jpg', '女声控福利来啦-=≡Σ((( つ•̀ω•́)つ', '欧美', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('24', 'Moombahton 丨电流律动的异域风', '/img/songListPic/109951163500933771.jpg', 'Moombahton融合了Dutch House和Reggaeton，常常带有Trap的元素，特别是在Bulid Up部分，厚实的Bass与密集的打击鼓点，节拍丰富，加上旋律和音色比较异域，一般都有人声部分，其BPM多数基于110，更突出在Drop高潮，让人不禁联想抖动的节奏。', '欧美', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('25', '【励志电音】愿你身披星芒 执笔为剑', '/img/songListPic/109951163321304060.jpg', '为了父母期待的目光\n为了那深藏于你心底的梦想\n为了你朝思暮想的那个可望而不可及...', '欧美', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('26', '史诗 • 神级BGM丨灵魂的震颤&心灵的洗涤', '/img/songListPic/109951163692248020.jpg', '随着一声怒吼，千军万马进行着一场浩荡的战争，马的嘶吼声与兵器碰撞的金属声谱写着一部史前的震撼。\n欢迎来到此歌单，晚上睡觉别点开！\n别点开！\n别点开！', 'BGM', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('27', '全球超大气势磅礴背景音乐精选100首合集', '/img/songListPic/109951163579465390.jpg', '熟悉的感觉，你值得拥有', 'BGM', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('28', '史诗级震撼人心大气磅礴超燃BGM', '/img/songListPic/109951163618525359.jpg', '史诗级震撼人心超燃BGM,每首都是本人精心挑选和最喜欢的，歌单歌曲是按我个人喜欢排序，持续更新中……', 'BGM', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('29', '肾上腺素飙升（赛车必备）', '/img/songListPic/109951163578540101.jpg', '赛车运动，自吸为王，涡轮必胜.', 'BGM', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('3', '希望十八岁你爱的人是八十岁在你身边的人', '/img/songListPic/q0ZyCw22PCiTG2LX_A2kew==_109951163594989759.jpg', '让你怦然心动', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('30', '『欧美神曲』让你怦然心动', '/img/songListPic/109951163621168769.jpg', '让你怦然心动', '欧美', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('31', '健身丨做自己平凡世界的超级英雄', '/img/songListPic/109951163670223947.jpg', '热爱健身的朋友们一起嗨！', 'BGM', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('32', '『空灵欧美』论◎怎样唱出星辰大海', '/img/songListPic/109951163921593479.jpg', '“我们在哪里？”\n\n“星空，是星空！美丽而触手可及！”\n\n“这里，是星辰大海，是你小时候的幻想……”', '欧美', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('33', 'Space Club 蹦迪', '/img/songListPic/109951163738160487.jpg', 'Sapce Clup全球百大DJ丨Urumqi', 'BGM', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('34', '那些超带感的英文歌曲~『一秒沦陷』', '/img/songListPic/109951163736178562.jpg', '每天，都要去去做一些枯燥的事\n一些让人心烦的事\n可是又不得不去做\n一切都在重复\n都在复制、粘贴，复制、粘贴……\n何必不去做那些让人愉快的事呢\n比如说\n听歌\n它能让生活有趣起来\n有意义起来\n那么就去欣赏...', '欧美', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('35', '【游戏原声】屏幕之后，更是另一个世界', '/img/songListPic/109951163408189924.jpg', '我们曾与白狼一起踏上寻找女儿的征途\n走遍大陆与史凯利杰群岛，寻遍北方诸国与尼弗迦德 甘当布尔维坎的屠夫\n只为那因意外率而与自己命运相连的辛特拉幼狮\n只为那曾在布洛克莱昂森林惊慌失措的小女孩\n重回自...', 'BGM', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('36', '极致旋律&空灵飘纱', '/img/songListPic/109951163672593019.jpg', '心在寂静之中冒着烟 寻找安寄所', '欧美', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('37', '我们的心如此自由 思绪辽远无边', '/img/songListPic/109951163932838310.jpg', '我想每个人的心底，都潜藏着一个向往远方的梦，此处已无再多风景，熟悉的地方也不再有惊喜。人心思动，都渴望去流浪天涯，无论以哪种方式。', '欧美', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('38', '欧美精选 | 嗨 伙计 要来首10w+吗？', '/img/songListPic/109951163414509421.jpg', '个别曲目未收录很可能是由于我没买人家的专辑 emmmm.... \n没买就是没买。没兴趣，不想买，买不起，这答案您满意吗？', '欧美', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('39', '「高质量英文歌」让你单曲循环的英文歌', '/img/songListPic/18814842976746273.jpg', 'I love the endless sea, I love the rain softly, I love flying snow, I love bringing a bright full moon, but I love the starry night sky.', '欧美', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('4', '你的青春里有没有属于你的一首歌？', '/img/songListPic/109951163271025942.jpg', '关于青春里的那首歌，唱的是你和谁的回忆呢？那年你们有什么故事？\n\n总是有许多的记忆，是关于青春的。\n\n青春时埋下的那份躁动，总会在多年后，装饰着笑容。\n\n总是有许多的遗憾，是关于青春的。\n\n青春时还没来得及表达的情感，总会在多年以后，偶尔的左右着悲欢。\n\n那些最美年华里的相遇，那些青春里的不知所措，都被勾勒成了一幅幅画。\n\n而这些画，只在心情最愉悦时，只在心情最低落时，悄悄的，在内心深处闪过。', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('40', '稀 | 奇 | 古 | 怪 | 音 | 效 | 工 | 厂', '/img/songListPic/109951163462173993.jpg', '不好意思 在我耳朵化掉之前是能数清的\n\n麻烦大家帮黑哥数数\n\n这些里面藏了多少个稀奇古怪的音效\n\n听归听 收藏某首歌之后我也不知道明天你的日推怎么作妖哈', '欧美', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('41', '〖欧美女声〗 倾城一刻，我似乎更懂你', '/img/songListPic/18591642116274551.jpg', '个性，风格，颜值，行为，年龄段……差不多的人，听歌的兴趣差不多哦', '欧美', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('42', '『电影配乐』当优雅华尔兹遇上激情探戈', '/img/songListPic/109951163904955394.jpg', '华尔兹有着与生俱来的华贵与优雅。简约却不简单的舞步透出的是舞者相互心灵的体会与传达……', '欧美', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('43', '妄想去流浪，独自陶醉在自己的世界里。', '/img/songListPic/109951163543366840.jpg', '生活乏味 ，学习一直倒退，工作失意。\n害怕失去，想像和现实的差距将我打败。\n我想要远离这里。', '轻音乐', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('44', '晚安曲丨我温柔而通透的小宇宙', '/img/songListPic/109951163646671507.jpg', '晚安～今夜好梦啊！', '轻音乐', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('45', '晚安曲丨我温柔而通透的小宇宙', '/img/songListPic/109951163808060526.jpg', '你别怕，总有人熬夜陪你，下雨接你，说我爱你，好的总是压箱底\n当一个人能够影响你心情的时候，说明你在乎了；\n当一个人能赚到你眼泪的时候，说明你投入了；\n当一个人能驾驭你情绪的时候，说明你沦陷...', '轻音乐', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('46', '性欲与孤独，容易让人误解爱情', '/img/songListPic/109951163924312766.jpg', '平常拍片子时，我喜欢在拍摄现场放一些有画面感的音乐让模特找感觉，抽空整理了一下近期的播放列表，做了这套新歌单，或许适合姑娘们在以下一些场景聆听', '轻音乐', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('47', '人生就要嗨', '/img/songListPic/109951163938242029.jpg', '我命由我不由天', '日韩-BGM', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('48', '吃鸡必备BGM', '/img/songListPic/109951163776201870.jpg', '大吉大利 今晚吃鸡\n此歌单适合在素质广场，飞机上，杀完人后，轰炸区天选之人的情况下播放，并不是让你全程听音乐玩游戏。', 'BGM', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('49', '伤感日语 · 芳华少女的孤独内心', '/img/songListPic/109951163942747948.jpg', 'お母さん', '日韩', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('5', '那些喜欢到循环播放的歌', '/img/songListPic/109951163609743240.jpg', '那些喜欢到会循环播放的歌\n\n感谢收听', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('50', '「予你情书」明年一起去看樱花吧', '/img/songListPic/19079825277149145.jpg', '想和你去看樱花\n看夏日的烟火大会\n看秋日京都岚山的枫叶\n和冬日落雪的小樽\n\n想和你一起去看一场樱花\n看漫天的飞舞的樱花在我们周围\n就这样安静地待着也好彼此交换心事\n\n想予你一封情书\n写尽关于我们的一切...', '日韩', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('51', '那些年我们听过的韩国歌', '/img/songListPic/18804947371714354.jpg', 'J.Fla，原名Kim Jung Hwa，韩国歌手,歌曲制作人。2013年正式出道并发行首张原创EP《바보 같은 Story》出道后不久就迅速在日本和韩国成为热门话题\n2016年，J.Fla的翻唱作品在国内转载而得到关注，因其甜美声线和惊艳侧颜得到许多人的喜爱。', '日韩', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('52', '小众而惊艳 ·韩国独立音乐精选集', '/img/songListPic/109951163833244126.jpg', '在无数的灰色版权中找到了它们。\n宝藏一般的旋律，它们不应该被如此埋没。', '日韩', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('53', '一秒就会中毒的韩语歌单~', '/img/songListPic/109951163515798929.jpg', '愿对这世界温柔以待的人 被温柔以待.', '日韩', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('54', '［韩语］少女情怀总是诗~', '/img/songListPic/109951162839104712.jpg', '希望所有的少女心事都能梦想成真', '日韩', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('55', '【燃向】 精选燃曲', '/img/songListPic/19085322835476516.jpg', '封面画师 bilibili Wlop', 'BGM', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('56', '日系燃向丨此刻光辉 将引领着我们', '/img/songListPic/109951163097151464.jpg', '天空燃尽如灰，\n繁星烧毁似尘，\n那些音乐所带来的力量，化作为光，将引领着我们前行！', '日韩-BGM', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('57', '日系』有一种调皮叫小清新~', '/img/songListPic/19152393044479439.jpg', '阳光明媚的日子\n心情好到爆炸\n总想要找支歌来抒发一下感情，分享自己的喜悦。\n虽然我听不懂日语，但是并不影响我喜欢它的调皮与清新，舒服的日系小调，让人心情变好~\n\n阳光灿烂，微风拂面，大概就是这个歌单给人的感觉吧~', '日韩', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('58', '【日系抒情】早晚终相会 忧思情愈深', '/img/songListPic/109951163802235324.jpg', '瀬を早み 岩にせかるる 滝川の\nわれても末に 逢はむとぞ思ふ', '日韩-轻音乐', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('59', '日系沙哑女声| 愿这份歌声融化你的心', '/img/songListPic/109951163862683663.jpg', '相信大家都听过沙哑的歌吧，majiko，aimer大家都很熟悉了吧。\n\n这种嗓音真的超温柔呀，这个单选出了些沙哑声线歌手的歌，希望大家喜欢。\n\n愿这温柔的声音可以用听觉的方式带给你一场现实上和想象上的一种迷离感，同时陷入一种与女声错觉般的邂逅。\n\np站id:73189154 画师:gomzi', '日韩', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('6', '林俊杰的正确打开方式【路人请参考简介】', '/img/songListPic/19080924789030458.jpg', '这是一个一定要顺序播放并且不切歌才能发现其中奥妙的歌单。\n这是一个可以完美呈现林俊杰音乐态度的歌单。\n这是一个林俊杰的立体化打开方式。', '华语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('60', '『韩语』 感性伴秋风渐起 随秋意渐浓', '/img/songListPic/109951163606909947.jpg', '走过林荫道\n落叶从眼前划过\n才晓得秋天已经降临了一段时间\n我静静看着你的日子\n似乎还是昨天\n你回头看向别处的那个瞬间\n却已经成为今天\n\n若我们离别\n不要说Good bye\n说See you吧\n如同再次光临的秋天一样\n总...', '日韩', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('61', '韩‖轻柔小调，治愈系旋律', '/img/songListPic/19053436998325469.jpg', '我爬上全世界的屋顶，\n带着全部的清醒和一只酒瓶。\n— — 张艾嘉《我站在全世界的屋顶》', '日韩-轻音乐', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('62', '听首老歌 回味永不褪色的华语经典', '/img/songListPic/109951163203287436.jpg', '回味光辉岁月三十年\n\n岁月是一场充满告别的旅程\n\n怀旧\n不是因为那个时代多美好\n而是那时\n你正年轻\n\n百许流年忆往事\n千几往事暖流年', '粤语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('63', '【粤语】要有多坚强，才敢念念不忘', '/img/songListPic/18878614648960788.jpg', '你说\n你不愿意种花\n我不愿看见它\n一点点的凋落\n是的\n为了避免结束\n你避免了一切\n也避免了所有\n\n开始\n你说你喜欢雨滴\n但是你在下雨的时候打伞\n你说你喜欢太阳\n但是你在阳光明媚的时候\n躲在阴凉的地方 \n你说...', '粤语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('64', '初听不知曲中意 再听已是曲中人', '/img/songListPic/19101815510024256.jpg', '有时候听到一首歌，觉得旋律很好，歌词很好。但怎么也不能体会到，歌里唱的感情。后来有一天，你遇到了一个人，发生了一段故事。当你再听到那首歌时，就会觉得歌里唱的，都是你的故事。\n每一首你喜欢的歌曲，都附有非一般的意义，因为都唱出了你内心的声音和过往经历，其实你听到的都是你自己，那些年你累积在心里的所有欢乐悲伤，所有故事过往。', '粤语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('65', '粤语男声：我爱你依旧如初，不曾改变。', '/img/songListPic/18612532836990988.jpg', '记得曾经看过一段话：爱情不是抱一抱，亲一亲，改个情侣网名，换个情侣头像，就是情侣了...', '粤语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('66', '『粤语』虐到心痛的曲 听到泪落的词', '/img/songListPic/3434874325869351.jpg', '此歌单多为小众粤语，听过太多评论999+的人人传颂的经典歌曲，每次淘到一首鲜为人知人的歌曲，都会非常的惊喜，听歌嘛，最重要的就是自己听着觉得舒服就对啦，不一定非要高热度的啦。此歌单内歌曲不仅旋律打动人心，每首歌词都超虐心，痴情人的爱有时候那么卑微，低到尘埃里，爱到不死不休.....有时候看着歌词听着这些歌情不自禁泪奔，烦请听歌的人，千万不要对号入座，伤害指数超高! 绝对不容错过的小众粤语!', '粤语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('67', '富士山下钟无艳 吴哥窟内我本人', '/img/songListPic/109951162869937004.jpg', '男不听七友 女不听钟无艳', '粤语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('68', '流行男声||谦谦君子，情浓粤语', '/img/songListPic/109951163193554791.jpg', '慧极必伤，情深不寿，强极则辱，谦谦君子，温润如玉！细数那些唯美男声', '粤语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('69', '粤语live||赛赢录音棚流行live', '/img/songListPic/109951163196627760.jpg', '听腻了录影棚里的无杂音歌声？也许换成live会是心的开始', '粤语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('7', '高 级 感 vlog 纯音乐 BGM', '/img/songListPic/vLSB9-NGsd4CLYf_4ShGww==_109951163609572271.jpg', '歌单', '轻音乐', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('70', '从未跟你饮过冰 零度天气看风景', '/img/songListPic/109951163933917463.jpg', '这个世界烂透了 坏透了 我都接受\n\n所有人都习惯于流于表面的热情和爱意 我也接受\n\n但你不行 你得是那个例外才行', '粤语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('71', '「致青春」粤语带你回忆', '/img/songListPic/109951163024198570.jpg', '歌听多了 粤语也熟了 \n越听越有感觉', '粤语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('72', 'Beyond的辉煌岁月是人生旅途的伴奏', '/img/songListPic/109951163278666363.jpg', 'Beyond是那种有自己独特的风格，有自己的精神，能象征一个时代，也能映射一类人的组合。他们的歌带入感很强，总有共鸣产生，因为他们没有无病呻吟的悲情，也不爱写迎合大众的爱情故事，而是用自己的歌词和声音在诠释着生活，激励着人生', '粤语', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('73', '听说，钢琴和民谣也很搭配', '/img/songListPic/109951163503924397.jpg', '我们始终会远行，也可能，在最遥远最陌生的地方感知另一个自己，最后发现丢失了好久的钥匙就藏在自己的口袋里', '乐器-轻音乐', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('74', '新古典钢琴 散落的时光', '/img/songListPic/109951163401615779.jpg', '当时间走过 其风猎猎\n\n覆灭仅存的模糊记忆使昨日土崩瓦解\n\n其实没有什么好担忧的\n\n在生命的内里 不是还有许多\n\n继续延展着的细微线索\n\n以祖先的容颜 来将你形塑\n\n当时间走过 其声簌簌\n\n如狼群之迅疾穿越秋...', '乐器-轻音乐', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('75', '流行歌曲钢琴演奏', '/img/songListPic/18577348464819001.jpg', '大都是一些华语流行歌曲的钢琴版，也含有少部分这些弹奏者自己创造的钢琴曲与一些他们翻奏的世界较为有名的钢琴曲，希望你们喜欢～\n前50首为精选，请不要错过哦～', '乐器', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('76', '『钢琴』与流行歌曲的完美邂逅', '/img/songListPic/5832909185359651.jpg', '选集是华语流行音乐的钢琴版，或许你会更喜欢钢琴演奏的故事', '乐器', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('77', '治愈钢琴｜伟大的时光和伟大的我们', '/img/songListPic/109951162895796021.jpg', '从钢琴的旋律和节奏中慢慢释怀、也许还有所领悟\n钢琴的世界里还有很多很多让人驻足停歇的地方\n如同我们在生活经历中面对的许许多多的小挫折之后\n也要找个角...', '乐器', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('78', '写作业专用BGM（钢琴向）', '/img/songListPic/1390882211100783.jpg', '暂时停更啦 我来排排顺序', '乐器-轻音乐', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('79', '钢琴的故事', '/img/songListPic/18731280092485571.jpg', '你一定和我一样有烦恼和故事吧', '乐器', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('8', '世界上很好听的纯音乐(经典不朽)', '/img/songListPic/92NWlGo76ha-if-WMK3vCg==_1410673428769729.jpg', '歌单', '轻音乐', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('80', '各种乐器演绎流行曲', '/img/songListPic/3416182643161526.jpg', '乐器成精系列之用各种成精乐器重新演绎这些流行歌曲，让你耳目一新', '乐器', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('81', '听, 吉他在唱歌', '/img/songListPic/1390882209600111343.jpg', '听吉他谱写那些熟悉的旋律，遇见不一样的感动，电吉他、尤克里里会客串哦', '乐器', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('82', '还不快去练琴？', '/img/songListPic/19169985230816413.jpg', '都是自己很喜欢的吉他指弹', '乐器', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('83', '国风传统器乐赏~~♪', '/img/songListPic/18907201951803673.jpg', '中国音乐是光辉灿烂的中国文化的一个重要组成部分。当古典音乐流泻而出的一刹那间，你可以清楚的看到，在空气中流动的是高山、是流水、是丝竹、是冬雪、是千古的生命，那份说不出、道不尽的感动，就是中国古典音乐之美。', '乐器', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('84', '『钢琴纯音』八十八个黑白键勾勒出的美', '/img/songListPic/109951162873752063.jpg', '钢琴如生活，是一首永远弹不完的小曲', '轻音乐-乐器', NULL, NULL, NULL);
-INSERT INTO `song_list` VALUES ('9', '『粤语』好听到爆的粤语歌单', '/img/songListPic/QHD2Uy2y9ktndbK1UKgdgg==_18611433325258133.jpg', '歌单', '粤语', NULL, NULL, NULL);
+INSERT INTO `song_list` VALUES ('1', 'The Good, the Bad and the Ugly', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', 'he Good, the Bad and the Ugly: Original Motion Picture Soundtrack was released in 1966 alongside the Western film, The Good, the Bad and the Ugly, directed by Sergio Leone. The score is composed by frequent Leone collaborator Ennio Morricone, whose distinctive original compositions, containing gunfire, whistling, and yodeling permeate the film. The main theme, resembling the howling of a coyote, is a two-note melody that is a frequent motif, and is used for the three main characters, with a different instrument used for each one: flute for Blondie (Man With No Name), Arghilofono (Ocarina) for Angel Eyes, and human voices for Tuco.', '欧美', '2020-12-24 20:56:36', '2020-12-24 20:56:56', 0);
+INSERT INTO `song_list` VALUES ('10', '韩剧OST｜祝你走过半生，仍有颗少女心', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '歌单', '日韩', '2020-12-24 20:56:36', '2020-12-24 20:56:56', 0);
+INSERT INTO `song_list` VALUES ('11', '我喜欢你，喜欢没用，没用也喜欢', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '情不知所起，一往而情深。\n伤不知所因，痛彻心扉\n\n从前你是我心上的一束光，倾世温暖。\n现在你是我心里的一根刺，刻骨铭心。\n以后你是我心底的一粒尘，无关痛痒。\n\n我喜欢你，喜欢没用，没用也喜欢', '华语', '2020-12-24 20:56:36', '2020-12-24 20:56:56', 0);
+INSERT INTO `song_list` VALUES ('12', '生活感到疲惫的话就听这些歌吧', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '当你感到疲惫的时候\n睡一个沉稳的觉醒来\n和陌生人对视互笑\n买一杯刚好温度的奶茶\n吃到合口味的菜\n遇见喜欢人的时候自己是最美的状态\n下雨 清晨 初雪 深夜 亲吻 拥抱 牵手 大笑\n快乐总被说很难\n但我希望你顶...', '华语', '2020-12-24 20:56:36', '2020-12-24 20:56:56', 0);
+INSERT INTO `song_list` VALUES ('123456', '华语精选', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '测试', '华语', '2020-12-24 00:00:00', '2020-12-24 00:00:00', 0);
+INSERT INTO `song_list` VALUES ('123499', '华语精选', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '测试', '华语', '2020-12-24 22:10:01', '2020-12-24 22:10:01', 0);
+INSERT INTO `song_list` VALUES ('13', '熬夜和想你，我都该戒掉了', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '命运似乎是一个轮回，在一次次的偶然下，平行线交叉，再平行，故事始终有\"然后\"，可后来的我们，都学会如何去爱了吗？\n\n如果当时你没走，后来的我们会不会不一样。或许，我们每个人都想回到故事最开始的地方。', '华语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('1342314545466015746', '测试歌单', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '测试歌单测试歌单', '华语', '2020-12-25 11:41:41', '2020-12-25 11:41:41', 0);
+INSERT INTO `song_list` VALUES ('14', '怀旧向||时光流转从前，人生如寄', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '岁月悠扬，娓娓动听\n在流失了的记忆之中\n听到属于我们这一代人的歌\n想起属于我们这一代人的路\n愿\n星辰大海\n春暖花开', '华语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('15', '不曾刻骨铭心，为何念念不忘？', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '“所爱隔山海 山海皆可平”\n你拒绝的 不珍惜的 不代表别人也不喜欢\n人生都是向前走的 我们都一样\n\n谁先认真谁先输，我只能说我输了\n再忙碌还是会想你 真的不明白\n都说未曾刻骨铭心，又为何总是念念不忘', '华语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('16', '社会语录！土嗨', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '社会！', '华语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('17', '听青春ost，心悸的时光里有你', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '我们青春就像是被大雨淋湿的自己，即使是感冒了，也愿意再淋一次。只有爱过了，伤过了，痛过了，这才叫青春。', '华语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('18', '【经典】聼一首老歌，想念一段时光', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '寂静的黄昏，总让人怀念，总是深深沦陷...\n那些个细数光阴在手中沉淀的日子，一去不复返...\n偶尔，我一个人站在黄昏的角落，代替你主持夕阳的葬礼...\n想着想着，痛凝重了时间，曳落了容颜...\n青春的羽翼...', '华语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('19', '华语百首｜好听的才是耳朵最想要的', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '好听的音乐才是耳朵最想要的', '华语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('2', '年轻之歌 有关爱与挑衅', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '那些喜欢到会循环播放的歌', '华语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('20', '【华语抒情-林俊杰】—孤独，是我的享受', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '我喜欢孤独，不与任何人说话，在一份静谧中安然地做自己喜欢的事。任身心徜徉，暂时忘却“柴米油盐酱醋茶”的烦琐，去体验“琴棋书画诗酒花”的高雅；暂时抛开追名逐利的忙碌奔波，去感受心无杂念的宁静淡泊；暂时摆脱困扰你的喜怒哀乐，去体味生活中的充实祥和。', '华语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('21', '睡觉必备心灵鸡汤', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '缓缓的声音，流进心里的枯井', '轻音乐', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('22', '愿山野浓雾都有路灯 风雨漂泊都有归舟', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '你慢慢走\n回忆暗涌\n悲喜翻滚', '华语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('23', '「女声控」音色沁人心 旋律美如画', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '女声控福利来啦-=≡Σ((( つ•̀ω•́)つ', '欧美', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('24', 'Moombahton 丨电流律动的异域风', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', 'Moombahton融合了Dutch House和Reggaeton，常常带有Trap的元素，特别是在Bulid Up部分，厚实的Bass与密集的打击鼓点，节拍丰富，加上旋律和音色比较异域，一般都有人声部分，其BPM多数基于110，更突出在Drop高潮，让人不禁联想抖动的节奏。', '欧美', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('25', '【励志电音】愿你身披星芒 执笔为剑', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '为了父母期待的目光\n为了那深藏于你心底的梦想\n为了你朝思暮想的那个可望而不可及...', '欧美', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('26', '史诗 • 神级BGM丨灵魂的震颤&心灵的洗涤', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '随着一声怒吼，千军万马进行着一场浩荡的战争，马的嘶吼声与兵器碰撞的金属声谱写着一部史前的震撼。\n欢迎来到此歌单，晚上睡觉别点开！\n别点开！\n别点开！', 'BGM', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('27', '全球超大气势磅礴背景音乐精选100首合集', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '熟悉的感觉，你值得拥有', 'BGM', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('28', '史诗级震撼人心大气磅礴超燃BGM', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '史诗级震撼人心超燃BGM,每首都是本人精心挑选和最喜欢的，歌单歌曲是按我个人喜欢排序，持续更新中……', 'BGM', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('29', '肾上腺素飙升（赛车必备）', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '赛车运动，自吸为王，涡轮必胜.', 'BGM', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('3', '希望十八岁你爱的人是八十岁在你身边的人', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '让你怦然心动', '华语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('30', '『欧美神曲』让你怦然心动', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '让你怦然心动', '欧美', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('31', '健身丨做自己平凡世界的超级英雄', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '热爱健身的朋友们一起嗨！', 'BGM', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('32', '『空灵欧美』论◎怎样唱出星辰大海', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '“我们在哪里？”\n\n“星空，是星空！美丽而触手可及！”\n\n“这里，是星辰大海，是你小时候的幻想……”', '欧美', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('33', 'Space Club 蹦迪', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', 'Sapce Clup全球百大DJ丨Urumqi', 'BGM', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('34', '那些超带感的英文歌曲~『一秒沦陷』', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '每天，都要去去做一些枯燥的事\n一些让人心烦的事\n可是又不得不去做\n一切都在重复\n都在复制、粘贴，复制、粘贴……\n何必不去做那些让人愉快的事呢\n比如说\n听歌\n它能让生活有趣起来\n有意义起来\n那么就去欣赏...', '欧美', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('35', '【游戏原声】屏幕之后，更是另一个世界', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '我们曾与白狼一起踏上寻找女儿的征途\n走遍大陆与史凯利杰群岛，寻遍北方诸国与尼弗迦德 甘当布尔维坎的屠夫\n只为那因意外率而与自己命运相连的辛特拉幼狮\n只为那曾在布洛克莱昂森林惊慌失措的小女孩\n重回自...', 'BGM', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('36', '极致旋律&空灵飘纱', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '心在寂静之中冒着烟 寻找安寄所', '欧美', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('37', '我们的心如此自由 思绪辽远无边', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '我想每个人的心底，都潜藏着一个向往远方的梦，此处已无再多风景，熟悉的地方也不再有惊喜。人心思动，都渴望去流浪天涯，无论以哪种方式。', '欧美', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('38', '欧美精选 | 嗨 伙计 要来首10w+吗？', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '个别曲目未收录很可能是由于我没买人家的专辑 emmmm.... \n没买就是没买。没兴趣，不想买，买不起，这答案您满意吗？', '欧美', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('39', '「高质量英文歌」让你单曲循环的英文歌', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', 'I love the endless sea, I love the rain softly, I love flying snow, I love bringing a bright full moon, but I love the starry night sky.', '欧美', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('4', '你的青春里有没有属于你的一首歌？', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '关于青春里的那首歌，唱的是你和谁的回忆呢？那年你们有什么故事？\n\n总是有许多的记忆，是关于青春的。\n\n青春时埋下的那份躁动，总会在多年后，装饰着笑容。\n\n总是有许多的遗憾，是关于青春的。\n\n青春时还没来得及表达的情感，总会在多年以后，偶尔的左右着悲欢。\n\n那些最美年华里的相遇，那些青春里的不知所措，都被勾勒成了一幅幅画。\n\n而这些画，只在心情最愉悦时，只在心情最低落时，悄悄的，在内心深处闪过。', '华语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('40', '稀 | 奇 | 古 | 怪 | 音 | 效 | 工 | 厂', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '不好意思 在我耳朵化掉之前是能数清的\n\n麻烦大家帮黑哥数数\n\n这些里面藏了多少个稀奇古怪的音效\n\n听归听 收藏某首歌之后我也不知道明天你的日推怎么作妖哈', '欧美', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('41', '〖欧美女声〗 倾城一刻，我似乎更懂你', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '个性，风格，颜值，行为，年龄段……差不多的人，听歌的兴趣差不多哦', '欧美', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('42', '『电影配乐』当优雅华尔兹遇上激情探戈', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '华尔兹有着与生俱来的华贵与优雅。简约却不简单的舞步透出的是舞者相互心灵的体会与传达……', '欧美', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('43', '妄想去流浪，独自陶醉在自己的世界里。', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '生活乏味 ，学习一直倒退，工作失意。\n害怕失去，想像和现实的差距将我打败。\n我想要远离这里。', '轻音乐', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('44', '晚安曲丨我温柔而通透的小宇宙', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '晚安～今夜好梦啊！', '轻音乐', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('45', '晚安曲丨我温柔而通透的小宇宙', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '你别怕，总有人熬夜陪你，下雨接你，说我爱你，好的总是压箱底\n当一个人能够影响你心情的时候，说明你在乎了；\n当一个人能赚到你眼泪的时候，说明你投入了；\n当一个人能驾驭你情绪的时候，说明你沦陷...', '轻音乐', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('46', '性欲与孤独，容易让人误解爱情', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '平常拍片子时，我喜欢在拍摄现场放一些有画面感的音乐让模特找感觉，抽空整理了一下近期的播放列表，做了这套新歌单，或许适合姑娘们在以下一些场景聆听', '轻音乐', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('47', '人生就要嗨', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '我命由我不由天', '日韩', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('48', '吃鸡必备BGM', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '大吉大利 今晚吃鸡\n此歌单适合在素质广场，飞机上，杀完人后，轰炸区天选之人的情况下播放，并不是让你全程听音乐玩游戏。', 'BGM', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('49', '伤感日语 · 芳华少女的孤独内心', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', 'お母さん', '日韩', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('5', '那些喜欢到循环播放的歌', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '那些喜欢到会循环播放的歌\n\n感谢收听', '华语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('50', '「予你情书」明年一起去看樱花吧', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '想和你去看樱花\n看夏日的烟火大会\n看秋日京都岚山的枫叶\n和冬日落雪的小樽\n\n想和你一起去看一场樱花\n看漫天的飞舞的樱花在我们周围\n就这样安静地待着也好彼此交换心事\n\n想予你一封情书\n写尽关于我们的一切...', '日韩', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('51', '那些年我们听过的韩国歌', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', 'J.Fla，原名Kim Jung Hwa，韩国歌手,歌曲制作人。2013年正式出道并发行首张原创EP《바보 같은 Story》出道后不久就迅速在日本和韩国成为热门话题\n2016年，J.Fla的翻唱作品在国内转载而得到关注，因其甜美声线和惊艳侧颜得到许多人的喜爱。', '日韩', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('52', '小众而惊艳 ·韩国独立音乐精选集', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '在无数的灰色版权中找到了它们。\n宝藏一般的旋律，它们不应该被如此埋没。', '日韩', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('53', '一秒就会中毒的韩语歌单~', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '愿对这世界温柔以待的人 被温柔以待.', '日韩', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('54', '［韩语］少女情怀总是诗~', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '希望所有的少女心事都能梦想成真', '日韩', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('55', '【燃向】 精选燃曲', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '封面画师 bilibili Wlop', 'BGM', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('56', '日系燃向丨此刻光辉 将引领着我们', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '天空燃尽如灰，\n繁星烧毁似尘，\n那些音乐所带来的力量，化作为光，将引领着我们前行！', '日韩', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('57', '日系』有一种调皮叫小清新~', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '阳光明媚的日子\n心情好到爆炸\n总想要找支歌来抒发一下感情，分享自己的喜悦。\n虽然我听不懂日语，但是并不影响我喜欢它的调皮与清新，舒服的日系小调，让人心情变好~\n\n阳光灿烂，微风拂面，大概就是这个歌单给人的感觉吧~', '日韩', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('58', '【日系抒情】早晚终相会 忧思情愈深', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '瀬を早み 岩にせかるる 滝川の\nわれても末に 逢はむとぞ思ふ', '轻音乐', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('59', '日系沙哑女声| 愿这份歌声融化你的心', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '相信大家都听过沙哑的歌吧，majiko，aimer大家都很熟悉了吧。\n\n这种嗓音真的超温柔呀，这个单选出了些沙哑声线歌手的歌，希望大家喜欢。\n\n愿这温柔的声音可以用听觉的方式带给你一场现实上和想象上的一种迷离感，同时陷入一种与女声错觉般的邂逅。\n\np站id:73189154 画师:gomzi', '日韩', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('6', '林俊杰的正确打开方式【路人请参考简介】', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '这是一个一定要顺序播放并且不切歌才能发现其中奥妙的歌单。\n这是一个可以完美呈现林俊杰音乐态度的歌单。\n这是一个林俊杰的立体化打开方式。', '华语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('60', '『韩语』 感性伴秋风渐起 随秋意渐浓', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '走过林荫道\n落叶从眼前划过\n才晓得秋天已经降临了一段时间\n我静静看着你的日子\n似乎还是昨天\n你回头看向别处的那个瞬间\n却已经成为今天\n\n若我们离别\n不要说Good bye\n说See you吧\n如同再次光临的秋天一样\n总...', '日韩', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('61', '韩‖轻柔小调，治愈系旋律', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '我爬上全世界的屋顶，\n带着全部的清醒和一只酒瓶。\n— — 张艾嘉《我站在全世界的屋顶》', '轻音乐', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('62', '听首老歌 回味永不褪色的华语经典', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '回味光辉岁月三十年\n\n岁月是一场充满告别的旅程\n\n怀旧\n不是因为那个时代多美好\n而是那时\n你正年轻\n\n百许流年忆往事\n千几往事暖流年', '粤语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('63', '【粤语】要有多坚强，才敢念念不忘', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '你说\n你不愿意种花\n我不愿看见它\n一点点的凋落\n是的\n为了避免结束\n你避免了一切\n也避免了所有\n\n开始\n你说你喜欢雨滴\n但是你在下雨的时候打伞\n你说你喜欢太阳\n但是你在阳光明媚的时候\n躲在阴凉的地方 \n你说...', '粤语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('64', '初听不知曲中意 再听已是曲中人', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '有时候听到一首歌，觉得旋律很好，歌词很好。但怎么也不能体会到，歌里唱的感情。后来有一天，你遇到了一个人，发生了一段故事。当你再听到那首歌时，就会觉得歌里唱的，都是你的故事。\n每一首你喜欢的歌曲，都附有非一般的意义，因为都唱出了你内心的声音和过往经历，其实你听到的都是你自己，那些年你累积在心里的所有欢乐悲伤，所有故事过往。', '粤语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('65', '粤语男声：我爱你依旧如初，不曾改变。', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '记得曾经看过一段话：爱情不是抱一抱，亲一亲，改个情侣网名，换个情侣头像，就是情侣了...', '粤语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('66', '『粤语』虐到心痛的曲 听到泪落的词', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '此歌单多为小众粤语，听过太多评论999+的人人传颂的经典歌曲，每次淘到一首鲜为人知人的歌曲，都会非常的惊喜，听歌嘛，最重要的就是自己听着觉得舒服就对啦，不一定非要高热度的啦。此歌单内歌曲不仅旋律打动人心，每首歌词都超虐心，痴情人的爱有时候那么卑微，低到尘埃里，爱到不死不休.....有时候看着歌词听着这些歌情不自禁泪奔，烦请听歌的人，千万不要对号入座，伤害指数超高! 绝对不容错过的小众粤语!', '粤语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('67', '富士山下钟无艳 吴哥窟内我本人', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '男不听七友 女不听钟无艳', '粤语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('68', '流行男声||谦谦君子，情浓粤语', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '慧极必伤，情深不寿，强极则辱，谦谦君子，温润如玉！细数那些唯美男声', '粤语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('69', '粤语live||赛赢录音棚流行live', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '听腻了录影棚里的无杂音歌声？也许换成live会是心的开始', '粤语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('7', '高 级 感 vlog 纯音乐 BGM', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '歌单', '轻音乐', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('70', '从未跟你饮过冰 零度天气看风景', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '这个世界烂透了 坏透了 我都接受\n\n所有人都习惯于流于表面的热情和爱意 我也接受\n\n但你不行 你得是那个例外才行', '粤语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('71', '「致青春」粤语带你回忆', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '歌听多了 粤语也熟了 \n越听越有感觉', '粤语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('72', 'Beyond的辉煌岁月是人生旅途的伴奏', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', 'Beyond是那种有自己独特的风格，有自己的精神，能象征一个时代，也能映射一类人的组合。他们的歌带入感很强，总有共鸣产生，因为他们没有无病呻吟的悲情，也不爱写迎合大众的爱情故事，而是用自己的歌词和声音在诠释着生活，激励着人生', '粤语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('73', '听说，钢琴和民谣也很搭配', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '我们始终会远行，也可能，在最遥远最陌生的地方感知另一个自己，最后发现丢失了好久的钥匙就藏在自己的口袋里', '乐器', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('74', '新古典钢琴 散落的时光', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '当时间走过 其风猎猎\n\n覆灭仅存的模糊记忆使昨日土崩瓦解\n\n其实没有什么好担忧的\n\n在生命的内里 不是还有许多\n\n继续延展着的细微线索\n\n以祖先的容颜 来将你形塑\n\n当时间走过 其声簌簌\n\n如狼群之迅疾穿越秋...', '乐器', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('75', '流行歌曲钢琴演奏', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '大都是一些华语流行歌曲的钢琴版，也含有少部分这些弹奏者自己创造的钢琴曲与一些他们翻奏的世界较为有名的钢琴曲，希望你们喜欢～\n前50首为精选，请不要错过哦～', '乐器', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('76', '『钢琴』与流行歌曲的完美邂逅', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '选集是华语流行音乐的钢琴版，或许你会更喜欢钢琴演奏的故事', '乐器', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('77', '治愈钢琴｜伟大的时光和伟大的我们', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '从钢琴的旋律和节奏中慢慢释怀、也许还有所领悟\n钢琴的世界里还有很多很多让人驻足停歇的地方\n如同我们在生活经历中面对的许许多多的小挫折之后\n也要找个角...', '乐器', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('78', '写作业专用BGM（钢琴向）', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '暂时停更啦 我来排排顺序', '乐器', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('79', '钢琴的故事', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '你一定和我一样有烦恼和故事吧', '乐器', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('8', '世界上很好听的纯音乐(经典不朽)', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '歌单', '轻音乐', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('80', '各种乐器演绎流行曲', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '乐器成精系列之用各种成精乐器重新演绎这些流行歌曲，让你耳目一新', '乐器', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('81', '听, 吉他在唱歌', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '听吉他谱写那些熟悉的旋律，遇见不一样的感动，电吉他、尤克里里会客串哦', '乐器', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('82', '还不快去练琴？', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '都是自己很喜欢的吉他指弹', '乐器', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('83', '国风传统器乐赏~~♪', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '中国音乐是光辉灿烂的中国文化的一个重要组成部分。当古典音乐流泻而出的一刹那间，你可以清楚的看到，在空气中流动的是高山、是流水、是丝竹、是冬雪、是千古的生命，那份说不出、道不尽的感动，就是中国古典音乐之美。', '乐器', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('84', '『钢琴纯音』八十八个黑白键勾勒出的美', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '钢琴如生活，是一首永远弹不完的小曲', '轻音乐', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
+INSERT INTO `song_list` VALUES ('9', '『粤语』好听到爆的粤语歌单', '\\uploads\\sheet\\2020-12-25\\2020122518484472-f289-4023-841e-b67b2092af2b.png', '歌单', '粤语', '2020-12-24 20:56:44', '2020-12-24 20:56:52', 0);
 
 SET FOREIGN_KEY_CHECKS = 1;
