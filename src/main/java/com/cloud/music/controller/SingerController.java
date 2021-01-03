@@ -174,7 +174,7 @@ public class SingerController {
      * @date 2020-12-11 -- 17:16
      */
     @ApiOperation(value = "上传歌手封面")
-    @PostMapping(value = "/upload", consumes = "multipart/*",  headers = "content-type=multipart/form-data")
+    @PostMapping(value = "/upload-cover", consumes = "multipart/*",  headers = "content-type=multipart/form-data")
     public ReturnUnifiedCode uploadSingerCover(MultipartFile file){
         if(file.isEmpty()){
             throw  new MusicExceptionMessage(ERROR_STATUS,"上传文件为空");

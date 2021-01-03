@@ -31,6 +31,9 @@ public class UploadLocalPathConfig {
     //歌单封面地址
     public static String songsSheetPath;
 
+    //Banner封面地址
+    public static String bannerCoverPath;
+
     @Value("${upload.file.path}")
     public  void setUploadPath(String uploadPath) {
         UploadLocalPathConfig.uploadPath = uploadPath;
@@ -59,5 +62,10 @@ public class UploadLocalPathConfig {
     @Value("${upload.file.songs.sheet.path}")
     public  void setSongsSheetPath(String songsSheetPath) {
         UploadLocalPathConfig.songsSheetPath = songsSheetPath;
+    }
+
+    @Value("${upload.file.banner.path}")
+    public  void setBannerCoverPath(String bannerCoverPath) {
+        UploadLocalPathConfig.bannerCoverPath = bannerCoverPath;
     }
 }

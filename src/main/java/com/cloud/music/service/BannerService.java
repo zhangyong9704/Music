@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cloud.music.entity.Banner;
 import com.cloud.music.entity.vo.BannerQueryVo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -66,7 +67,7 @@ public interface BannerService extends IService<Banner> {
      * @return
      * @date 2021-1-02 -- 17:14
      */
-    boolean removeBannerById(String id);
+    boolean removeBanner(String id);
 
     /**
      * 方法说明
@@ -78,5 +79,33 @@ public interface BannerService extends IService<Banner> {
      */
     List<Banner> selectIndexList();
 
+    /**
+     * 方法说明
+     * @Title: 根据id批量删除Banner
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-11 -- 17:14
+     */
+    boolean deleteBatchBannerByIds(String[] params);
 
+    /**
+     * 方法说明
+     * @Title: 上传Banner封面
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-11 -- 17:16
+     */
+    String uploadBannerFileOne(MultipartFile file);
+
+    /**
+     * 方法说明
+     * @Title: 删除上次封面
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-11 -- 17:16
+     */
+    boolean deletePreviousBannerCover(String filePath);
 }
