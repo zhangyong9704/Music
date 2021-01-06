@@ -73,4 +73,33 @@
             on sl.id = s2.song_list_id
     </select>
 
+    <!--前十评论的歌手信息-->
+    <select id="getTopTenSingerByComment" resultType="com.cloud.music.entity.Singer">
+        select *
+        from singer s2
+        where id in (
+        select tt.song_id
+        from (
+        select song_id , count(*) count
+        from comment c2
+        where song_id is not null
+        group by song_id
+        order by 'count' DESC
+        limit 10) tt )
+    </select>
+
+    <!--评分前十的歌单-->
+    <select id="getTopTenSongList" resultType="com.cloud.music.entity.SongList">
+        select *
+        from song_list sl
+        where id in (
+            select rn.song_list_id
+            from (
+                select *, AVG(score) grade
+                from `rank` r
+                group by song_list_id
+                order by grade desc
+                limit 10) rn )
+    </select>
+
 </mapper>

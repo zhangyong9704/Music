@@ -1,5 +1,7 @@
 package com.cloud.music.mapper;
 
+import com.cloud.music.entity.Singer;
+import com.cloud.music.entity.SongList;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -75,4 +77,24 @@ public interface IndexMapper {
      * @date 2020-12-01 -- 17:13
      */
     List<Map<String, Object>> getSongListHighScore();
+
+    /**
+     * 方法说明
+     * @Title: 根据前十的评论获取优秀的歌手
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-01 -- 17:13
+     */
+    List<Singer> getTopTenSingerByComment();
+
+    /**
+     * 方法说明
+     * @Title: 评分前十的歌单
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-01 -- 17:13
+     */
+    List<SongList> getTopTenSongList();
 }

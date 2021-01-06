@@ -1,7 +1,10 @@
 package com.cloud.music.service;
 
+import com.cloud.music.entity.Singer;
+import com.cloud.music.entity.SongList;
 import com.cloud.music.entity.vo.IndexChartsQueryVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -85,4 +88,25 @@ public interface IndexService {
     IndexChartsQueryVo getUsersRegionalDistribution();
 
 
+    /*========================前台主页部分=========================================*/
+
+    /**
+     * 方法说明
+     * @Title: 评论前十位歌手信息
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-18 -- 17:14
+     */
+    List<Singer> getTopsTenSingerS();
+
+    /**
+     * 方法说明
+     * @Title: 评分前十位歌单信息
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-18 -- 17:14
+     */
+    List<SongList> getTopsTenSongList();
 }

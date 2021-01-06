@@ -1,5 +1,7 @@
 package com.cloud.music.service.impl;
 
+import com.cloud.music.entity.Singer;
+import com.cloud.music.entity.SongList;
 import com.cloud.music.entity.vo.IndexChartsQueryVo;
 import com.cloud.music.mapper.IndexMapper;
 import com.cloud.music.service.IndexService;
@@ -115,5 +117,17 @@ public class IndexServiceImpl implements IndexService {
         indexChartsQueryVo.setRows(user_region);
 
         return indexChartsQueryVo;
+    }
+
+    @Override
+    public List<Singer> getTopsTenSingerS() {
+
+        return indexMapper.getTopTenSingerByComment();
+    }
+
+    @Override
+    public List<SongList> getTopsTenSongList() {
+
+        return indexMapper.getTopTenSongList();
     }
 }
