@@ -9,7 +9,7 @@
             select
                 case
                     location when locate('中国', location)>0 then location
-                    else "中国"
+                    else '中国'
                 end as singer_location
             from
                 singer ) region
@@ -25,7 +25,7 @@
                 sex when 0 then '女'
                 when 1 then '男'
                 when 3 then '组合'
-                else "未知"
+                else '未知'
             end as type
         from
             singer s
@@ -46,7 +46,7 @@
             case
                 sex when 0 then '女'
                 when 1 then '男'
-                else "未知"
+                else '未知'
             end as type
         from consumer con
         group by sex
@@ -74,32 +74,51 @@
     </select>
 
     <!--前十评论的歌手信息-->
-    <select id="getTopTenSingerByComment" resultType="com.cloud.music.entity.Singer">
+    <select id="getTopTenSingerByComment" resultType="com.cloud.music.entity.vo.IndexSingerQueryVo">
         select *
-        from singer s2
-        where id in (
-        select tt.song_id
-        from (
-        select song_id , count(*) count
-        from comment c2
-        where song_id is not null
-        group by song_id
-        order by 'count' DESC
-        limit 10) tt )
+        from singer s2, (
+                select sgn.song_id, sgn.amount
+                from (
+                        select song_id , count(*) amount
+                        from comment c2
+                        where song_id is not null
+                        group by song_id
+                        order by 'count' DESC
+                        limit 10) sgn ) cns
+        where s2.id = cns.song_id
+        and s2.id in (
+            select tt.song_id
+            from (
+                    select song_id , count(*) count
+                    from comment c2
+                    where song_id is not null
+                    group by song_id
+                    order by 'count' DESC
+                    limit 10) tt )
+        order by cns.amount desc
     </select>
 
     <!--评分前十的歌单-->
-    <select id="getTopTenSongList" resultType="com.cloud.music.entity.SongList">
+    <select id="getTopTenSongList" resultType="com.cloud.music.entity.vo.IndexSongListQueryVo">
         select *
-        from song_list sl
-        where id in (
+        from song_list sl, (
+                select rn.song_list_id, rn.grade
+                from (
+                        select *, AVG(score) grade
+                        from `rank` r
+                        group by song_list_id
+                        order by grade desc
+                        limit 10) rn) srn
+        where sl.id = srn.song_list_id
+        and sl.id in (
             select rn.song_list_id
             from (
-                select *, AVG(score) grade
-                from `rank` r
-                group by song_list_id
-                order by grade desc
-                limit 10) rn )
+                    select *, AVG(score) grade
+                    from `rank` r
+                    group by song_list_id
+                    order by grade desc
+                    limit 10) rn )
+        order by srn.grade desc
     </select>
 
 </mapper>

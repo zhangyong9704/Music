@@ -1,7 +1,7 @@
 package com.cloud.music.controller.front.web;
 
-import com.cloud.music.entity.Singer;
-import com.cloud.music.entity.SongList;
+import com.cloud.music.entity.vo.IndexSingerQueryVo;
+import com.cloud.music.entity.vo.IndexSongListQueryVo;
 import com.cloud.music.service.IndexService;
 import com.cloud.music.utils.ReturnUnifiedCode;
 import io.swagger.annotations.Api;
@@ -42,7 +42,7 @@ public class IndexFrontController {
     @GetMapping("/top-singer")
     public ReturnUnifiedCode topTenSingers() {
 
-        List<Singer> singerList = indexService.getTopsTenSingerS();
+        List<IndexSingerQueryVo> singerList = indexService.getTopsTenSingerS();
 
         return (null != singerList)?ReturnUnifiedCode.successState().data("data",singerList):
                 ReturnUnifiedCode.errorState().message("数据异常，获取banner不存在").data("data",null);
@@ -60,7 +60,7 @@ public class IndexFrontController {
     @GetMapping("/top-songList")
     public ReturnUnifiedCode topTenSongList() {
 
-        List<SongList> songList = indexService.getTopsTenSongList();
+        List<IndexSongListQueryVo> songList = indexService.getTopsTenSongList();
 
         return (null != songList)?ReturnUnifiedCode.successState().data("data",songList):
                 ReturnUnifiedCode.errorState().message("数据异常，获取banner不存在").data("data",null);

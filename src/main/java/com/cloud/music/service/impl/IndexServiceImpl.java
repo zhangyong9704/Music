@@ -1,8 +1,8 @@
 package com.cloud.music.service.impl;
 
-import com.cloud.music.entity.Singer;
-import com.cloud.music.entity.SongList;
 import com.cloud.music.entity.vo.IndexChartsQueryVo;
+import com.cloud.music.entity.vo.IndexSingerQueryVo;
+import com.cloud.music.entity.vo.IndexSongListQueryVo;
 import com.cloud.music.mapper.IndexMapper;
 import com.cloud.music.service.IndexService;
 import com.cloud.music.service.SingerService;
@@ -120,13 +120,13 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public List<Singer> getTopsTenSingerS() {
+    public List<IndexSingerQueryVo> getTopsTenSingerS() {
 
         return indexMapper.getTopTenSingerByComment();
     }
 
     @Override
-    public List<SongList> getTopsTenSongList() {
+    public List<IndexSongListQueryVo> getTopsTenSongList() {
 
         return indexMapper.getTopTenSongList();
     }

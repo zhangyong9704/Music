@@ -1,8 +1,8 @@
 package com.cloud.music.service;
 
-import com.cloud.music.entity.Singer;
-import com.cloud.music.entity.SongList;
 import com.cloud.music.entity.vo.IndexChartsQueryVo;
+import com.cloud.music.entity.vo.IndexSingerQueryVo;
+import com.cloud.music.entity.vo.IndexSongListQueryVo;
 
 import java.util.List;
 import java.util.Map;
@@ -98,7 +98,7 @@ public interface IndexService {
      * @return
      * @date 2020-12-18 -- 17:14
      */
-    List<Singer> getTopsTenSingerS();
+    List<IndexSingerQueryVo> getTopsTenSingerS();
 
     /**
      * 方法说明
@@ -108,5 +108,5 @@ public interface IndexService {
      * @return
      * @date 2020-12-18 -- 17:14
      */
-    List<SongList> getTopsTenSongList();
+    List<IndexSongListQueryVo> getTopsTenSongList();
 }
