@@ -39,7 +39,7 @@ public class BannerFrontController {
 	 * @date 2020-1-02 -- 16:37
 	 */
 	@ApiOperation(value = "获取首页banner")
-	@GetMapping
+	@GetMapping("/banners")
 	public ReturnUnifiedCode indexBanner() {
 
 		List<Banner> bannerList = bannerService.selectIndexList();

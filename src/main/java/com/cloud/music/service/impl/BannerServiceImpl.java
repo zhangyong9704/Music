@@ -91,8 +91,9 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> impleme
     public List<Banner> selectIndexList() {
 
         QueryWrapper<Banner> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("sort");
         queryWrapper.orderByDesc("create_time");  //默认按照创建日期降序排列(新增显示在前)
-        queryWrapper.last("limit 2");  //默认查询前两条数据
+        queryWrapper.last("limit 6");  //默认查询前两条数据
 
         return this.list(queryWrapper);
     }
