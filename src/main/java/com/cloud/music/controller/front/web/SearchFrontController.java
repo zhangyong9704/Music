@@ -41,7 +41,7 @@ public class SearchFrontController {
 
         Map<String,Object> songList =  songService.getSongPages(songsPage,new SongQueryVo().setName(keyword))  ;
 
-        return songList.size()>0?ReturnUnifiedCode.successState().data("songs",songList.get("Songs")).data("total",songList.get("total")):
+        return songList.size()>0?ReturnUnifiedCode.successState().data("data",songList.get("Songs")).data("total",songList.get("total")):
                 ReturnUnifiedCode.errorState().message("获取分页数据异常");
     }
 
@@ -54,7 +54,7 @@ public class SearchFrontController {
 
         Map<String,Object> songList =  songListService.getSongListPages(songListPage,new SongListQueryVo().setTitle(keyword))  ;
 
-        return songList.size()>0?ReturnUnifiedCode.successState().data("songList",songList.get("SongList")).data("total",songList.get("total")):
+        return songList.size()>0?ReturnUnifiedCode.successState().data("data",songList.get("SongList")).data("total",songList.get("total")):
                 ReturnUnifiedCode.errorState().message("获取分页数据异常");
     }
 
