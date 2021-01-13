@@ -6,10 +6,7 @@ import com.cloud.music.utils.ReturnUnifiedCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,9 +37,9 @@ public class BannerFrontController {
 	 */
 	@ApiOperation(value = "获取首页banner")
 	@GetMapping("/banners")
-	public ReturnUnifiedCode indexBanner() {
+	public ReturnUnifiedCode indexBanner(@RequestParam Integer size) {
 
-		List<Banner> bannerList = bannerService.selectIndexList();
+		List<Banner> bannerList = bannerService.selectIndexList(null==size?5:size);
 
 		return (null != bannerList)?ReturnUnifiedCode.successState().data("data",bannerList):
 				ReturnUnifiedCode.errorState().message("数据异常，获取banner不存在").data("data",null);

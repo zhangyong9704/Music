@@ -65,7 +65,7 @@ public interface IndexService {
     * @return
     * @date 2020-12-18 -- 17:14
     */
-    IndexChartsQueryVo getSongListHighScore();
+    IndexChartsQueryVo getSongListHighScore(Integer limit);
 
     /**
      * 方法说明
@@ -98,7 +98,7 @@ public interface IndexService {
      * @return
      * @date 2020-12-18 -- 17:14
      */
-    List<IndexSingerQueryVo> getTopsTenSingerS();
+    List<IndexSingerQueryVo> getTopsTenSingerS(Integer limit);
 
     /**
      * 方法说明
@@ -108,5 +108,5 @@ public interface IndexService {
      * @return
      * @date 2020-12-18 -- 17:14
      */
-    List<IndexSongListQueryVo> getTopsTenSongList();
+    List<IndexSongListQueryVo> getTopsTenSongList(Integer limit);
 }

@@ -84,9 +84,9 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public IndexChartsQueryVo getSongListHighScore() {
+    public IndexChartsQueryVo getSongListHighScore(Integer limit) {
 
-        List<Map<String,Object>> song_list_score = indexMapper.getSongListHighScore();
+        List<Map<String,Object>> song_list_score = indexMapper.getSongListHighScore(limit);
 
         IndexChartsQueryVo indexChartsQueryVo = new IndexChartsQueryVo();
         indexChartsQueryVo.setColumns(new String[]{"title","score"});
@@ -120,14 +120,14 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public List<IndexSingerQueryVo> getTopsTenSingerS() {
+    public List<IndexSingerQueryVo> getTopsTenSingerS(Integer limit) {
 
-        return indexMapper.getTopTenSingerByComment();
+        return indexMapper.getTopTenSingerByComment(limit);
     }
 
     @Override
-    public List<IndexSongListQueryVo> getTopsTenSongList() {
+    public List<IndexSongListQueryVo> getTopsTenSongList(Integer limit) {
 
-        return indexMapper.getTopTenSongList();
+        return indexMapper.getTopTenSongList(limit);
     }
 }

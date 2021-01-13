@@ -69,7 +69,7 @@
             select song_list_id, avg(score) score
             from rank
             group by song_list_id
-            order by score desc limit 10) s2
+            order by score desc limit #{limit}) s2
             on sl.id = s2.song_list_id
     </select>
 
@@ -84,7 +84,7 @@
                         where song_id is not null
                         group by song_id
                         order by 'count' DESC
-                        limit 10) sgn ) cns
+                        limit  #{limit}) sgn ) cns
         where s2.id = cns.song_id
         and s2.id in (
             select tt.song_id
@@ -94,7 +94,7 @@
                     where song_id is not null
                     group by song_id
                     order by 'count' DESC
-                    limit 10) tt )
+                    limit #{limit}) tt )
         order by cns.amount desc
     </select>
 
@@ -108,7 +108,7 @@
                         from `rank` r
                         group by song_list_id
                         order by grade desc
-                        limit 10) rn) srn
+                        limit #{limit}) rn) srn
         where sl.id = srn.song_list_id
         and sl.id in (
             select rn.song_list_id
@@ -117,7 +117,7 @@
                     from `rank` r
                     group by song_list_id
                     order by grade desc
-                    limit 10) rn )
+                    limit #{limit}) rn )
         order by srn.grade desc
     </select>
 

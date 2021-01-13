@@ -77,7 +77,7 @@ public interface BannerService extends IService<Banner> {
      * @return
      * @date 2021-1-02 -- 17:14
      */
-    List<Banner> selectIndexList();
+    List<Banner> selectIndexList(Integer size);
 
     /**
      * 方法说明

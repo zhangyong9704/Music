@@ -7,10 +7,7 @@ import com.cloud.music.utils.ReturnUnifiedCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,9 +37,10 @@ public class IndexFrontController {
      */
     @ApiOperation(value = "获取首页TopTenSingers")
     @GetMapping("/top-singer")
-    public ReturnUnifiedCode topTenSingers() {
+    public ReturnUnifiedCode topTenSingers(@RequestParam Integer limit) {
 
-        List<IndexSingerQueryVo> singerList = indexService.getTopsTenSingerS();
+
+        List<IndexSingerQueryVo> singerList = indexService.getTopsTenSingerS(limit==null?10:limit);
 
         return (null != singerList)?ReturnUnifiedCode.successState().data("data",singerList):
                 ReturnUnifiedCode.errorState().message("数据异常，获取banner不存在").data("data",null);
@@ -58,9 +56,9 @@ public class IndexFrontController {
      */
     @ApiOperation(value = "获取首页TopTenSongList")
     @GetMapping("/top-songList")
-    public ReturnUnifiedCode topTenSongList() {
+    public ReturnUnifiedCode topTenSongList(@RequestParam Integer limit) {
 
-        List<IndexSongListQueryVo> songList = indexService.getTopsTenSongList();
+        List<IndexSongListQueryVo> songList = indexService.getTopsTenSongList(limit==null?10:limit);
 
         return (null != songList)?ReturnUnifiedCode.successState().data("data",songList):
                 ReturnUnifiedCode.errorState().message("数据异常，获取banner不存在").data("data",null);

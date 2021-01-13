@@ -6,10 +6,7 @@ import com.cloud.music.utils.ReturnUnifiedCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -103,9 +100,9 @@ public class IndexController {
      */
     @ApiOperation("获得歌单高分榜")
     @GetMapping("/song_list_score")
-    public ReturnUnifiedCode getHighScoreSongList(){
+    public ReturnUnifiedCode getHighScoreSongList(@RequestParam Integer limit){
 
-        IndexChartsQueryVo song_list_score = indexService.getSongListHighScore();
+        IndexChartsQueryVo song_list_score = indexService.getSongListHighScore(null==limit?10:limit);
 
         return ReturnUnifiedCode.successState().data("song_list_score",song_list_score);
     }

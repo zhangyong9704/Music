@@ -76,7 +76,7 @@ public interface IndexMapper {
      * @return
      * @date 2020-12-01 -- 17:13
      */
-    List<Map<String, Object>> getSongListHighScore();
+    List<Map<String, Object>> getSongListHighScore(Integer limit);
 
     /**
      * 方法说明
@@ -86,7 +86,7 @@ public interface IndexMapper {
      * @return
      * @date 2020-12-01 -- 17:13
      */
-    List<IndexSingerQueryVo> getTopTenSingerByComment();
+    List<IndexSingerQueryVo> getTopTenSingerByComment(Integer limit);
 
     /**
      * 方法说明
@@ -96,5 +96,5 @@ public interface IndexMapper {
      * @return
      * @date 2020-12-01 -- 17:13
      */
-    List<IndexSongListQueryVo> getTopTenSongList();
+    List<IndexSongListQueryVo> getTopTenSongList(Integer limit);
 }
