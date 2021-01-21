@@ -10,10 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static com.cloud.music.common.uploadcConstParams.UploadLocalPathConfig.uploadPath;
@@ -119,10 +116,19 @@ public class UploadToLocalServiceImpl implements UploadToLocalService {
     public void downFileToLocal(String filePath, HttpServletResponse response) throws UnsupportedEncodingException {
         File file = new File(filePath);
         if(file.exists()){ //判断文件父目录是否存在
-            response.setContentType("application/vnd.ms-excel;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            // response.setContentType("application/force-download");
-            response.setHeader("Content-Disposition", "attachment;fileName=" +   java.net.URLEncoder.encode(filePath,"UTF-8"));
+//            response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+//            response.setCharacterEncoding("UTF-8");
+//
+//            response.setContentType("application/force-download");  // 设置强制下载不打开
+//            response.setHeader("Content-Disposition", "attachment;fileName=" +   java.net.URLEncoder.encode(filePath,"UTF-8"));
+
+            response.setContentType("application/octet-stream;");//
+            response.setCharacterEncoding("utf-8");
+            String[] split = filePath.split("\\\\");
+            System.out.println(Arrays.toString(split));
+            System.out.println(split[split.length-1]);
+            response.setHeader("Content-Disposition", "attachment;fileName=" +
+                    java.net.URLEncoder.encode(split[split.length-1],"utf-8"));// 设置文件名
             byte[] buffer = new byte[1024];
             FileInputStream fis = null; //文件输入流
             BufferedInputStream bis = null;
@@ -137,7 +143,6 @@ public class UploadToLocalServiceImpl implements UploadToLocalService {
                     os.write(buffer);
                     i = bis.read(buffer);
                 }
-
             } catch (Exception e) {
                 throw new MusicExceptionMessage(ERROR_STATUS,e.getMessage());
             }

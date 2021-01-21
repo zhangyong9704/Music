@@ -7,6 +7,8 @@ import com.cloud.music.entity.vo.ListSongsQueryVo;
 import com.cloud.music.entity.vo.SongQueryVo;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -141,4 +143,13 @@ public interface SongService extends IService<Song> {
      */
     Map<String, Object> getListSongPages(Page<Song> listSongsPage, List<String> listSongSId, ListSongsQueryVo listSongsQueryVo);
 
+    /**
+     * 方法说明
+     * @Title: 下载歌曲
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-11 -- 15:45
+     */
+    boolean downloadSongsFiles(String filePath, HttpServletResponse response) throws UnsupportedEncodingException;
 }

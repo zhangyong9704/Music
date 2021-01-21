@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -220,6 +223,40 @@ public class SongController {
         boolean uploadPath = songService.deleteSongsCoverAndFiles(filePath);
         return uploadPath?ReturnUnifiedCode.successState().message("删除文件成功"):
                 ReturnUnifiedCode.errorState().message("文件上传失败");
+    }
+
+
+    /**
+     * 方法说明
+     * @Title: 下载歌曲
+     * @Description TODO
+     * @Param
+     * @return
+     * @date 2020-12-11 -- 17:16
+     */
+    @ApiOperation(value = "下载歌曲")
+    @PostMapping("/download")
+    public ReturnUnifiedCode downloadSongs(@RequestParam("filePath") String filePath, HttpServletResponse response){
+        boolean enableDownload = false;
+        if(filePath.isEmpty()){
+            throw  new MusicExceptionMessage(ERROR_STATUS,"下载文件地址为空");
+        }
+        String regex = "^[A-z]:\\\\(.+?\\\\)*$";
+        String rootPath = System.getProperty("user.dir")+filePath;
+        if (rootPath.matches(regex)) {
+            throw  new MusicExceptionMessage(ERROR_STATUS,"文件地址不合法");
+        }
+        File files = new File(rootPath);
+        if (!files.exists()){
+            throw  new MusicExceptionMessage(ERROR_STATUS,"文件不存在");
+        }
+        try {
+            enableDownload = songService.downloadSongsFiles(rootPath,response);
+        } catch (UnsupportedEncodingException e){
+            throw new MusicExceptionMessage(ERROR_STATUS,e.getMessage());   //有异常即为失败
+        }
+        return enableDownload?ReturnUnifiedCode.successState().message("下载文件成功"):
+                ReturnUnifiedCode.errorState().message("文件下载出错");
     }
 
 }

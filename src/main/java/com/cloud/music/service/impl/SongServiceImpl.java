@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloud.music.common.upload.UploadToLocalService;
 import com.cloud.music.common.uploadcConstParams.UploadLocalPathConfig;
+import com.cloud.music.configs.exception.MusicExceptionMessage;
 import com.cloud.music.entity.Song;
 import com.cloud.music.entity.vo.ListSongsQueryVo;
 import com.cloud.music.entity.vo.SongQueryVo;
@@ -15,11 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.cloud.music.utils.ReturnStatusCode.ERROR_STATUS;
 
 /**
  * <p>
@@ -156,5 +161,15 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
 
 
         return result;
+    }
+
+    @Override
+    public boolean downloadSongsFiles(String filePath, HttpServletResponse response){
+        try {
+            uploadToLocalService.downFileToLocal(filePath,response);
+            return true;
+        } catch (UnsupportedEncodingException e){
+            throw new MusicExceptionMessage(ERROR_STATUS,e.getMessage());   //有异常即为失败
+        }
     }
 }
