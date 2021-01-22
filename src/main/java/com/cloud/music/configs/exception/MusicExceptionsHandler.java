@@ -45,7 +45,7 @@ public class MusicExceptionsHandler {
      * @date 2020-12-11 -- 16:34
     */
     @ExceptionHandler(MusicExceptionMessage.class) //指定出现什么异常执行这个方法
-    public ReturnUnifiedCode paramsNullException(MusicExceptionMessage e){
+    public ReturnUnifiedCode musicException(MusicExceptionMessage e){
         log.error(e.getMessage());
         e.printStackTrace();
         return ReturnUnifiedCode.errorState().code(e.getCode()).message(e.getMessage());

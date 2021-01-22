@@ -164,10 +164,18 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements So
     }
 
     @Override
-    public boolean downloadSongsFiles(String filePath, HttpServletResponse response){
+    public HttpServletResponse downloadSongsFiles(String filePath, HttpServletResponse response){
         try {
-            uploadToLocalService.downFileToLocal(filePath,response);
-            return true;
+            return uploadToLocalService.downFileToLocal(filePath, response);
+        } catch (UnsupportedEncodingException e){
+            throw new MusicExceptionMessage(ERROR_STATUS,e.getMessage());   //有异常即为失败
+        }
+    }
+
+    @Override
+    public HttpServletResponse downloadSongsFiles(String filePath, String songName, HttpServletResponse response) throws UnsupportedEncodingException {
+        try {
+            return uploadToLocalService.downFileToLocal(filePath,songName, response);
         } catch (UnsupportedEncodingException e){
             throw new MusicExceptionMessage(ERROR_STATUS,e.getMessage());   //有异常即为失败
         }

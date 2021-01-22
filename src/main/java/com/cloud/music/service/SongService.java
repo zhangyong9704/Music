@@ -151,5 +151,9 @@ public interface SongService extends IService<Song> {
      * @return
      * @date 2020-12-11 -- 15:45
      */
-    boolean downloadSongsFiles(String filePath, HttpServletResponse response) throws UnsupportedEncodingException;
+    HttpServletResponse downloadSongsFiles(String filePath, HttpServletResponse response) throws UnsupportedEncodingException;
+
+
+
+    HttpServletResponse downloadSongsFiles(String filePath,String songName, HttpServletResponse response) throws UnsupportedEncodingException;
 }

@@ -236,27 +236,30 @@ public class SongController {
      */
     @ApiOperation(value = "下载歌曲")
     @PostMapping("/download")
-    public ReturnUnifiedCode downloadSongs(@RequestParam("filePath") String filePath, HttpServletResponse response){
-        boolean enableDownload = false;
+    public void downloadSongs(@RequestParam("filePath") String filePath, HttpServletResponse response,
+                              @RequestParam(value = "songName",required = false) String songName){
         if(filePath.isEmpty()){
             throw  new MusicExceptionMessage(ERROR_STATUS,"下载文件地址为空");
         }
         String regex = "^[A-z]:\\\\(.+?\\\\)*$";
-        String rootPath = System.getProperty("user.dir")+filePath;
+        String rootPath = System.getProperty("user.dir")+filePath;   //拼接文件地址
+        System.out.println(rootPath);
         if (rootPath.matches(regex)) {
             throw  new MusicExceptionMessage(ERROR_STATUS,"文件地址不合法");
         }
-        File files = new File(rootPath);
+        File files = new File(rootPath);   //判断文件是否存在
         if (!files.exists()){
             throw  new MusicExceptionMessage(ERROR_STATUS,"文件不存在");
         }
         try {
-            enableDownload = songService.downloadSongsFiles(rootPath,response);
+            if (songName==null || songName.equals("")){
+                songService.downloadSongsFiles(rootPath, response);
+            }else {
+                songService.downloadSongsFiles(rootPath,songName,response);
+            }
         } catch (UnsupportedEncodingException e){
             throw new MusicExceptionMessage(ERROR_STATUS,e.getMessage());   //有异常即为失败
         }
-        return enableDownload?ReturnUnifiedCode.successState().message("下载文件成功"):
-                ReturnUnifiedCode.errorState().message("文件下载出错");
     }
 
 }

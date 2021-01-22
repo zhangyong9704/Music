@@ -33,7 +33,7 @@ public interface UploadToLocalService {
      * @return
      * @date 2020-12-11 -- 17:34
      */
-    public void downFileToLocal(String filePath, HttpServletResponse response) throws UnsupportedEncodingException;
+    public HttpServletResponse downFileToLocal(String filePath, HttpServletResponse response) throws UnsupportedEncodingException;
 
     /**
      * 方法说明
@@ -43,7 +43,7 @@ public interface UploadToLocalService {
      * @return
      * @date 2020-12-11 -- 17:34
      */
-    public void downFileToLocal(String fileName,String filePath,HttpServletResponse response) throws UnsupportedEncodingException;
+    public HttpServletResponse downFileToLocal(String filePath,String songName,HttpServletResponse response) throws UnsupportedEncodingException;
 
     /**
      * 方法说明
