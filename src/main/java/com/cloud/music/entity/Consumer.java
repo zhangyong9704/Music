@@ -47,7 +47,7 @@ public class Consumer implements Serializable {
     private Date birth;
 
     @ApiModelProperty(value = "盐值")
-    private int salt;
+    private String salt;
 
     @ApiModelProperty(value = "签名")
     private String introduction;

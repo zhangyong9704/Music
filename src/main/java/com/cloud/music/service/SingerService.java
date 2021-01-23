@@ -19,14 +19,14 @@ import java.util.Map;
  */
 public interface SingerService extends IService<Singer> {
 
-    /** 
+    /**
      * 方法说明
      * @Title: 获取歌手分页数据信息
      * @Description TODO
-     * @Param 
-     * @return 
+     * @Param
+     * @return
      * @date 2020-12-11 -- 14:45
-    */
+     */
     Map<String,Object> getSingerPages(Page<Singer> singerPage, SingerQueryVo singerQueryVo);
 
     /** 

@@ -1,6 +1,5 @@
 package com.cloud.music.mapper;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cloud.music.entity.Singer;
 
@@ -14,7 +13,7 @@ import com.cloud.music.entity.Singer;
  */
 public interface SingerMapper extends BaseMapper<Singer> {
 
-    QueryWrapper<Singer> wapper = new QueryWrapper<>();
+
 
 
 }
